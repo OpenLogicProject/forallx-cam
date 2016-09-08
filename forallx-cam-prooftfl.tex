@@ -1,0 +1,1065 @@
+%!TEX root = forallxcam.tex
+\part{Natural deduction for TFL}
+\label{ch.NDTFL}
+\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
+\chapter{The very idea of natural deduction}\label{s:NDVeryIdea}
+
+Way back in \S\ref{s:Valid}, we said that an argument is valid iff it is impossible to make all of the premises true and the conclusion false. 
+
+In the case of TFL, this led us to develop truth tables. Each line of a complete truth table corresponds to a valuation. So, when faced with a TFL argument, we have a very direct way to assess whether it is possible to make all of the premises true and the conclusion false: just thrash through the truth table.
+
+But truth tables do not necessarily give us much \emph{insight}. Consider two arguments in TFL:
+	\begin{align*}
+		P \eor Q, \enot P & \therefore Q\\
+		P \eif Q, P & \therefore Q
+	\end{align*}
+Clearly, these are valid arguments. You can confirm that they are valid by constructing four-line truth tables. But we might say that they make use of different \emph{forms} of reasoning. And it might be nice to keep track of these different forms of inference. 
+
+One aim of a \emph{natural deduction system} is to show that particular arguments are valid, in a way that allows us to understand the reasoning that the arguments might involve. We begin with very basic rules of inference. These rules can be combined, to offer more complicated arguments. Indeed, with just a small starter pack of rules of inference, we hope to capture all valid arguments. 
+
+\emph{This is a very different way of thinking about arguments.} 
+
+With truth tables, we directly consider different ways to make sentences true or false. With natural deduction systems, we manipulate sentences in accordance with rules that we have set down as good rules. The latter promises to give us a better insight---or at least, a different insight---into how arguments work.
+
+The move to natural deduction might be motivated by more than the search for insight. It might also be motivated by \emph{necessity}. Consider:
+	$$A_1 \eif C_1 \therefore (A_1 \eand A_2 \eand A_3 \eand A_4 \eand A_5) \eif (C_1 \eor C_2 \eor C_3 \eor C_4 \eor C_5)$$
+To test this argument for validity, you might use a 1024-line truth table. If you do it correctly, then you will see that there is no line on which all the premises are true and on which the conclusion is false. So you will know that the argument is valid. (But, as just mentioned, there is a sense in which you will not know \emph{why} the argument is valid.) But now consider:
+	\begin{align*}
+		A_1 \eif C_1 \therefore\ & (A_1 \eand A_2 \eand A_3 \eand A_4 \eand A_5 \eand A_6 \eand A_7 \eand A_8 \eand A_9 \eand A_{10}) \eif \phantom{(}\\
+				&(C_1 \eor C_2 \eor C_3 \eor C_4 \eor C_5 \eor C_6 \eor C_7 \eor C_8 \eor C_9 \eor C_{10})
+	\end{align*}
+This argument is also valid---as you can probably tell---but to test it requires a truth table with $2^{20} = 1048576$ lines. In principle, we can set a machine to grind through truth tables and report back when it is finished. In practice, complicated arguments in TFL can become \emph{intractable} if we use truth tables.
+
+When we get to FOL, though, the problem gets dramatically worse. There is nothing like the truth table test for FOL. To assess whether or not an argument is valid, we have to reason about \emph{all} interpretations. But there are infinitely many possible interpretations. We cannot even in principle set a machine to grind through infinitely many possible interpretations and report back when it is finished: it will \emph{never} finish. We either need to come up with some more efficient way of reasoning about all interpretations, or we need to look for something different. 
+
+There are, indeed, systems that codify ways to reason about all possible interpretations. They were developed in the 1950s by Evert Beth and Jaakko Hintikka. But we shall not follow this path. We shall, instead, look to natural deduction. 
+%And that is where we shall look. 
+%
+%There is something philosophically desirable about Consider an argument like:
+%	\begin{earg}
+%		\item[(5)] $Fa \therefore \exists x Fx$
+%	\end{earg}
+%This is clearly valid. Sure, we \emph{could} justify it in terms of reasoning through what is true in all possible interpretations. But would that set the inference form on more solid ground? What, after all, could be more obvious than the acceptability of the basic form of argument that corresponds to:
+%	\begin{quote}
+%		Boris is a fool. Therefore someone is a fool.
+%	\end{quote}
+%
+%
+%\section{A roadmap}
+%So here is our plan. 
+
+Rather than reasoning directly about all valuations (in the case of TFL) or all interpretations (in the case of FOL), we shall try to select a few basic rules of inference. Some of these will govern the behaviour of the sentential connectives. Others will govern the behaviour of the quantifiers and identity. The resulting system of rules will give us a new way to think about the validity of arguments. 
+The modern development of natural deduction dates from simultaneous and unrelated papers by Gerhard Gentzen and Stanis\l{}aw Ja\'{s}kowski (1934). However, the natural deduction system that we shall consider is based largely around work by Frederic Fitch (first published in 1952). 
+
+
+
+\chapter{Basic rules for TFL}\label{s:BasicTFL}
+We will develop a \define{natural deduction} system. For each connective, there will be \define{introduction} rules, that allow us to prove a sentence that has that connective as the main logical operator, and \define{elimination} rules, that allow us to prove something given a sentence that has that connective as the main logical operator
+
+\section{The idea of a formal proof}
+A \emph{formal proof} is a sequence of sentences, some of which are marked as being initial assumptions (or premises). The last line of the formal proof is the conclusion. (Henceforth, I shall simply call these `proofs', but you should be aware that there are \emph{informal proofs} too.)
+
+As an illustration, consider:
+	$$\enot (A \eor B) \therefore \enot A \eand \enot B$$
+We shall start a proof by writing the premise:
+\begin{proof}
+	\hypo{a1}{\enot (A \eor B)}
+\end{proof}
+Note that we have numbered the premise, since we shall want to refer back to it. Indeed, every line on a proof is numbered, so that we can refer back to it. 
+
+Note also that we have drawn a line underneath the premise. Everything written above the line is an \emph{assumption}. Everything written below the line will either be something which follows from the assumptions, or it will be some new assumption. We are hoping to conclude that `$\enot A \eand \enot B$'; so we are hoping ultimately to conclude our proof with
+\begin{proof}
+	\have[n]{con}{\enot A \eand \enot B}
+\end{proof}
+for some number $n$. It doesn't matter, which line we end on, but we would obviously prefer a short proof to a long one.
+
+Similarly, suppose we wanted to consider:
+$$A\eor B, \enot (A\eand C), \enot (B \eand \enot D) \therefore \enot C\eor D$$
+The argument has three premises, so we start by writing them all down, numbered, and drawing a line under them:
+\begin{proof}
+	\hypo{a1}{A \eor B}
+	\hypo{a2}{\enot (A\eand C)}
+	\hypo{a3}{\enot (B \eand \enot D)}
+\end{proof}
+and we are hoping to conclude with some line:
+\begin{proof}
+	\have[n]{con}{\enot C \eor D}
+\end{proof}
+All that remains to do is to explain each of the rules that we can use along the way from premises to conclusion. The rules are broken down by our logical connectives.
+
+%\section{Reiteration}
+%The very first rule is so breathtakingly obvious that it is surprising we bother with it at all. 
+%
+%If you already have shown something in the course of a proof, the \emph{reiteration rule} allows you to repeat it on a new line. For example:
+%\begin{proof}
+%	\have[4]{a1}{A \eand B}
+%	\have[$\vdots$]{}{\vdots}
+%	\have[10]{a2}{A \eand B} \by{R}{a1}
+%\end{proof}
+%This indicates that we have written `$A \eand B$' on line 4. Now, at some later line---line 10, for example---we have decided that we want to repeat this. So we write it down again. We also add a citation which justifies what we have written. In this case, we write `R', to indicate that we are using the reiteration rule, and we write `$4$', to indicate that we have applied it to line $4$.
+%
+%Here is a general expression of the rule:
+%\begin{proof}
+%	\have[m]{a}{\meta{A}}
+%	\have[\ ]{c}{\meta{A}} \by{R}{a}
+%\end{proof}
+%The point is that, if any sentence $\meta{A}$ occurs on some line, then we can repeat $\meta{A}$ on later lines. Each line of our proof must be justified by some rule, and here we have `R $m$'. This means: Reiteration, applied to line $m$. 
+%
+%Two things need emphasising. First `$\meta{A}$' is not a sentence of TFL. Rather, it a symbol in the metalanguage, which we use when we want to talk about any sentence of TFL (see \S\ref{s:UseMention}). Second, and similarly, `$m$' is not a numeral that will appear on a proof. Rather, it is a symbol in the metalanguage, which we use when we want to talk about any line number of a proof. In an actual proof, the lines are numbered `$1$', `$2$', `$3$', and so forth. But when we define the rule, we use variables to underscore the point that the rule may be applied at any point.
+
+\section{Conjunction}
+Suppose I want to show that Ludwig is both reactionary and libertarian. One obvious way to do this would be as follows: first I show that Ludwig is reactionary; then I show that Ludwig is libertarian; then I put these two demonstrations together, to obtain the conjunction.
+
+Our natural deduction system will capture this thought straightforwardly. In the example given, I might adopt the following symbolisation key:
+	\begin{ekey}
+		\item[R] Ludwig is reactionary
+		\item[L] Ludwig is libertarian
+	\end{ekey}
+Perhaps I am working through a proof, and I have obtained `$R$' on line 8 and `$L$' on line 15. Then on any subsequent line I can obtain `$R \eand L$' thus:
+\begin{proof}
+	\have[8]{a}{R}
+	\have[15]{b}{L}
+	\have[\ ]{c}{R \eand L} \ai{a, b}
+\end{proof}
+Note that every line of our proof must either be an assumption, or must be justified by some rule. We cite `$\eand$I 8, 15' here to indicate that the line is obtained by the rule of conjunction introduction ($\eand$I) applied to lines 8 and 15. I could equally well obtain:
+\begin{proof}
+	\have[8]{a}{R}
+	\have[15]{b}{L}
+	\have[\ ]{c}{L \eand R} \ai{b, a}
+\end{proof}
+with the citation reverse, to reflect the order of the conjuncts. More generally, here is our conjunction introduction rule:
+\factoidbox{
+\begin{proof}
+	\have[m]{a}{\meta{A}}
+	\have[n]{b}{\meta{B}}
+	\have[\ ]{c}{\meta{A}\eand\meta{B}} \ai{a, b}
+\end{proof}}
+To be clear, the statement of the rule is \emph{schematic}. It is not itself a proof.  `$\meta{A}$' and `$\meta{B}$' are not sentences of TFL. Rather, they are symbols in the metalanguage, which we use when we want to talk about any sentence of TFL (see \S\ref{s:UseMention}). Similarly, `$m$' and `$n$' are not a numerals that will appear on any actual proof. Rather, they are symbols in the metalanguage, which we use when we want to talk about any line number of any proof. In an actual proof, the lines are numbered `$1$', `$2$', `$3$', and so forth. But when we define the rule, we use variables to emphasise that the rule may be applied at any point. The rule requires only that we have both conjuncts available to us somewhere in the proof. They can be separated from one another, and they can appear in any order. 
+
+The rule is called `conjunction \emph{introduction}' because it introduces the symbol `$\eand$' into our proof where it may have been absent. Correspondingly, we have a rule that \emph{eliminates} that symbol.  Suppose you have shown that Ludwig is both reactionary and libertarian. You are entitled to conclude that Ludwig is reactionary. Equally, you are entitled to conclude that Ludwig is libertarian. Putting this together, we obtain our conjunction elimination rule(s):
+\factoidbox{
+\begin{proof}
+	\have[m]{ab}{\meta{A}\eand\meta{B}}
+	\have[\ ]{a}{\meta{A}} \ae{ab}
+\end{proof}}
+and equally:
+\factoidbox{
+\begin{proof}
+	\have[m]{ab}{\meta{A}\eand\meta{B}}
+	\have[\ ]{b}{\meta{B}} \ae{ab}
+\end{proof}}
+The point is simply that, when you have a conjunction on some line of a proof, you can obtain either of the conjuncts by {\eand}E. (One point, might be worth emphasising: you can only apply this rule when conjunction is the main logical operator. So you cannot infer `$D$' just from `$C \eor (D \eand E)$'!)
+
+Even with just these two rules, we can start to see some of the power of our formal proof system. Consider:
+\begin{earg}
+\item[] $[(A\eor B)\eif(C\eor D)] \eand [(E \eor F) \eif (G\eor H)]$
+\item[\therefore] $[(E \eor F) \eif (G\eor H)] \eand [(A\eor B)\eif(C\eor D)]$
+\end{earg}
+The main logical operator in both the premise and conclusion of this argument is `$\eand$'. In order to provide a proof, we begin by writing down the premise, which is our assumption. We draw a line below this: everything after this line must follow from our assumptions by (repeated applications of) our rules of inference. So the beginning of the proof looks like this:
+\begin{proof}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+\end{proof}
+From the premise, we can get each of the conjuncts by {\eand}E. The proof now looks like this:
+\begin{proof}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+	\have{a}{{[}(A\eor B)\eif(C\eor D){]}} \ae{ab}
+	\have{b}{{[}(E \eor F) \eif (G\eor H){]}} \ae{ab}
+\end{proof}
+So by applying the {\eand}I rule to lines 3 and 2 (in that order), we arrive at the desired conclusion. The finished proof looks like this:
+\begin{proof}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+
+	\have{a}{{[}(A\eor B)\eif(C\eor D){]}} \ae{ab}
+	\have{b}{{[}(E \eor F) \eif (G\eor H){]}} \ae{ab}
+	\have{ba}{{[}(E \eor F) \eif (G\eor H){]} \eand {[}(A\eor B)\eif(C\eor D){]}} \ai{b,a}
+\end{proof}
+This is a very simple proof, but it shows how we can chain rules of proof together into longer proofs. In passing, note that investigating this argument with a truth table would have required a staggering 256 lines; our formal proof required only four lines. 
+
+It is worth giving another example. Way back in \S\ref{s:MoreBracketingConventions}, we noted that this argument is valid:
+	$$A \eand (B \eand C) \therefore (A \eand B) \eand C$$
+To provide a proof corresponding with this argument, we start by writing:
+\begin{proof}
+	\hypo{ab}{A \eand (B \eand C)}
+\end{proof}
+From the premise, we can get each of the conjuncts by applying $\eand$E twice. And we can then apply $\eand$E twice more, so our proof looks like:
+\begin{proof}
+	\hypo{ab}{A \eand (B \eand C)}
+	\have{a}{A} \ae{ab}
+	\have{bc}{B \eand C} \ae{ab}
+	\have{b}{B} \ae{bc}
+	\have{c}{C} \ae{bc}
+\end{proof}
+But now we can merrily reintroduce conjunctions in the order we wanted them, so that our final proof is:
+\begin{proof}
+	\hypo{abc}{A \eand (B \eand C)}
+	\have{a}{A} \ae{abc}
+	\have{bc}{B \eand C} \ae{abc}
+	\have{b}{B} \ae{bc}
+	\have{c}{C} \ae{bc}
+	\have{ab}{A \eand B}\ai{a, b}
+	\have{con}{(A \eand B) \eand C}\ai{ab, c}
+\end{proof}
+Recall that our official definition of sentences in TFL only allowed conjunctions with two conjuncts. When we discussed semantics, we became a bit more relaxed, and allowed ourselves to drop inner brackets in long conjunctions, since the order of the brackets did not affect the truth table. The proof just given suggests that we could also drop inner brackets in all of our proofs. However, this is not standard, and we shall not do this. Instead, we shall return to the more austere bracketing conventions. (Though we will allow ourselves to drop outermost brackets, for legibility.)
+
+Let me offer one final illustration. When using the $\eand$I rule, there is no need to apply it to different sentences. So we can formally prove `$A$' from `$A$' as follows:
+\begin{proof}
+	\hypo{a}{A}
+	\have{aa}{A \eand A}\ai{a, a}
+	\have{a2}{A}\ae{aa}
+\end{proof}
+Simple, but effective.
+
+\section{Conditional}
+Consider the following argument:
+	\begin{quote}
+		If Jane is smart then she is fast. Jane is smart. So Jane is fast.
+	\end{quote}
+This argument is certainly valid. And it suggests a straightforward conditional elimination rule ($\eif$E):
+\factoidbox{
+\begin{proof}
+	\have[m]{ab}{\meta{A}\eif\meta{B}}
+	\have[n]{a}{\meta{A}}
+	\have[\ ]{b}{\meta{B}} \ce{ab,a}
+\end{proof}}
+This rule is also sometimes called \emph{modus ponens}. Again, this is an elimination rule, because it allows us to obtain a sentence that may not contain `$\eif$', having started with a sentence that did contain `$\eif$'. Note that the conditional, and the antecedent, can be separated from one another, and they can appear in any order. However, in the citation for $\eif$E, we always cite the conditional first, followed by the antecedent.
+
+The rule for conditional introduction is also quite easy to motivate. The following argument should be valid:
+	\begin{quote}
+		Ludwig is reactionary. Therefore if Ludwig is libertarian, then Ludwig is both reactionary \emph{and} libertarian.
+	\end{quote}
+If someone doubted that this was valid, we might try to convince them otherwise by explaining ourselves as follows:
+	\begin{quote}
+		Assume that Ludwig is reactionary. Now, \emph{additionally} assume that Ludwig is libertarian. Then by conjunction introduction---which we just discussed---Ludwig is both reactionary and libertarian. Of course, that's conditional on the assumption that Ludwig is libertarian. But this just means that, if Ludwig is libertarian, then he is both reactionary and libertarian.
+	\end{quote}
+Transferred into natural deduction format, here is the pattern of reasoning that we just used. We started with one premise, `Ludwig is reactionary', thus:
+	\begin{proof}
+		\hypo{r}{R}
+	\end{proof}
+The next thing we did is to make an \emph{additional} assumption (`Ludwig is libertarian'), for the sake of argument. To indicate that we are no longer dealing \emph{merely} with our original assumption (`$R$'), but with some additional assumption, we continue our proof as follows:
+	\begin{proof}
+		\hypo{r}{R}
+		\open
+			\hypo{l}{L}
+	\end{proof}
+Note that we are \emph{not} claiming, on line 2, to have proved `$L$' from line 1. So we do not need to write in any justification for the additional assumption on line 2. We do, however, need to mark that it is an additional assumption. We do this by drawing a line under it (to indicate that it is an assumption) and by indenting it with a further vertical line (to indicate that it is additional). 
+
+With this extra assumption in place, we are in a position to use $\eand$I. So we could continue our proof:
+	\begin{proof}
+		\hypo{r}{R}
+		\open
+			\hypo{l}{L}
+			\have{rl}{R \eand L}\ai{r, l}
+%			\close
+%		\have{con}{L \eif (R \eand L)}\ci{l-rl}
+	\end{proof}
+So we have now shown that, on the additional assumption, `$L$', we can obtain `$R \eand L$'. We can therefore conclude that, if `$L$' obtains, then so does `$R \eand L$'. Or, to put it more briefly, we can conclude `$L \eif (R \eand L)$':
+	\begin{proof}
+		\hypo{r}{R}
+		\open
+			\hypo{l}{L}
+			\have{rl}{R \eand L}\ai{r, l}
+			\close
+		\have{con}{L \eif (R \eand L)}\ci{l-rl}
+	\end{proof}
+Observe that we have dropped back to using one vertical line.  We have \emph{discharged} the additional assumption, `$L$', since the conditional itself follows just from our original assumption, `$R$'.
+
+The general pattern at work here is the following. We first make an additional assumption, A; and from that additional assumption, we prove B. In that case, we know the following: If A, then B. This is wrapped up in the rule for conditional introduction:
+\factoidbox{
+	\begin{proof}
+		\open
+			\hypo[i]{a}{\meta{A}} 
+			\have[j]{b}{\meta{B}}
+		\close
+		\have[\ ]{ab}{\meta{A}\eif\meta{B}}\ci{a-b}
+	\end{proof}}
+There can be as many or as few lines as you like between lines $i$ and $j$. 
+
+It will help to offer a second  illustration of $\eif$I in action. Suppose we want to consider the following:
+	$$P \eif Q, Q \eif R \therefore P \eif R$$
+We start by listing \emph{both} of our premises. Then, since we want to arrive at a conditional (namely, `$P \eif R$'), we additionally assume the antecedent to that conditional. Thus our main proof starts:
+\begin{proof}
+	\hypo{pq}{P \eif Q}
+	\hypo{qr}{Q \eif R}
+	\open
+		\hypo{p}{P}
+	\close
+\end{proof}
+Note that we have made `$P$' available, by treating it as an additional assumption. But now, we can use {\eif}E on the first premise. This will yield `$Q$'. And we can then use {\eif}E on the second premise. So, by assuming `$P$' we were able to prove `$R$', so we apply the {\eif}I rule---discharging `$P$'---and finish the proof. Putting all this together, we have:
+\label{HSproof}
+\begin{proof}
+	\hypo{pq}{P \eif Q}
+	\hypo{qr}{Q \eif R}
+	\open
+		\hypo{p}{P}
+		\have{q}{Q}\ce{pq,p}
+		\have{r}{R}\ce{qr,q}
+	\close
+	\have{pr}{P \eif R}\ci{p-r}
+\end{proof}
+
+
+\section{Additional assumptions and subproofs}
+The rule $\eif$I invoked the idea of making additional assumptions. These need to be handled with some care.
+
+Consider this proof:
+\begin{proof}
+	\hypo{a}{A}
+	\open
+		\hypo{b1}{B}
+		\have{bb}{B \eand B}\ai{b1, b1}
+		\have{b2}{B} \ae{bb}
+	\close
+	\have{con}{B \eif B}\ci{b1-b2}
+\end{proof}
+This is perfectly in keeping with the rules we have laid down already. And it should not seem particularly strange. Since `$B \eif B$' is a tautology, no particular premises should be required to prove it. 
+
+But suppose we now tried to continue the proof as follows:
+\begin{proof}
+	\hypo{a}{A}
+	\open
+		\hypo{b1}{B}
+		\have{bb}{B \eand B}\ai{b1, b1}
+		\have{b2}{B} \ae{bb}
+	\close
+	\have{con}{B \eif B}\ci{b1-b2}
+	\have{b}{B}\by{naughty attempt to invoke $\eif$E}{con, b2}
+\end{proof}
+If we were allowed to do this, it would be a disaster. It would allow us to prove any atomic sentence letter from any other atomic sentence letter. But if you tell me that Anne is fast (symbolised by `$A$'), I shouldn't be able to conclude that Queen Boudica stood twenty-feet tall (symbolised by `$B$')! So we must be prohibited from doing this. But how are we to implement the prohibition?
+
+We can describe the process of making an additional assumption as one of performing a \emph{subproof}: a subsidiary proof within the main proof. When we start a subproof, we draw another vertical line to indicate that we are no longer in the main proof. Then we write in the assumption upon which the subproof will be based. A subproof can be thought of as essentially posing this question: \emph{what could we show, if we also make this additional assumption?}
+
+When we are working within the subproof, we can refer to the additional assumption that we made in introducing the subproof, and to anything that we obtained from our original assumptions. (After all, those original assumptions are still in effect.) But at some point, we shall want to stop working with the additional assumption: we shall want to return from the subproof to the main proof. To indicate that we have returned to the main proof, the vertical line for the subproof comes to an end. At this point, we say that the subproof is \define{closed}. Having closed a subproof, we have set aside the additional assumption, so it will be illegitimate to draw upon anything that depends upon that additional assumption. Thus we stipulate:
+\factoidbox{Any rule whose citation requires mentioning individual lines can mention any earlier lines, \emph{except} for those lines which occur within a closed subproof.}
+This stipulation rules out the disastrous attempted proof above. The rule of $\eif$E requires that we cite two individual lines from earlier in the proof. In the purported proof, above, one of these lines (namely, line 4) occurs within a subproof that has (by line 6) been closed. This is illegitimate. 
+
+Closing a subproof is called \define{discharging} the assumptions of that subproof. So we can put the point this way: \emph{you cannot refer back to anything that was obtained using discharged assumptions}. 
+
+Subproofs, then, allow us to think about what we could show, if we made additional assumptions. The point to take away from this is not surprising---in the course of a proof, we have to keep very careful track of what assumptions we are making, at any given moment. Our proof system does this very graphically. (Indeed, that's precisely why we have chosen to use \emph{this} proof system.)
+
+Once we have started thinking about what we can show by making additional assumptions, nothing stops us from posing the question of what we could show if we were to make \emph{even more} assumptions? This might motivate us to introduce a subproof within a subproof. Here is an example which only uses the rules of proof that we have considered so far:
+\begin{proof}
+\hypo{a}{A}
+\open
+	\hypo{b}{B}
+	\open
+		\hypo{c}{C}
+		\have{ab}{A \eand B}\ai{a,b}
+	\close
+	\have{cab}{C \eif (A \eand B)}\ci{c-ab}
+\close
+\have{bcab}{B \eif (C \eif (A \eand B))}\ci{b-cab}
+\end{proof}
+Notice that the citation on line 4 refers back to the initial assumption (on line 1) and an assumption of a subproof (on line 2). This is perfectly in order, since neither assumption has been discharged at the time (i.e.\ by line 4).
+
+Again, though, we need to keep careful track of what we are assuming at any given moment. For suppose we tried to continue the proof as follows:
+\begin{proof}
+\hypo{a}{A}
+\open
+	\hypo{b}{B}
+	\open
+		\hypo{c}{C}
+		\have{ab}{A \eand B}\ai{a,b}
+	\close
+	\have{cab}{C \eif (A \eand B)}\ci{c-ab}
+\close
+\have{bcab}{B \eif(C \eif (A \eand B))}\ci{b-cab}
+\have{bcab}{C \eif (A \eand B)}\by{naughty attempt to invoke $\eif$I}{c-ab}
+\end{proof}
+This would be awful. If I tell you that Anne is smart, you should not be able to infer that, if Cath is smart (symbolised by `$C$') then \emph{both} Anne is smart and Queen Boudica stood 20-feet tall! But this is just what such a proof would suggest, if it were permissible.
+
+The essential problem is that the subproof that began with the assumption `$C$' depended crucially on the fact that we had assumed `$B$' on line 2. By line 6, we have \emph{discharged} the assumption `$B$': we have stopped asking ourselves what we could show, if we also assumed `$B$'. So it is simply cheating, to try to help ourselves (on line 7) to the subproof that began with the assumption `$C$'. Thus we stipulate, much as before:
+\factoidbox{Any rule whose citation requires mentioning an entire subproof can mention any earlier subproof, \emph{except} for those subproofs which occur within some \emph{other} closed subproof.}
+The attempted disastrous proof violates this stipulation. The subproof of lines 3--4 occurs within a subproof that ends on line 5. So it cannot be invoked in line 7.
+
+It is always permissible to open a subproof with any assumption. However, there is some strategy involved in picking a useful assumption. Starting a subproof with an arbitrary, wacky assumption would just waste lines of the proof. In order to obtain a conditional by {\eif}I, for instance, you must assume the antecedent of the conditional in a subproof. 
+
+Equally, it is always permissible to close a subproof and discharge its assumptions. However, it will not be helpful to do so, until you have reached something useful.
+
+
+\section{Biconditional}
+The rules for the biconditional will be like double-barrelled versions of the rules for the conditional.
+
+In order to prove `$W \eiff X$', for instance, you must be able to prove `$X$' on the assumption `$W$' \emph{and} prove `$W$' on the assumption `$X$'. The biconditional introduction rule ({\eiff}I) therefore requires two subproofs. Schematically, the rule works like this:
+\factoidbox{
+\begin{proof}
+	\open
+		\hypo[i]{a1}{\meta{A}}
+		\have[j]{b1}{\meta{B}}
+	\close
+	\open
+		\hypo[k]{b2}{\meta{B}}
+		\have[l]{a2}{\meta{A}}
+	\close
+	\have[\ ]{ab}{\meta{A}\eiff\meta{B}}\bi{a1-b1,b2-a2}
+\end{proof}}
+There can be as many lines as you like between $i$ and $j$, and as many lines as you like between $k$ and $l$. Moreover, the subproofs can come in any order, and the second subproof does not need to come immediately after the first.
+
+The biconditional elimination rule ({\eiff}E) lets you do a bit more than the conditional rule. If you have the left-hand subsentence of the biconditional, you can obtain the right-hand subsentence. If you have the right-hand subsentence, you can obtain the left-hand subsentence. So we allow:
+\factoidbox{
+\begin{proof}
+	\have[m]{ab}{\meta{A}\eiff\meta{B}}
+	\have[n]{a}{\meta{A}}
+	\have[\ ]{b}{\meta{B}} \be{ab,a}
+\end{proof}}
+and equally:
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\meta{A}\eiff\meta{B}}
+	\have[n]{a}{\meta{B}}
+	\have[\ ]{b}{\meta{A}} \be{ab,a}
+\end{proof}}
+Note that the biconditional, and the right or left half, can be separated from one another, and they can appear in any order. However, in the citation for $\eiff$E, we always cite the biconditional first.
+
+\section{Disjunction}
+Suppose Ludwig is reactionary. Then Ludwig is either reactionary or libertarian. After all, to say that Ludwig is either reactionary or libertarian is to say something weaker than to say that Ludwig is reactionary. 
+
+Let me emphasise this point. Suppose Ludwig is reactionary. It follows that Ludwig is \emph{either} reactionary \emph{or} a kumquat. Equally, it follows that \emph{either} Ludwig is reactionary \emph{or} that kumquats are the only fruit.  Equally, it follows that \emph{either} Ludwig is reactionary \emph{or} that God is dead. Many of these things are strange inferences to draw. But there is nothing \emph{logically} wrong with them (even if they maybe violate all sorts of implicit conversational norms).
+
+Armed with all this, I present the disjunction introduction rule(s):
+\factoidbox{\begin{proof}
+	\have[m]{a}{\meta{A}}
+	\have[\ ]{ab}{\meta{A}\eor\meta{B}}\oi{a}
+\end{proof}}
+and
+\factoidbox{\begin{proof}
+	\have[m]{a}{\meta{A}}
+	\have[\ ]{ba}{\meta{B}\eor\meta{A}}\oi{a}
+\end{proof}}
+Notice that \meta{B} can be \emph{any} sentence whatsoever. So the following is a perfectly kosher proof:
+\begin{proof}
+	\hypo{m}{M}
+	\have{mmm}{M \eor ([(A\eiff B) \eif (C \eand D)] \eiff [E \eand F])}\oi{m}
+\end{proof}
+Using a truth table to show this would have taken 128 lines.
+
+The disjunction elimination rule is, though, slightly trickier. Suppose that either Ludwig is reactionary or he is libertarian. What can you conclude? Not that Ludwig is reactionary; it might be that he is libertarian instead. And equally, not that Ludwig is libertarian; for he might merely be reactionary. Disjunctions, just by themselves, are hard to work with. 
+
+But suppose that we could somehow show both of the following: first, that Ludwig's being reactionary entails that he is an Austrian economist: second, that Ludwig's being libertarian entails that he is an Austrian economist. Then if we know that Ludwig is either reactionary or libertarian, then we know that, whichever he is, Ludwig is an Austrian economist. This insight can be expressed in the following rule, which is our disjunction elimination ($\eor$E) rule:
+\factoidbox{
+	\begin{proof}
+		\have[m]{ab}{\meta{A}\eor\meta{B}}
+		\open
+			\hypo[i]{a}{\meta{A}} {}
+			\have[j]{c1}{\meta{C}}
+		\close
+		\open
+			\hypo[k]{b}{\meta{B}}{}
+			\have[l]{c2}{\meta{C}}
+		\close
+		\have[ ]{c}{\meta{C}}\oe{ab, a-c1,b-c2}
+	\end{proof}}
+This is obviously a bit clunkier to write down than our previous rules, but the point is fairly simple. Suppose we have some disjunction, $\meta{A} \eor \meta{B}$. Suppose we have two subproofs, showing us that $\meta{C}$ follows from the assumption that $\meta{A}$, and that $\meta{C}$ follows from the assumption that $\meta{B}$. Then we can infer $\meta{C}$ itself. As usual, there can be as many lines as you like between $i$ and $j$, and as many lines as you like between $k$ and $l$. Moreover, the subproofs and the disjunction can come in any order, and do not have to be adjacent.
+
+Some examples might help illustrate this. Consider this argument:
+$$(P \eand Q) \eor (P \eand R) \therefore P$$
+An example proof might run thus:
+	\begin{proof}
+		\hypo{prem}{(P \eand Q) \eor (P \eand R) }
+			\open
+				\hypo{pq}{P \eand Q}
+				\have{p1}{P}\ae{pq}
+			\close
+			\open
+				\hypo{pr}{P \eand R}
+				\have{p2}{P}\ae{pr}
+			\close
+		\have{con}{P}\oe{prem, pq-p1, pr-p2}
+	\end{proof}
+Here is a slightly harder example. Consider:
+	$$ A \eand (B \eor C) \therefore (A \eand B) \eor (A \eand C)$$
+Here is a proof corresponding to this argument:
+	\begin{proof}
+		\hypo{aboc}{A \eand (B \eor C)}
+		\have{a}{A}\ae{aboc}
+		\have{boc}{B \eor C}\ae{aboc}
+		\open
+			\hypo{b}{B}
+			\have{ab}{A \eand B}\ai{a,b}
+			\have{abo}{(A \eand B) \eor (A \eand C)}\oi{ab}
+		\close
+		\open
+			\hypo{c}{C}
+			\have{ac}{A \eand C}\ai{a,c}
+			\have{aco}{(A \eand B) \eor (A \eand C)}\oi{ac}
+		\close
+	\have{con}{(A \eand B) \eor (A \eand C)}\oe{boc, b-abo, c-aco}
+	\end{proof}
+Don't be alarmed if you think that you wouldn't have been able to come up with this proof yourself. The ability to come up with novel proofs will come with practice. The key question at this stage is whether, looking at the proof, you can see that it conforms with the rules that we have laid down. And that just involves checking every line, and making sure that it is justified in accordance with the rules we have laid down.
+
+
+\section{Contradiction}
+We have only one connective left to deal with: negation. But we shall not tackle negation directly. Instead, we shall first think about \emph{contradiction}. 
+
+An effective form of argument is to argue your opponent into contradicting themselves. At that point, you have them on the ropes. They have to give up at least one of their assumptions. We are going to make use of this idea in our proof system, by adding a new symbol, `$\ered$', to our proofs. This should be read as something like `contradiction!'\ or `reductio!'\ or `but that's absurd!'  And the rule for introducing this symbol is that we can use it whenever we explicitly contradict ourselves, i.e.\ whenever we find both a sentence and its negation appearing in our proof:
+\factoidbox{
+\begin{proof}
+\have[m]{a}{\meta{A}}
+\have[n]{na}{\enot\meta{A}}
+\have[ ]{bot}{\ered}\ri{a, na}
+\end{proof}}
+It does not matter what order the sentence and its negation appear in, and they do not need to appear on adjacent lines. However, we always cite the sentence first, followed by its negation. 
+
+Our elimination rule for `$\ered$' is known as \emph{ex falso quod libet}. This means `anything follows from a contradiction'. And the idea is precisely that: if we obtained a contradiction, symbolised by `$\ered$', then we can infer whatever we like. How can this be motivated, as a rule of argumentation? Well, consider the English rhetorical device `\ldots and if \emph{that's} true, I'll eat my hat'. Since contradictions simply cannot be true, if one \emph{i}s true then not only will I eat my hat, I'll have it too.\footnote{Thanks to Adam Caulton for this.} Here is the formal rule:
+\factoidbox{\begin{proof}
+\have[m]{bot}{\ered}
+\have[ ]{}{\meta{A}}\re{bot}
+\end{proof}}
+Note that \meta{A} can be \emph{any} sentence whatsoever. 
+
+A final remark. I have said that `$\ered$' should be read as something like `contradiction!' But this does not tell us much about the symbol. There are, roughly, three ways to approach the symbol. 
+	\begin{ebullet}
+		\item We might regard `$\ered$' as a new atomic sentence of TFL, but one which can only ever have the truth value False. 
+		\item We might regard `$\ered$' as an abbreviation for some canonical contradiction, such as `$A \eand \enot A$'. This will have the same effect as the above---obviously, `$A \eand \enot A$' only ever has the truth value False---but it means that, officially, we do not need to add a new symbol to TFL.
+		\item We might regard `$\ered$', not as a symbol of TFL, but as something more like a \emph{punctuation mark} that appears in our proofs. (It is on a par with the line numbers and the vertical lines, say.)
+	\end{ebullet}
+There is something very philosophically attractive about the third option. But here I shall \emph{officially} plump for the second. `$\ered$' is to be read as abbreviating some canonical contradiction. This means that we can manipulate it, in our proofs, just like any other sentence.
+
+
+\section{Negation}
+There is obviously a tight link between contradiction and negation. Indeed, the $\ered$I rule essentially behaves as a rule for negation elimination: we introduce `$\bot$' when a sentence and its negation both appear in our proof. So there is no need for us to add a further rule for negation elimination. 
+
+However, we do need to state a rule for negation introduction. The rule is very simple: if assuming something leads you to a contradiction, then the assumption must be wrong. This thought motivates the following rule:
+\factoidbox{\begin{proof}
+\open
+	\hypo[i]{a}{\meta{A}}
+	\have[j]{nb}{\ered}
+\close
+\have[\ ]{na}{\enot\meta{A}}\ni{a-nb}
+\end{proof}}
+There can be as many lines between $i$ and $j$ as you like. To see this in practice, and interacting with negation, consider this proof:
+	\begin{proof}
+		\hypo{d}{D}
+		\open
+			\hypo{nd}{\enot D}
+			\have{ndr}{\ered}\ri{d, nd}
+		\close
+		\have{con}{\enot\enot D}\ni{nd-ndr}
+	\end{proof}
+We shall also add another rule for negation. It is much like the rule used in disjunction elimination, and it requires a little motivation. 
+
+Suppose that we can show that if it's sunny outside, then Bill will have brought an umbrella (for fear of burning). Suppose we can also show that, if it's not sunny outside, then Bill will have brought an umbrella (for fear of rain). Well, there is no third way for the weather to be. So, \emph{whatever the weather}, Bill will have brought an umbrella. 
+
+This line of thinking motivates the following rule:
+\factoidbox{\begin{proof}
+		\open
+			\hypo[i]{a}{\meta{A}}
+			\have[j]{c1}{\meta{B}}
+		\close
+		\open
+			\hypo[k]{b}{\enot\meta{A}}
+			\have[l]{c2}{\meta{B}}
+		\close
+		\have[\ ]{ab}{\meta{B}}\tnd{a-c1,b-c2}
+	\end{proof}}
+The rule is sometimes called \emph{tertium non datur}, which means `no third way'. There can be as many lines as you like between $i$ and $j$, and as many lines as you like between $k$ and $l$. Moreover, the subproofs can come in any order, and the second subproof does not need to come immediately after the first.
+
+To see the rule in action, consider:
+	$$P \therefore (P \eand D) \eor (P \eand \enot D)$$
+Here is a proof corresponding with the argument:
+	\begin{proof}
+		\hypo{a}{P}
+		\open
+			\hypo{b}{D}
+			\have{ab}{P \eand D}\ai{a, b}
+			\have{abo}{(P \eand D) \eor (P \eand \enot D)}\oi{ab}
+		\close
+		\open
+			\hypo{nb}{\enot D}
+			\have{anb}{P \eand \enot D}\ai{a, nb}
+			\have{anbo}{(P \eand D) \eor (P \eand \enot D)}\oi{anb}
+		\close
+		\have{con}{(P \eand D) \eor (P \eand \enot D)}\tnd{b-abo, nb-anbo}
+	\end{proof}
+\emph{These are all of the basic rules for the proof system for TFL.}
+
+\practiceproblems
+
+\problempart
+The following two `proofs' are \emph{incorrect}. Explain the mistakes they make.
+\begin{multicols}{2}
+\begin{proof}
+\hypo{abc}{\enot L \eif (A \eand L)}
+\open
+	\hypo{nl}{\enot L}
+	\have{a}{A}\ce{abc, nl}
+\close
+\open
+	\hypo{l}{L}
+	\have{red}{\ered}\ri{l, nl}
+	\have{a2}{A}\re{red}
+\close
+\have{con}{A}\tnd{nl-a, l-a2}
+\end{proof}
+
+\begin{proof}
+\hypo{abc}{A \eand (B \eand C)}
+\hypo{bcd}{(B \eor C) \eif D}
+\have{b}{B}\ae{abc}
+\have{bc}{B \eor C}\oi{b}
+\have{d}{D}\ce{bc, bcd}
+\end{proof}
+\end{multicols}
+\problempart
+The following three proofs are missing their citations (rule and line numbers). Add them, to turn them into bona fide proofs. Additionally, write down the argument that corresponds to each proof.
+\begin{multicols}{2}
+\begin{proof}
+\hypo{ps}{P \eand S}
+\hypo{nsor}{S \eif R}
+\have{p}{P}%\ae{ps}
+\have{s}{S}%\ae{ps}
+\have{r}{R}%\ce{nsor, s}
+\have{re}{R \eor E}%\oi{r}
+\end{proof}
+
+\begin{proof}
+\hypo{ad}{A \eif D}
+\open
+	\hypo{ab}{A \eand B}
+	\have{a}{A}%\ae{ab}
+	\have{d}{D}%\ce{ad, a}
+	\have{de}{D \eor E}%\oi{d}
+\close
+\have{conc}{(A \eand B) \eif (D \eor E)}%\ci{ab-de}
+\end{proof}
+
+\begin{proof}
+\hypo{nlcjol}{\enot L \eif (J \eor L)}
+\hypo{nl}{\enot L}
+\have{jol}{J \eor L}%\ce{nlcjol, nl}
+\open
+	\hypo{j}{J}
+	\have{jj}{J \eand J}%\ai{j}
+	\have{j2}{J}%\ae{jj}
+\close
+\open
+	\hypo{l}{L}
+	\have{red}{\ered}%\ri{l, nl}
+	\have{j3}{J}%\re{red}
+\close
+\have{conc}{J}%\oe{jol, j-j2, l-j3}
+\end{proof}
+\end{multicols}
+
+\solutions
+\problempart
+\label{pr.solvedTFLproofs}
+Give a proof for each of the following arguments:
+\begin{earg}
+\item $J\eif\enot J \therefore \enot J$
+\item $Q\eif(Q\eand\enot Q) \therefore \enot Q$
+\item $A\eif (B\eif C) \therefore (A\eand B)\eif C$
+\item $K\eand L \therefore K\eiff L$
+\item $(C\eand D)\eor E \therefore E\eor D$
+\item $A\eiff B, B\eiff C \therefore A\eiff C$
+\item $\enot F\eif G, F\eif H \therefore G\eor H$
+\item $(Z\eand K) \eor (K\eand M), K \eif D \therefore D$
+\item $P \eand (Q\eor R), P\eif \enot R \therefore Q\eor E$
+\item $S\eiff T \therefore S\eiff (T\eor S)$
+\item $\enot (P \eif Q) \therefore \enot Q$
+\item $\enot (P \eif Q) \therefore P$
+\end{earg}
+
+
+\chapter{Additional rules for TFL}\label{s:Further}
+In \S\ref{s:BasicTFL}, we introduced the basic rules of our proof system for TFL. In this section, we shall add some additional rules to our system. These will make our system much easier to work with. (However, in \S\ref{s:Derived} we will see that they are not strictly speaking \emph{necessary}.)
+
+\section{Reiteration}
+The first additional rule is \emph{reiteration} (R). This just allows us to repeat ourselves:
+\factoidbox{\begin{proof}
+	\have[m]{a}{\meta{A}}
+	\have[\ ]{b}{\meta{A}} \by{R}{a}
+\end{proof}}
+Such a rule is obviously legitimate; but one might well wonder how such a rule could ever be useful. Well, consider:
+\begin{proof}
+	\hypo{ana}{A \eif \enot A}
+	\open
+		\hypo{a}{A}
+		\have{na}{\enot A}\ce{ana, a}
+	\close
+	\open
+		\hypo{na1}{\enot A}
+		\have{na2}{\enot A}\by{R}{na1}
+	\close
+	\have{na3}{\enot A}\tnd{a-na, na1-na2}
+\end{proof}
+This is a fairly typical use of the R rule.
+
+\section{Disjunctive syllogism}
+Here is a very natural argument form.
+	\begin{quote}
+		Mitt is either in Massachusetts or in DC. He is not in DC. So, he is in Massachusetts.
+	\end{quote}
+This inference pattern is called \emph{disjunctive syllogism}. We add it to our proof system as follows:
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\meta{A} \eor \meta{B}}
+	\have[n]{nb}{\enot \meta{A}}
+	\have[\ ]{con}{\meta{B}}\by{DS}{ab, nb}
+\end{proof}}
+and
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\meta{A} \eor \meta{B}}
+	\have[n]{nb}{\enot \meta{B}}
+	\have[\ ]{con}{\meta{A}}\by{DS}{ab, nb}
+\end{proof}}
+As usual, the disjunction and the negation of one disjunct may occur in either order and need not be adjacent. However, we always cite the disjunction first. (This is, if you like, a new rule of disjunction elimination.)
+
+\section{Modus tollens}
+Another useful pattern of inference is embodied in the following argument:
+	\begin{quote}
+		If Mitt has won the election, then he is in the White House. He is not in the White House. So he has not won the election.
+	\end{quote}
+This inference pattern is called \emph{modus tollens}. The corresponding rule is:
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\meta{A}\eif\meta{B}}
+	\have[n]{a}{\enot\meta{B}}
+	\have[\ ]{b}{\enot\meta{A}}\mt{ab,a}
+\end{proof}}
+As usual, the premises may occur in either order, but we always cite the conditional first. (This is, if you like, a new rule of conditional elimination.)
+
+\section{Double-negation elimination}
+Another useful rule is \emph{double-negation elimination}. This rule does exactly what it says on the tin:
+\factoidbox{\begin{proof}
+		\have[m]{dna}{\enot \enot \meta{A}}
+		\have[ ]{a}{\meta{A}}\dne{dna}
+	\end{proof}}
+The justification for this is that, in natural language, double-negations tend to cancel out. 
+
+That said, you should be aware that context and emphasis can prevent them from doing so. Consider: `Jane is not \emph{not} happy'. Arguably, one cannot infer `Jane is happy', since the first sentence should be understood as meaning the same as  `Jane is not \emph{un}happy'. This is compatible with `Jane is in a state of profound indifference'. As usual, moving to TFL forces us to sacrifice certain nuances of English expressions.
+
+\section{De Morgan Rules}
+Our final additional rules are called De Morgan's Laws. (These are named after August De Morgan.) The shape of the rules should be familiar from truth tables.
+
+The first De Morgan rule is:
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\enot (\meta{A} \eand \meta{B})}
+	\have[\ ]{dm}{\enot \meta{A} \eor \enot \meta{B}}\dem{ab}
+\end{proof}}
+The second De Morgan is the reverse of the first:
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\enot \meta{A} \eor \enot \meta{B}}
+	\have[\ ]{dm}{\enot (\meta{A} \eand \meta{B})}\dem{ab}
+\end{proof}}
+The third De Morgan rule is the \emph{dual} of the first:
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\enot (\meta{A} \eor \meta{B})}
+	\have[\ ]{dm}{\enot \meta{A} \eand \enot \meta{B}}\dem{ab}
+\end{proof}}
+And the fourth is the reverse of the third:
+\factoidbox{\begin{proof}
+	\have[m]{ab}{\enot \meta{A} \eand \enot \meta{B}}
+	\have[\ ]{dm}{\enot (\meta{A} \eor \meta{B})}\dem{ab}
+\end{proof}}
+\emph{These are all of the additional rules of our proof system for TFL.}
+
+\practiceproblems
+\solutions
+\problempart
+\label{pr.justifyTFLproof}
+The following proofs are missing their citations (rule and line numbers). Add them wherever they are required:
+\begin{multicols}{2}
+\begin{proof}
+\hypo{1}{W \eif \enot B}
+\hypo{2}{A \eand W}
+\hypo{2b}{B \eor (J \eand K)}
+\have{3}{W}{}
+\have{4}{\enot B} {}
+\have{5}{J \eand K} {}
+\have{6}{K}{}
+\end{proof}
+\vfill
+\begin{proof}
+\hypo{1}{L \eiff \enot O}
+\hypo{2}{L \eor \enot O}
+\open
+	\hypo{a1}{\enot L}
+	\have{a2}{\enot O}{}
+	\have{a3}{L}{}
+	\have{a4}{\ered}{}
+\close
+\have{3b}{\enot\enot L}{}
+\have{3}{L}{}
+\end{proof}
+\columnbreak
+\begin{proof}
+\hypo{1}{Z \eif (C \eand \enot N)}
+\hypo{2}{\enot Z \eif (N \eand \enot C)}
+\open
+	\hypo{a1}{\enot(N \eor  C)}
+	\have{a2}{\enot N \eand \enot C} {}
+	\have{a6}{\enot N}{}
+	\have{b4}{\enot C}{}
+		\open
+		\hypo{b1}{Z}
+		\have{b2}{C \eand \enot N}{}
+		\have{b3}{C}{}
+		\have{red}{\ered}{}
+	\close
+	\have{a3}{\enot Z}{}
+	\have{a4}{N \eand \enot C}{}
+	\have{a5}{N}{}
+	\have{a7}{\ered}{}
+\close
+\have{3b}{\enot\enot(N \eor C)}{}
+\have{3}{N \eor C}{}
+\end{proof}
+\end{multicols}
+
+\problempart 
+Give a proof for each of these arguments:
+\begin{earg}
+\item $E\eor F$, $F\eor G$, $\enot F \therefore E \eand G$
+\item $M\eor(N\eif M) \therefore \enot M \eif \enot N$
+\item $(M \eor N) \eand (O \eor P)$, $N \eif P$, $\enot P \therefore M\eand O$
+\item $(X\eand Y)\eor(X\eand Z)$, $\enot(X\eand D)$, $D\eor M$ \therefore $M$
+\end{earg}
+
+
+
+\chapter{Proof-theoretic concepts}\label{s:ProofTheoreticConcepts}
+
+We shall introduce some new vocabulary. The following expression:
+$$\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n \proves \meta{C}$$
+means that there is some proof which starts with assumptions among $\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n$ and ends with $\meta{C}$ (and no undischarged assumptions other than those we started with). Derivatively, we shall write:
+$$\proves \meta{A}$$
+to mean that there is a proof of $\meta{A}$ with no assumptions. 
+
+The symbol `$\proves$' is called the \emph{single turnstile}. I want to emphasise that this is not the {double turnstile} symbol (`$\entails$') that we used to symbolise entailment in chapters \ref{ch.TruthTables} and \ref{ch.semantics}. The single turnstile, `$\proves$', concerns the existence of proofs; the double turnstile, `$\entails$', concerns the existence of valuations (or interpretations, when used for FOL). \emph{They are very different notions.}
+
+Armed with our `$\proves$' symbol, we can introduce a new terminology.
+	\factoidbox{
+		$\meta{A}$ is a \define{theorem} iff $\proves \meta{A}$
+	}
+To illustrate this, suppose I want to prove that `$\enot (A \eand \enot A)$' is a theorem. So I must start my proof without \emph{any} assumptions. However, since I want to prove a sentence whose main logical operator is a negation, I shall want to  immediately begin a subproof, with the additional assumption `$A \eand \enot A$', and show that this leads to contradiction. All told, then, the proof looks like this:
+	\begin{proof}
+		\open
+			\hypo{con}{A \eand \enot A}
+			\have{a}{A}\ae{con}
+			\have{na}{\enot A}\ae{con}
+			\have{red}{\ered}\ri{a, na}
+		\close
+		\have{lnc}{\enot (A \eand \enot A)}\ni{con-red}
+	\end{proof}
+We have therefore proved `$\enot (A \eand \enot A)$' on no (undischarged) assumptions. This particular theorem is an instance of what is sometimes called \emph{the Law of Non-Contradiction}.
+
+To show that something is a theorem, you just have to find a suitable proof. It is typically much harder to show that something is \emph{not} a theorem. To do this, you would have to demonstrate, not just that certain proof strategies fail, but that \emph{no} proof is possible. Even if you fail in trying to prove a sentence in a thousand different ways, perhaps the proof is just too long and complex for you to make out. Perhaps you just didn't try hard enough.
+
+Here is another new bit of terminology:
+	\factoidbox{
+		Two sentences \meta{A} and \meta{B} are \define{provably equivalent} iff each can be proved from the other; i.e., both $\meta{A}\proves\meta{B}$ and $\meta{B}\proves\meta{A}$.
+		}
+As in the case of showing that a sentence is a theorem, it is relatively easy to show that two sentences are provably equivalent: it just requires a pair of proofs. Showing that sentences are \emph{not} provably equivalent would be much harder: it is just as hard as showing that a sentence is not a theorem. 
+
+Here is a third, related, bit of terminology:
+	\factoidbox{
+		The sentences $\meta{A}_1,\meta{A}_2,\ldots, \meta{A}_n$ are \define{jointly contrary} iff a contradiction can be proved from them, i.e.\ $\meta{A}_1,\meta{A}_2,\ldots, \meta{A}_n \proves \ered$.
+	}
+It is easy to show that some sentences are jointly contrary: you just need to prove a contradiction from assuming all the sentences. Showing that some sentences are not jointly contrary is much harder. It would require more than just providing a proof or two; it would require showing that no proof of a certain kind is \emph{possible}.
+
+\
+\\
+This table summarises whether one or two proofs suffice, or whether we must reason about all possible proofs.
+
+\begin{center}
+\begin{tabular}{l l l}
+%\cline{2-3}
+ & \textbf{Yes} & \textbf{No}\\
+ \hline
+%\cline{2-3}
+theorem? & one proof & all possible proofs\\
+%contradiction? &  one proof  & all possible proofs\\
+equivalent? & two proofs & all possible proofs\\
+not contrary? & all possible proofs & one proof\\
+\end{tabular}
+\end{center}
+
+
+\practiceproblems
+\problempart
+Show that each of the following sentences is a theorem:
+\begin{earg}
+\item $O \eif O$
+\item $N \eor \enot N$
+\item $J \eiff [J\eor (L\eand\enot L)]$
+\item $((A \eif B) \eif A) \eif A$ 
+\end{earg}
+
+\problempart
+Provide proofs to show each of the following:
+\begin{earg}
+\item $C\eif(E\eand G), \enot C \eif G \proves G$
+\item $M \eand (\enot N \eif \enot M) \proves (N \eand M) \eor \enot M$
+\item $(Z\eand K)\eiff(Y\eand M), D\eand(D\eif M) \proves Y\eif Z$
+\item $(W \eor X) \eor (Y \eor Z), X\eif Y, \enot Z \proves W\eor Y$
+\end{earg}
+
+\problempart
+Show that each of the following pairs of sentences are provably equivalent:
+\begin{earg}
+\item $R \eiff E$, $E \eiff R$
+\item $G$, $\enot\enot\enot\enot G$
+\item $T\eif S$, $\enot S \eif \enot T$
+\item $U \eif I$, $\enot(U \eand \enot I)$
+\item $\enot (C \eif D), C \eand \enot D$
+\item $\enot G \eiff H$, $\enot(G \eiff H)$ 
+\end{earg}
+
+\problempart
+If you know that $\meta{A}\proves\meta{B}$, what can you say about $(\meta{A}\eand\meta{C})\proves\meta{B}$? What about $(\meta{A}\eor\meta{C})\proves\meta{B}$? Explain your answers.
+
+\
+
+\problempart In this section, I claimed that it is just as hard to show that two sentences are not provably equivalent, as it is to show that a sentence is not a theorem. Why did I claim this? (\emph{Hint}: think of a sentence that would be a theorem iff \meta{A} and \meta{B} were provably equivalent.)
+
+
+
+
+
+\chapter{Proof strategies}
+There is no simple recipe for proofs, and there is no substitute for practice. Here, though, are some rules of thumb and strategies to keep in mind.
+
+\paragraph{Work backwards from what you want.}
+The ultimate goal is to obtain the conclusion. Look at the conclusion and ask what the introduction rule is for its main logical operator. This gives you an idea of what should happen \emph{just before} the last line of the proof. Then you can treat this line as if it were your goal. Ask what you could do to get to this new goal.
+
+For example: If your conclusion is a conditional $\meta{A}\eif\meta{B}$, plan to use the {\eif}I rule. This requires starting a subproof in which you assume \meta{A}. The subproof ought to end with \meta{B}. So, what can you do to get $\meta{B}$?
+
+\paragraph{Work forwards from what you have.}
+When you are starting a proof, look at the premises; later, look at the sentences that you have obtained so far. Think about the elimination rules for the main operators of these sentences. These will tell you what your options are.
+
+For a short proof, you might be able to eliminate the premises and introduce the conclusion. A long proof is formally just a number of short proofs linked together, so you can fill the gap by alternately working back from the conclusion and forward from the premises.
+
+\paragraph{Try proceeding indirectly.}
+If you cannot find a way to show $\meta{A}$ directly, try starting by assuming $\enot \meta{A}$. If a contradiction follows, then you will be able to obtain $\enot \enot \meta{A}$ by $\enot$I, and then $\meta{A}$ by DNE.  
+
+\paragraph{Persist.}
+Try different things. If one approach fails, then try something else.
+
+
+\chapter{Derived rules}\label{s:Derived}
+In this section, we shall see why I introduced the rules of our proof system in two separate batches. In particular, I want to show that the additional rules of \S\ref{s:Further} are not strictly speaking necessary, but can be derived from the basic rules of \S\ref{s:BasicTFL}.
+
+\section{Derivation of Reiteration}
+Suppose you have some sentence on some line of your deduction:
+\begin{proof}
+	\have[m]{a}{\meta{A}}
+\end{proof}
+You now want to repeat yourself, on some line $k$. You could just invoke the rule R, introduced in \S\ref{s:Further}. But equally well, you can do this with the \emph{basic} rules of \S\ref{s:BasicTFL}:
+\begin{proof}
+	\have[m]{a}{\meta{A}}
+	\have[k]{aa}{\meta{A} \eand \meta{A}}\ai{a}
+	\have{a2}{\meta{A}}\ae{aa}
+\end{proof}
+To be clear: this is not a proof. Rather, it is a proof  \emph{scheme}. After all, it uses a variable, `$\meta{A}$', rather than a sentence of TFL. But the point is simple. Whatever sentences of TFL we plugged in for `$\meta{A}$', and whatever lines we were working on, we could produce a bona fide proof. So you can think of this as a recipe for producing proofs. 
+
+Indeed, it is a recipe which shows us that, anything we can prove using the rule R, we can prove (with one more line) using just the \emph{basic} rules of \S\ref{s:BasicTFL}. So we can describe the rule R as a \emph{derived} rule, since its justification is derived from our basic rules.
+
+
+\section{Derivation of Disjunctive syllogism}
+Suppose that you are in a proof, and you have something of this form:
+\begin{proof}
+	\have[m]{ab}{\meta{A}\eor\meta{B}}
+	\have[n]{na}{\enot \meta{A}}
+\end{proof}
+You now want, on line $k$, to prove $\meta{B}$. You can do this with the rule of DS, introduced in \S\ref{s:Further}. But equally well, you can do this with the \emph{basic} rules of \S\ref{s:BasicTFL}:
+	\begin{proof}
+		\have[m]{ab}{\meta{A}\eor\meta{B}}
+		\have[n]{na}{\enot \meta{A}}
+		\open
+			\hypo[k]{a}{\meta{A}}
+			\have{red}{\ered}\ri{a, na}
+			\have{b1}{\meta{B}}\re{red}
+		\close
+		\open
+			\hypo{b}{\meta{B}}
+			\have{bb}{\meta{B} \eand \meta{B}}\ai{b, b}
+			\have{b2}{\meta{B}}\ae{bb}
+		\close
+	\have{con}{\meta{B}}\oe{ab, a-b1, b-b2}
+\end{proof}
+So the DS rule, again, can be derived from our more basic rules. Adding it to our system did not make any new proofs possible. Anytime you use the DS rule, you could always take a few extra lines and prove the same thing using only our basic rules. It is a \emph{derived} rule.
+
+\section{Derivation of Modus tollens}
+Suppose you have the following in your proof:
+\begin{proof}
+	\have[m]{ab}{\meta{A}\eif\meta{B}}
+	\have[n]{a}{\enot\meta{B}}
+\end{proof}
+You now want, on line $k$, to prove $\enot \meta{A}$. You can do this with the rule of MT, introduced in \S\ref{s:Further}. But equally well, you can do this with the \emph{basic} rules of \S\ref{s:BasicTFL}:
+\begin{proof}
+	\have[m]{ab}{\meta{A}\eif\meta{B}}
+	\have[n]{nb}{\enot\meta{B}}
+		\open
+		\hypo[k]{a}{\meta{A}}
+		\have{b}{\meta{B}}\ce{ab, a}
+		\have{nb1}{\ered}\ri{b, nb}
+		\close
+	\have{no}{\enot\meta{A}}\ni{a-nb1}
+\end{proof}
+Again, the rule of MT can be derived from the \emph{basic} rules of \S\ref{s:BasicTFL}.
+
+\section{Derivation of Double-negation elimination}
+Consider the following deduction scheme:
+	\begin{proof}
+	\have[m]{m}{\enot \enot \meta{A}}
+	\open
+		\hypo[k]{a}{\meta{A}}
+		\have{a1}{\meta{A}}\by{R}{a}
+	\close
+	\open
+		\hypo{na}{\enot \meta{A}}
+		\have{red}{\ered}\ri{na, m}
+		\have{a2}{\meta{A}}\re{red}
+	\close
+	\have{con}{\meta{A}}\tnd{a-a1, na-a2}
+\end{proof}
+Again, then, we can derive the DNE rule from the \emph{basic} rules of \S\ref{s:BasicTFL}.
+
+\section{Derivation of De Morgan rules}
+Here is a demonstration of how we could derive the first De Morgan rule:
+ 	\begin{proof}
+		\have[m]{nab}{\enot (\meta{A} \eand \meta{B})}
+		\open
+			\hypo[k]{a}{\meta{A}}
+			\open
+				\hypo{b}{\meta{B}}
+				\have{ab}{\meta{A} \eand \meta{B}}\ai{a,b}
+				\have{nab1}{\ered}\ri{ab, nab}
+			\close
+			\have{nb}{\enot \meta{B}}\ni{b-nab1}
+			\have{dis}{\enot\meta{A} \eor \enot \meta{B}}\oi{nb}
+		\close
+		\open
+			\hypo{na1}{\enot \meta{A}}
+			\have{dis1}{\enot\meta{A} \eor \enot \meta{B}}\oi{na1}
+		\close
+		\have{con}{\enot \meta{A} \eor \enot \meta{B}}\tnd{a-dis, na1-dis1}
+	\end{proof}
+Here is a demonstration of how we could derive the second De Morgan rule:
+ 	\begin{proof}
+		\have[m]{nab}{\enot \meta{A} \eor \enot \meta{B}}
+		\open
+			\hypo[k]{ab}{\meta{A} \eand \meta{B}}
+			\have{a}{\meta{A}}\ae{ab}
+			\have{b}{\meta{B}}\ae{ab}
+			\open
+				\hypo{na}{\enot \meta{A}}
+				\have{c1}{\ered}\ri{a, na}
+			\close
+			\open
+				\hypo{nb}{\enot \meta{B}}
+				\have{c2}{\ered}\ri{b, nb}
+			\close
+			\have{con2}{\ered}\oe{nab, na-c1, nb-c2}
+		\close
+		\have{nab}{\enot (\meta{A} \eand \meta{B})}\ni{ab-con2}
+	\end{proof}
+Similar demonstrations can be offered explaining how we could derive the third and fourth De Morgan rules. These are left as exercises.
+
+\practiceproblems
+
+\problempart
+Provide proof schemes that justify the addition of the third and fourth De Morgan rules as derived rules. 
+
+\
+
+\problempart
+The proofs you offered in response to the practice exercises of \S\S\ref{s:Further}--\ref{s:ProofTheoreticConcepts} used derived rules. Replace the use of derived rules, in such proofs, with only basic rules. You will find some `repetition' in the resulting proofs; in such cases, offer a streamlined proof using only basic rules.  (This will give you a sense, both of the power of derived rules, and of how all the rules interact.)

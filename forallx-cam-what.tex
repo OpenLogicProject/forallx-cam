@@ -1,0 +1,279 @@
+%!TEX root = forallxcam.tex
+\part{Key notions}
+\label{ch.intro}
+\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
+
+\chapter{Arguments}\label{argRaining}\label{s:Arguments}
+Logic is the business of evaluating arguments; sorting the good from the bad. 
+
+In everyday language, we sometimes use the word `argument' to talk about belligerent shouting matches. Logic is not concerned with such teeth-gnashing and hair-pulling. They are not arguments, in our sense; they are disagreements.
+
+An argument, as we shall understand it, is something more like this:
+	\begin{earg}
+		\item[] It is raining heavily.
+		\item[] If you do not take an umbrella, you will get soaked.
+		\item[So:] You should take an umbrella.
+	\end{earg}
+We here have a series of sentences. The word `So' on the third line indicates that the final sentence expresses the \emph{conclusion} of the argument. The two sentences before that express \emph{premises} of the argument. If you believe the premises, then the argument (perhaps) provides you with a reason to believe the conclusion. 
+
+This is the sort of thing that logicians are interested in. We shall say that an argument is any collection of premises, together with a conclusion. 
+
+In the example just given, we used individual sentences to express both of the argument's premises, and we used a third sentence to express the argument's conclusion. Many arguments are expressed in this way. But a single sentence can contain a complete argument. Consider:
+	\begin{quote}
+		 I was wearing my sunglasses; so it must have been sunny.
+	\end{quote}
+This argument has one premise followed by a conclusion. 
+
+Many arguments start with premises, and end with a conclusion. But not all of them. The argument with which this section began might equally have been presented with the conclusion at the beginning, like so:
+	\begin{quote}
+		You should take an umbrella. After all, it is raining heavily. And if you do not take an umbrella, you will get soaked. 
+	\end{quote}
+Equally, it might have been presented with the conclusion in the middle:
+	\begin{quote}
+		It is raining heavily. Accordingly, you should take an umbrella, given that if you do not take an umbrella, you will get soaked.
+	\end{quote}
+When approaching an argument, we want to know whether or not the conclusion follows from the premises. So the first thing to do is to separate out the conclusion from the premises. As a guideline, the following words are often used to indicate an argument's conclusion:
+	\begin{center}
+		so, therefore, hence, thus, accordingly, consequently
+	\end{center}
+And these expressions often indicate that we are dealing with a premise, rather than a conclusion
+	\begin{center}
+		since, because, given that
+	\end{center}
+But in analysing an argument, there is no substitute for a good nose.
+
+\practiceproblems
+At the end of some sections, there are problems that review and explore the material covered in the chapter. There is no substitute for actually working through some problems, because logic is more about a way of thinking than it is about memorising facts.
+
+
+\
+\\Highlight the phrase which expresses the conclusion of each of these arguments:
+\begin{earg}
+	\item It is sunny. So I should take my sunglasses.
+	\item It must have been sunny. I did wear my sunglasses, after all.
+	\item No one but you has had their hands in the cookie-jar. And the scene of the crime is littered with cookie-crumbs. You're the culprit!
+	\item Miss Scarlett and Professor Plum were in the study at the time of the murder. And Reverend Green had the candlestick in the ballroom, and we know that there is no blood on his hands. Hence Colonel Mustard did it in the kitchen with the lead-piping. Recall, after all, that the gun had not been fired.
+\end{earg}
+
+
+\chapter{Valid arguments}\label{s:Valid}
+In \S\ref{s:Arguments}, we gave a very permissive account of what an argument is. To see just how permissive it is, consider the following:
+	\begin{earg}
+		\item[] There is a bassoon-playing dragon in the \emph{Cathedra Romana}.
+		\item[So:] Salvador Dali was a poker player.
+	\end{earg}
+We have been given a premise and a conclusion. So we have an argument. Admittedly, it is a \emph{terrible} argument. But it is still an argument.
+
+\section{Two ways that arguments can go wrong}
+
+It is worth pausing to ask what makes the argument so weak. In fact, there are two sources of weakness. First: the argument's (only) premise is obviously false. The Pope's throne is only ever occupied by a hat-wearing man. Second: the conclusion does not follow from the premise of the argument. Even if there were a bassoon-playing dragon in the Pope's throne, we would not be able to draw any conclusion about Dali's predilection for poker.
+
+What about the main argument discussed in \S\ref{s:Arguments}? The premises of this argument might well be false. It might be sunny outside; or it might be that you can avoid getting soaked without taking an umbrella. But even if both premises were true, it does not necessarily show you that you should take an umbrella. Perhaps you enjoy walking in the rain, and you would like to get soaked. So, even if both premises were true, the conclusion might nonetheless be false.
+
+%Consider a third argument:
+%	\begin{earg}
+%		\item[] You are reading this book.
+%		\item[] This is a logic book.
+%		\item[So:] You are a logic student.
+%	\end{earg}
+%This is not a terrible argument. Both of the premises are true. And most people who read this book are logic students. Yet, it is possible for someone besides a logic student to read this book. If your roommate picked up the book and thumbed through it, they would not immediately become a logic student. So the premises of this argument, even though they are true, do not guarantee the truth of the conclusion.
+%
+The general point is as follows. For any argument, there are two ways that it might go wrong:
+	\begin{ebullet}
+		\item One or more of the premises might be false. 
+		\item The conclusion might not follow from the premises.
+	\end{ebullet}
+To determine whether or not the premises of an argument are true is often a very important matter. But that is normally a task best left to experts in the field: as it might be, historians, scientists, or whomever. In our role as \emph{logicians}, we are more concerned with arguments \emph{in general}. So we are (usually) more concerned with the second way in which arguments can go wrong.
+
+So: we are interested in whether or not a conclusion \emph{follows from} some premises. Don't, though, say that the premises \emph{infer} the conclusion. Entailment is a relation between premises and conclusions; inference is something we do. (So if you want to mention inference when the conclusion follows from the premises, you could say that \emph{one may infer} the conclusion from the premises.)
+
+
+
+\section{Validity}
+As logicians, we want to be able to determine when the conclusion of an argument follows from the premises. One way to put this is as follows. We want to know whether, if all the premises were true, the conclusion would also have to be true. This motivates a definition:
+	\factoidbox{
+		An argument is \define{valid} if and only if it is impossible for all of the premises to be true and the conclusion false.
+	}
+The crucial thing about a valid argument is that it is impossible for the premises to be true whilst the conclusion is false. Consider this example:
+	\begin{earg}
+		\item[] Oranges are either fruits or musical instruments.
+		\item[] Oranges are not fruits.
+		\item[So:] Oranges are musical instruments.
+	\end{earg}
+The conclusion of this argument is ridiculous. Nevertheless, it follows from the premises. \emph{If} both premises were true, \emph{then} the conclusion just has to be true. So the argument is valid. 
+
+This highlights that valid arguments do not need to have true premises or true conclusions. Conversely, having true premises and a true conclusion is not enough to make an argument valid. Consider this example:
+	\begin{earg}
+		\item[] London is in England.
+		\item[] Beijing is in China.
+		\item[So:] Paris is in France.
+	\end{earg}
+The premises and conclusion of this argument are, as a matter of fact, all true. But the argument is invalid. If Paris were to declare independence from the rest of France, then the conclusion would be false, even though both of the premises would remain true. Thus, it is \emph{possible} for the premises of this argument to be true and the conclusion false. The argument is therefore invalid.
+
+The important thing to remember is that validity is not about the actual truth or falsity of the sentences in the argument. It is about whether it is \emph{possible} for all the premises to be true and the conclusion false. Nonetheless, we shall say that an argument is \define{sound} if and only if it is both valid and all of its premises are true.
+
+
+
+\section{Inductive arguments}
+Many good arguments are invalid. Consider this one:
+	\begin{earg}
+		\item[] In January 1997, it rained in London.
+		\item[] In January 1998, it rained in London.
+		\item[] In January 1999, it rained in London.
+		\item[] In January 2000, it rained in London.
+	\item[So:] It rains every January in London.
+\end{earg}
+This argument generalises from observations about several cases to a conclusion about all cases. Such arguments are called \define{inductive} arguments. The argument could be made stronger by adding additional premises before drawing the conclusion: In January 2001, it rained in London; In January 2002\ldots. But, however many premises of this form we add, the argument will remain invalid. Even if it has rained in London in every January thus far, it remains \emph{possible} that London will stay dry next January.
+
+The point of all this is that inductive arguments---even good inductive arguments---are not (deductively) valid. They are not \emph{watertight}. Unlikely though it might be, it is \emph{possible} for their conclusion to be false, even when all of their premises are true. In this book, we shall set aside (entirely) the question of what makes for a good inductive argument. Our interest is simply in sorting the (deductively) valid arguments from the invalid ones.  
+
+
+\practiceproblems
+\problempart
+Which of the following arguments are valid? Which are invalid?
+
+\begin{earg}
+\item Socrates is a man.
+\item All men are carrots.
+\item[So:] Therefore, Socrates is a carrot.
+\end{earg}
+
+\begin{earg}
+\item Abe Lincoln was either born in Illinois or he was once president.
+\item Abe Lincoln was never president.
+\item[So:] Abe Lincoln was born in Illinois.
+\end{earg}
+
+\begin{earg}
+\item If I pull the trigger, Abe Lincoln will die.
+\item I do not pull the trigger.
+\item[So:] Abe Lincoln will not die.
+\end{earg}
+
+\begin{earg}
+\item Abe Lincoln was either from France or from Luxemborg.
+\item Abe Lincoln was not from Luxemborg.
+\item[So:] Abe Lincoln was from France.
+\end{earg}
+
+\begin{earg}
+\item If the world were to end today, then I would not need to get up tomorrow morning.
+\item I will need to get up tomorrow morning.
+\item[So:] The world will not end today.
+\end{earg}
+
+\begin{earg}
+\item Joe is now 19 years old.
+\item Joe is now 87 years old.
+\item[So:] Bob is now 20 years old.
+\end{earg}
+
+\problempart
+\label{pr.EnglishCombinations}
+Could there be:
+	\begin{earg}
+		\item A valid argument that has one false premise and one true premise?
+		\item A valid argument that has only false premises?
+		\item A valid argument with only false premises and a false conclusion?
+		\item A sound argument with a false conclusion?
+		\item An invalid argument that can be made valid by the addition of a new premise?
+		\item A valid argument that can be made invalid by the addition of a new premise?
+	\end{earg}
+In each case: if so, give an example; if not, explain why not.
+
+
+\chapter{Other logical notions}\label{s:BasicNotions}
+
+In \S\ref{s:Valid}, we introduced the idea of a valid argument. We will want to introduce some more ideas that are important in logic.
+
+\section{Truth values}
+As we said in \S\ref{s:Arguments}, arguments consist of premises and a conclusion. Note that many kinds of English sentence cannot be used to express premises or conclusions of arguments. For example:
+	\begin{ebullet}
+		\item \textbf{Questions}, e.g.\ `are you feeling sleepy?'
+		\item \textbf{Imperatives}, e.g.\ `Wake up!'
+		\item \textbf{Exclamations}, e.g.\ `Ouch!'
+	\end{ebullet}
+The common feature of these three kinds of sentence is that they are not \emph{assertoric}: they cannot be true or false. It does not even make sense to ask whether a \emph{question} is true (it only makes sense to ask whether the \emph{answer} to a question is true).
+
+The general point is that, the premises and conclusion of an argument must be capable of having a \define{truth value}. And the two truth values that concern us are just True and False. 
+
+
+
+\section{Consistency}
+Consider these two sentences:
+	\begin{ebullet}
+		\item[B1.] Jane's only brother is shorter than her.
+		\item[B2.] Jane's only brother is taller than her.
+	\end{ebullet}
+Logic alone cannot tell us which, if either, of these sentences is true. Yet we can say that \emph{if} the first sentence (B1) is true, \emph{then} the second sentence (B2) must be false. And if B2 is true, then B1 must be false. It is impossible that both sentences are true together. These sentences are inconsistent with each other. And this motivates the following definition:
+	\factoidbox{
+		Sentences are \define{jointly consistent} if and only if it is possible for them all to be true together.
+	}
+Conversely, B1 and B2 are \emph{jointly inconsistent}.
+
+We can ask about the consistency of any number of sentences. For example, consider the following four sentences:
+	\label{MartianGiraffes}
+	\begin{ebullet}
+		\item[G1.] There are at least four giraffes at the wild animal park.
+		\item[G2.] There are exactly seven gorillas at the wild animal park.
+		\item[G3.] There are not more than two martians at the wild animal park.
+		\item[G4.] Every giraffe at the wild animal park is a martian.
+	\end{ebullet}
+G1 and G4 together entail that there are at least four martian giraffes at the park. This conflicts with G3, which implies that there are no more than two martian giraffes there. So the sentences G1--G4 are jointly inconsistent. They cannot all be true together. (Note that the sentences G1, G3 and G4 are jointly inconsistent. But if sentences are already jointly inconsistent, adding an extra sentence to the mix will not make them consistent!)
+
+
+\section{Necessity and contingency}
+In assessing arguments for validity, we care about what would be true \emph{if} the premises were true. But some sentences just \emph{must} be true. Consider these sentences:
+	\begin{earg}
+		\item[\ex{Acontingent}] It is raining.
+		\item[\ex{Atautology}] Either it is raining here, or it is not.
+		\item[\ex{Acontradiction}] It is both raining here and not raining here.
+	\end{earg}
+In order to know if sentence \ref{Acontingent} is true, you would need to look outside or check the weather channel. It might be true; it might be false.
+
+Sentence \ref{Atautology} is different. You do not need to look outside to know that it is true. Regardless of what the weather is like, it is either raining or it is not. That is a \define{necessary truth}. 
+
+Equally, you do not need to check the weather to determine whether or not sentence \ref{Acontradiction} is true. It must be false, simply as a matter of logic. It might be raining here and not raining across town; it might be raining now but stop raining even as you finish this sentence; but it is impossible for it to be both raining and not raining in the same place and at the same time. So, whatever the world is like, it is not both raining here and not raining here. It is a \define{necessary falsehood}.
+
+Something which is capable of being true or false, but which is neither necessarily true nor necessarily false, is \define{contingent}.
+
+%Something might \emph{always} be true and still be contingent. For instance, if there never were a time when the universe contained fewer than seven things, then the sentence `At least seven things exist' would always be true. Yet the sentence is contingent: the world could have been much, much smaller than it is, and then the sentence would have been false. 
+
+
+\practiceproblems
+\problempart
+\label{pr.EnglishTautology}
+For each of the following: Is it necessarily true, necessarily false, or contingent?
+\begin{earg}
+\item Caesar crossed the Rubicon.
+\item Someone once crossed the Rubicon.
+\item No one has ever crossed the Rubicon.
+\item If Caesar crossed the Rubicon, then someone has.
+\item Even though Caesar crossed the Rubicon, no one has ever crossed the Rubicon.
+\item If anyone has ever crossed the Rubicon, it was Caesar.
+\end{earg}
+
+\problempart
+\label{pr.MartianGiraffes}
+Look back at the sentences G1--G4 in this section (about giraffes, gorillas and martians in the wild animal park), and consider each of the following:
+\begin{earg}
+\item G2, G3, and G4
+\item G1, G3, and G4
+\item G1, G2, and G4
+\item G1, G2, and G3
+\end{earg}
+Which are jointly consistent? Which are jointly inconsistent?
+
+\
+
+\problempart
+\label{pr.EnglishCombinations}
+Could there be:
+\begin{earg}
+\item A valid argument, the conclusion of which is necessarily false?
+\item An invalid argument, the conclusion of which is necessarily true?
+\item Jointly consistent sentences, one of which is necessarily false?
+\item Jointly inconsistent sentences, one of which is necessarily true?
+\end{earg}
+In each case: if so, give an example; if not, explain why not.

@@ -1,0 +1,33 @@
+\documentclass[oneside, 10pt, a4paper]{memoir}
+\usepackage{forallxcam}
+\begin{document}
+\midsloppy
+
+\pagestyle{forallxpage}
+
+\frontmatter
+\include{forallx-cam-frontmatter}
+
+\newpage
+\tableofcontents*
+
+\mainmatter
+\include{forallx-cam-what}
+\include{forallx-cam-tfl}
+\include{forallx-cam-truthtables}
+\include{forallx-cam-fol}
+\include{forallx-cam-interpretations}
+\include{forallx-cam-prooftfl}
+\include{forallx-cam-prooffol}
+
+\makeatletter 
+\setcounter{chapter}{0}
+\renewcommand*{\thechapter}{\Alph{chapter}} %TB: appendix sections have letters
+\renewcommand*{\thesection}{\Alph{chapter}.\arabic{section}} %TB: appendix sections have letters
+\makeatother 
+\include{forallx-cam-notation}
+\include{forallx-cam-alternatives}
+\include{forallx-cam-quickreference}
+\include{forallx-cam-backmatter}
+
+\end{document}

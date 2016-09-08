@@ -1,0 +1,126 @@
+%!TEX root = forallxcam.tex
+
+\chapter{Alternative proof systems}
+In formulating my natural deduction system, I treated certain rules of natural deduction as \emph{basic}, and others as \emph{derived}. However, I could equally well have taken various different rules as basic or derived. I shall illustrate this point by considering some alternative treatments of disjunction, negation, and the quantifiers. I shall also explain why I have made the choices that I have.
+
+
+\section{Alternative disjunction elimination}
+Some systems take DS as their basic rule for disjunction elimination. Such systems can then treat the $\eor$E rule as a derived rule. For they might offer the following proof scheme: 
+	\begin{proof}
+		\have[m]{ab}{\meta{A}\eor\meta{B}}
+		\open
+			\hypo[i]{a}{\meta{A}} {}
+			\have[j]{c1}{\meta{C}}
+		\close
+		\open
+			\hypo[k]{b}{\meta{B}}{}
+			\have[l]{c2}{\meta{C}}
+		\close
+		\have[n]{aic}{\meta{A} \eif \meta{C}}\ci{a-c1}
+		\have{bic}{\meta{B} \eif \meta{C}}\ci{b-c2}
+		\open
+			\hypo{c}{\meta{C}}
+			\have{c1}{\meta{C}}\by{R}{c}
+		\close
+		\open
+		\hypo{nc}{\enot \meta{C}}
+		\open
+			\hypo{a1}{\meta{A}}
+			\have{c2}{\meta{C}}\ce{aic, a1}
+			\have{nc1}{\ered}\ri{c2, nc}
+		\close
+		\have{na}{\enot\meta{A}}\ni{a1-nc1}
+		\have{b}{\meta{B}}\ds{ab, na}
+		\have{c3}{\meta{C}}\ce{bic, b}
+	\close
+	\have{con}{\meta{C}}\tnd{c-c1, nc-c3}
+\end{proof}
+So why did I choose to take $\eor$E as basic, rather than DS?\footnote{P.D.\ Magnus's original version of this book went the other way.} My reasoning is that DS involves the use of `$\enot$' in the statement of the rule. It is in some sense `cleaner' for our disjunction elimination rule to avoid mentioning \emph{other} connectives. 
+
+
+\section{Alternative negation rules}
+Some systems take the following rule as their basic negation introduction rule:
+\begin{proof}
+	\open
+		\hypo[m]{a}{\meta{A}}
+		\have[n-1]{b}{\meta{B}}
+		\have[n]{nb}{\enot\meta{B}}
+	\close
+	\have[\ ]{}{\enot\meta{A}}\by{$\enot$I*}{a-nb}
+\end{proof}
+and the following as their basic negation elimination rule:
+\begin{proof}
+	\open
+		\hypo[m]{na}{\enot\meta{A}}
+		\have[n][-1]{b}{\meta{B}}
+		\have{nb}{\enot\meta{B}}
+	\close
+	\have[\ ]{a}{\meta{A}}\by{$\enot$E*}{na-nb}
+\end{proof}
+Using these two rules, we could have derived all of the rules governing negation and contradiction that we have taken as basic (i.e.\ $\ered$I, $\ered$E, $\enot$I and TND). Indeed, we could have avoided all use of the symbol `$\ered$' altogether. Negation would have had a single introduction and elimination rule, and would have behaved much more like the other connectives.
+
+The resulting system would have had fewer rules than ours. So why did I chose to separate out contradiction, and to use an explicit rule TND?\footnote{Again, P.D.\ Magnus's original version of this book went the other way.}
+
+My first reason is that adding the symbol `$\ered$' to our natural deduction system makes proofs considerably easier to work with.
+
+My second reason is that a lot of fascinating philosophical discussion has focussed on the acceptability or otherwise of \emph{tertium non datur} (i.e.\ TND) and \emph{ex falso quodlibet} (i.e.\ $\ered$E). By treating these as separate rules in the proof system, we will be  in a better position to engage with that philosophical discussion. In particular: having invoked these rules explicitly, it will be much easier for us to know what a system which lacked these rules would look like.
+
+
+
+\section{Alternative quantification rules}
+An alternative approach to the quantifiers is to take as basic the rules for $\forall$I and $\forall$E from \S\ref{s:BasicFOL}, and also two CQ rule which allow us to move from $\forall \meta{x} \enot \meta{A}$ to $\enot \exists \meta{x} \meta{A}$ and vice versa.\footnote{Warren Goldfarb follows this line in \emph{Deductive Logic}, 2003, Hackett Publishing Co.}  
+
+Taking only these rules as basic, we could have derived the  $\exists$I and $\exists$E rules provided in \S\ref{s:BasicFOL}. To derive the $\exists$I rule is fairly simple. Suppose $\meta{A}$ contains the name $\meta{c}$, and contains no instances of the variable $\meta{x}$, and that we want to do the following:
+\begin{proof}
+	\have[m]{a}{\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}
+	\have[k]{c}{\exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{c}\ldots)}
+\end{proof}
+This is not yet permitted, since in this new system, we do not have the $\exists$I rule. We can, however, offer the following:
+\begin{proof}
+	\hypo[m]{a}{\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}
+	\open
+		\hypo{nEna}{\enot \exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{c}\ldots)}
+		\have{Ana}{\forall \meta{x} \enot \meta{A}(\ldots \meta{x} \ldots \meta{c}\ldots)}\cq{nEna}
+		\have{nAc}{\enot\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}\Ae{Ana}
+		\have{red}{\ered}\ri{a, nAc}
+	\close
+	\have{nnEa}{\enot \enot \exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{c}\ldots)}\ni{nEna-red}
+	\have{end}{\exists\meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{c}\ldots)}\dne{nnEa}
+\end{proof}\noindent
+To derive the $\exists$E rule is rather more subtle. This is because the $\exists$E rule has an important constraint (as, indeed, does the $\forall$I rule), and we need to make sure that we are respecting it. So, suppose we are in a situation where we \emph{want} to do the following:
+\begin{proof}
+	\have[m]{ExA}{\exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)}
+	\open
+		\hypo[i]{Ac}{\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}
+		\have[j]{B}{\meta{B}}
+	\close
+	\have[k]{end}{\meta{B}}
+\end{proof}\noindent
+ where $\meta{c}$ does not occur in any undischarged assumptions, or in $\meta{B}$, or in $\exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)$. Ordinarily, we would be allowed to use the $\exists$E rule; but we are not here assuming that we have access to this rule as a basic rule. Nevertheless, we could offer the following, more complicated derivation:
+ 
+\begin{proof}
+	\have[m]{ExA}{\exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)}
+	\open
+		\hypo[i]{Ac}{\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}
+		\have[j]{B}{\meta{B}}
+	\close
+	\have[k]{condi}{\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots) \eif \meta{B}}\ci{Ac-B}
+	\open
+		\hypo{nB}{\enot \meta{B}}
+		\have{nAc}{\enot \meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}\mt{condi, nB}
+		\have{AxnA}{\forall \meta{x} \enot \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)}\by{$\forall$I}{nAc}
+		\have{nEA}{\enot \exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)}\cq{AxnA}
+		\have{red2}{\ered}\ri{ExA, nEA}
+	\close
+	\have{nnB}{\enot\enot\meta{B}}\ni{nB-red2}
+	\have{end}{\meta{B}}\dne{nnB}
+\end{proof}\noindent
+We are permitted to use $\forall$I on line $k+3$ because $\meta{c}$ does not occur in any  undischarged assumptions or in $\meta{B}$. The entries on lines $k+4$ and $k+1$ contradict each other, because $\meta{c}$ does not occur in $\exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{x} \ldots)$.
+
+Armed with these derived rules, we could now go on to derive the two remaining CQ rules, exactly as in \S\ref{s:DerivedFOL}.
+
+So, why did I start with all of the quantifier rules as basic, and then derive the CQ rules? 
+
+My first reason is that it seems more intuitive to treat the quantifiers as on a par with one another, giving them their own basic rules for introduction and elimination. 
+
+My second reason relates to the discussion of alternative negation rules. In the derivations of the rules of $\exists$I and $\exists$E that I have offered in this section, I invoked DNE. This is a derived rule, whose derivation essentially depends upon the use of TND. But, as I mentioned earlier, TND is a contentious rule. So, if we want to move to a system which abandons TND, but which still allows us to use existential quantifiers, we shall want to take the introduction and elimination rules for the quantifiers as basic, and take the CQ rules as derived. (Indeed, in a system without TND, we shall be \emph{unable} to derive the CQ rule which moves from $\enot \forall \meta{x} \meta{A}$ to $\exists \meta{x} \enot \meta{A}$.)
