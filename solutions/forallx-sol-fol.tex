@@ -1,0 +1,533 @@
+%!TEX root = forallxsol.tex
+%\part{First-order logic}
+%\label{ch.FOL}
+%\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
+\setcounter{chapter}{14}
+\chapter{Sentences with one quantifier}\label{s:MoreMonadic}\setcounter{ProbPart}{0}
+\problempart
+\label{pr.BarbaraEtc}
+Here are the syllogistic figures identified by Aristotle and his successors, along with their medieval names:
+\begin{ebullet}
+	\item \textbf{Barbara.} All G are F. All H are G. So:  All H are F
+	\item[] \myanswer{$\forall x (Gx \eif Fx), \forall x (Hx \eif Gx) \therefore \forall x (Hx \eif Fx)$}
+	\item \textbf{Celarent.} No G are F. All H are G. So: No H are F
+	\item[] \myanswer{$\forall x (Gx \eif \enot Fx), \forall x (Hx \eif Gx) \therefore \forall x (Hx \eif \enot Fx)$}
+	\item \textbf{Ferio.} No G are F. Some H is G. So: Some H is not F
+	\item[] \myanswer{$\forall x (Gx \eif \enot Fx), \exists x (Hx \eand  Gx) \therefore \exists x (Hx \eand \enot Fx)$}
+	\item \textbf{Darii.} All G are H. Some H is G. So: Some H is F.
+	\item[] \myanswer{$\forall x (Gx \eif Fx), \exists x (Hx \eand  Gx) \therefore \exists x (Hx \eand  Fx)$}
+	\item \textbf{Camestres.} All F are G. No H are G. So: No H are F.
+	\item[] \myanswer{$\forall x (Fx \eif Gx), \forall x (Hx \eif \enot Gx) \therefore \forall x (Hx \eif \enot Fx)$}
+	\item \textbf{Cesare.} No F are G. All H are G. So: No H are F.
+	\item[] \myanswer{$\forall x (Fx \eif \enot Gx), \forall x (Hx \eif Gx) \therefore \forall x (Hx \eif \enot Fx)$}
+	\item \textbf{Baroko.} All F are G. Some H is not G. So: Some H is not F.
+	\item[] \myanswer{$\forall x (Fx \eif Gx), \exists x (Hx \eand \enot Gx) \therefore \exists x (Hx \eand \enot Fx)$}
+	\item \textbf{Festino.} No F are G. Some H are G. So: Some H is not F.
+	\item[] \myanswer{$\forall x (Fx \eif \enot Gx), \exists x (Hx \eand Gx) \therefore \exists x (Hx \eand \enot Fx)$}
+	\item \textbf{Datisi.} All G are F. Some G is H. So: Some H is F.
+	\item[] \myanswer{$\forall x (Gx \eif Fx), \exists x (Gx \eand Hx) \therefore \exists x (Hx \eand Fx)$}
+	\item \textbf{Disamis.} Some G is F. All G are H. So: Some H is F.
+	\item[] \myanswer{$\exists x (Gx \eand Fx), \forall x (Gx \eif Hx) \therefore \exists x (Hx \eand Fx)$}
+	\item \textbf{Ferison.} No G are F. Some G is H. So: Some H is not F.
+	\item[] \myanswer{$\forall x (Gx \eif \enot Fx), \exists x (Gx \eand Hx) \therefore \exists x (Hx \eand \enot Fx)$}
+	\item \textbf{Bokardo.} Some G is not F. All G are H. So:  Some H is not F.
+	\item[] \myanswer{$\exists x (Gx \eand \enot Fx), \forall x (Gx \eif Hx) \therefore \exists x (Hx \eand \enot Fx)$}
+	\item \textbf{Camenes.} All F are G. No G are H So: No H is F.
+	\item[] \myanswer{$\forall x (Fx \eif Gx), \forall x (Gx \eif \enot Hx) \therefore \forall x (Hx \eif \enot Fx)$}
+	\item \textbf{Dimaris.} Some F is G. All G are H. So: Some H is F.
+	\item[] \myanswer{$\exists x (Fx \eand Gx), \forall x (Gx \eif Hx) \therefore \exists x (Hx \eand Fx)$}
+	\item \textbf{Fresison.} No F are G. Some G is H. So: Some H is not F.
+	\item[] \myanswer{$\forall x (Fx \eif \enot Gx), \exists x (Gx \eand Hx) \therefore \exists (Hx \eand \enot Fx)$}
+\end{ebullet}
+Symbolise each argument in FOL.
+
+\
+\problempart
+\label{pr.FOLvegetarians}
+Using the following symbolisation key:
+\begin{ekey}
+\item[\text{domain}] people
+\item[Kx] \gap{x} knows the combination to the safe
+\item[Sx] \gap{x} is a spy
+\item[Vx] \gap{x} is a vegetarian
+%\item[Txy] \gap{x} trusts \gap{y}.
+\item[h] Hofthor
+\item[i] Ingmar
+\end{ekey}
+symbolise the following sentences in FOL:
+\begin{earg}
+\item Neither Hofthor nor Ingmar is a vegetarian.
+\item[] \myanswer{$\enot Vh \eand \enot Vi$}
+\item No spy knows the combination to the safe.
+\item[] \myanswer{$\forall x (Sx \eif \enot Kx)$}
+\item No one knows the combination to the safe unless Ingmar does.
+\item[] \myanswer{$\forall x \enot Kx \eor Ki$}
+\item Hofthor is a spy, but no vegetarian is a spy.
+\item[] \myanswer{$Sh \eand \forall x(Vx \eif \enot Sx)$}
+%\item Hofthor trusts a vegetarian.
+%\item Everyone who trusts Ingmar trusts a vegetarian.
+%\item Everyone who trusts Ingmar trusts someone who trusts a vegetarian.
+%\item Only Ingmar knows the combination to the safe.
+%\item Ingmar trusts Hofthor, but no one else.
+%\item The person who knows the combination to the safe is a vegetarian.
+%\item The person who knows the combination to the safe is not a spy.
+\end{earg}
+
+\solutions
+\problempart\label{pr.FOLalligators}
+Using this symbolisation key:
+\begin{ekey}
+\item[\text{domain}] all animals
+\item[Ax] \gap{x} is an alligator.
+\item[Mx] \gap{x} is a monkey.
+\item[Rx] \gap{x} is a reptile.
+\item[Zx] \gap{x} lives at the zoo.
+\item[a] Amos
+\item[b] Bouncer
+\item[c] Cleo
+\end{ekey}
+symbolise each of the following sentences in FOL:
+\begin{earg}
+\item Amos, Bouncer, and Cleo all live at the zoo. 
+\item[] \myanswer{$Za \eand Zb \eand Zc$}
+\item Bouncer is a reptile, but not an alligator. 
+\item[] \myanswer{$Rb \eand \enot Ab$}
+%\item If Cleo loves Bouncer, then Bouncer is a monkey. 
+%\item If both Bouncer and Cleo are alligators, then Amos loves them both.
+\item Some reptile lives at the zoo. 
+\item[] \myanswer{$\exists x (Rx \eand Zx)$}
+\item Every alligator is a reptile. 
+\item[] \myanswer{$\forall x(Ax \eif Rx)$}
+\item Any animal that lives at the zoo is either a monkey or an alligator. 
+\item[] \myanswer{$\forall x(Zx \eif (Mx \eor Ax))$}
+\item There are reptiles which are not alligators.
+\item[] \myanswer{$\exists x (Rx \eand \enot Ax)$}
+%\item Cleo loves a reptile.
+%\item Bouncer loves all the monkeys that live at the zoo.
+%\item All the monkeys that Amos loves love him back.
+\item If any animal is an reptile, then Amos is.
+\item[] \myanswer{$\exists x Rx \eif Ra$}
+\item If any animal is an alligator, then it is a reptile.
+\item[] \myanswer{$\forall x(Ax \eif Rx)$}
+%\item Every monkey that Cleo loves is also loved by Amos.
+%\item There is a monkey that loves Bouncer, but sadly Bouncer does not reciprocate this love.
+\end{earg}
+
+\problempart
+\label{pr.FOLarguments}
+For each argument, write a symbolisation key and symbolise the argument in FOL.
+\begin{earg}
+\item Willard is a logician. All logicians wear funny hats. So Willard wears a funny hat
+\myanswer{
+\begin{ekey}
+\item[\text{domain}] people
+\item[Lx] \gap{x} is a logician
+\item[Hx] \gap{x} wears a funny hat
+\item[i] Willard
+\end{ekey}
+$Li, \forall x (Lx \eif Hx) \therefore Hi$}
+\item Nothing on my desk escapes my attention. There is a computer on my desk. As such, there is a computer that does not escape my attention.
+\myanswer{
+\begin{ekey}
+\item[\text{domain}] physical things
+\item[Dx] \gap{x} is on my desk
+\item[Ex] \gap{x} escapes my attention
+\item[Cx] \gap{x} is a computer
+\end{ekey}
+$\forall x (Dx \eif \enot Ex), \exists x(Dx \eand Cx) \therefore \exists x (Cx \eand \enot Ex)$}
+\item All my dreams are black and white. Old TV shows are in black and white. Therefore, some of my dreams are old TV shows.
+\myanswer{
+\begin{ekey}
+\item[\text{domain}] episodes (psychological and televised)
+\item[Dx] \gap{x} is one of my dreams
+\item[Bx] \gap{x} is in black and white
+\item[Ox] \gap{x} is an old TV show
+\end{ekey}
+$\forall x (Dx \eif Bx), \forall x (Ox \eif Bx) \therefore \exists x (Dx \eand Ox)$. \\Comment: generic statements are tricky to deal with. Does the second sentence mean that \emph{all} old TV shows are in black and white; or that most of them are; or that most of the things which are in black and white are old TV shows? I have gone with the former, but it is not clear that FOL deals with these well.}
+\item Neither Holmes nor Watson has been to Australia. A person could see a kangaroo only if they had been to Australia or to a zoo. Although Watson has not seen a kangaroo, Holmes has. Therefore, Holmes has been to a zoo.
+\myanswer{
+\begin{ekey}
+\item[\text{domain}] people
+\item[Ax] \gap{x} has been to Australia
+\item[Kx] \gap{x} has seen a kangaroo
+\item[Zx] \gap{x} has been to a zoo
+\item[h] Holmes
+\item[a] Watson
+\end{ekey}
+$\enot Ah \eand \enot Aa, \forall x(Kx \eif (Ax \eor Zx)), \enot Ka \eand Kh \therefore Zh$}
+\item No one expects the Spanish Inquisition. No one knows the troubles I've seen. Therefore, anyone who expects the Spanish Inquisition knows the troubles I've seen.
+\myanswer{
+\begin{ekey}
+\item[\text{domain}] people
+\item[Sx] \gap{x} expects the Spanish Inquisition
+\item[Tx] \gap{x} knows the troubles I've seen
+\item[h] Holmes
+\item[a] Watson
+\end{ekey}
+$\forall x\enot Sx, \forall x \enot Tx \therefore \forall x (Sx \eif Tx)$}
+\item All babies are illogical. Nobody who is illogical can manage a crocodile. Berthold is a baby. Therefore, Berthold is unable to manage a crocodile.
+\myanswer{\begin{ekey}
+\item[\text{domain}] people
+\item[Bx] \gap{x} is a baby
+\item[Ix] \gap{x} is illogical
+\item[Cx] \gap{x} can manage a crocodile
+\item[b] Berthold
+\end{ekey}
+$\forall x (Bx \eif Ix), \forall x (Ix \eif \enot Cx), Bb \therefore \enot Cb$}
+\end{earg}
+
+\chapter{Multiple generality}\setcounter{ProbPart}{0}
+\problempart
+Using this symbolisation key:
+\begin{ekey}
+\item[\text{domain}] all animals
+\item[Ax] \gap{x} is an alligator
+\item[Mx] \gap{x} is a monkey
+\item[Rx] \gap{x} is a reptile
+\item[Zx] \gap{x} lives at the zoo
+\item[Lxy] \gap{x} loves \gap{y}
+\item[a] Amos
+\item[b] Bouncer
+\item[c] Cleo
+\end{ekey}
+symbolise each of the following sentences in FOL:
+\begin{earg}
+\item If Cleo loves Bouncer, then Bouncer is a monkey. 
+\item[] \myanswer{$Lcb \eif Mb$}
+\item If both Bouncer and Cleo are alligators, then Amos loves them both.
+\item[] \myanswer{$(Ab \eand Ac) \eif (Lab \eand Lac)$}
+%\item Some reptile lives at the zoo. 
+%\item Every alligator is a reptile. 
+%\item Any animal that lives at the zoo is either a monkey or an alligator. 
+%\item There are reptiles which are not alligators.
+\item Cleo loves a reptile.
+\item[] \myanswer{$\exists x(Rx \eand Lcx)$\\Comment: this English expression is ambiguous; in some contexts, it can be read as a generic, along the lines of `Cleo loves reptiles'. (Compare `I do love a good pint'.) }
+\item Bouncer loves all the monkeys that live at the zoo.
+\item[] \myanswer{$\forall x ((Mx \eand Zx) \eif Lbx)$}\item All the monkeys that Amos loves love him back.
+\item[] \myanswer{$\forall x ((Mx \eand Lax) \eif Lxa)$}
+%\item If any animal is an reptile, then Amos is.
+%\item If any animal is an alligator, then it is a reptile.
+\item Every monkey that Cleo loves is also loved by Amos.
+\item[] \myanswer{$\forall x ((Mx \eand Lcx) \eif Lax)$}
+\item There is a monkey that loves Bouncer, but sadly Bouncer does not reciprocate this love.
+\item[] \myanswer{$\exists x (Mx \eand Lxb \eand \enot Lbx)$}
+\end{earg}
+
+\problempart 
+Using the following symbolisation key:
+\begin{ekey}
+\item[\text{domain}] all animals
+\item[Dx] \gap{x} is a dog
+\item[Sx] \gap{x} likes samurai movies
+\item[Lxy] \gap{x} is larger than \gap{y}
+\item[b] Bertie
+\item[e] Emerson
+\item[f] Fergis
+\end{ekey}
+symbolise the following sentences in FOL:
+\begin{earg}
+\item Bertie is a dog who likes samurai movies.
+\item[] \myanswer{$Db \eand Sb$}
+\item Bertie, Emerson, and Fergis are all dogs.
+\item[] \myanswer{$Db \eand De \eand D\emph{f}$}
+\item Emerson is larger than Bertie, and Fergis is larger than Emerson.
+\item[] \myanswer{$Leb \eand L\emph{f}e$}
+\item All dogs like samurai movies.
+\item[] \myanswer{$\forall x(Dx \eif Sx)$}
+\item Only dogs like samurai movies.
+\item[] \myanswer{$\forall x(Sx \eif Dx)$\\
+Comment: the FOL sentence just written does not require that anyone likes samurai movies. The English sentence might suggest that at least some dogs \emph{do} like samurai movies?}
+\item There is a dog that is larger than Emerson.
+\item[] \myanswer{$\exists x (Dx \eand Lxe)$}
+\item If there is a dog larger than Fergis, then there is a dog larger than Emerson.
+\item[] \myanswer{$\exists x (Dx \eand Lx\emph{f}) \eif \exists x(Dx \eand Lxe)$}
+\item No animal that likes samurai movies is larger than Emerson.
+\item[] \myanswer{$\forall x (Sx \eif \enot Lxe)$}
+\item No dog is larger than Fergis.
+\item[] \myanswer{$\forall x (Dx \eif \enot Lx\emph{f})$}
+\item Any animal that dislikes samurai movies is larger than Bertie.
+\item[] \myanswer{$\forall x (\enot Sx \eif Lxb)$\\
+Comment: this is very poor, though! For `dislikes' does not mean the same as `does not like'.}
+\item There is an animal that is between Bertie and Emerson in size.
+\item[] \myanswer{$\exists x((Lbx \eand Lxe) \eor (Lex \eand Lxb))$}
+\item There is no dog that is between Bertie and Emerson in size.
+\item[] \myanswer{$\forall x \bigl(Dx \eif \enot\bigl[(Lbx \eand Lxe) \eor (Lex \eand Lxb)\bigr]\bigr)$}
+\item No dog is larger than itself.
+\item[] \myanswer{$\forall x(Dx \eif \enot Lxx)$}
+\item Every dog is larger than some dog.
+\item[] \myanswer{$\forall x (Dx \eif \exists y(Dy \eand Lxy))$\\
+Comment: the English sentence is potentially ambiguous here. I have resolved the ambiguity by assuming it should be paraphrased by `for every dog, there is a dog smaller than it'.}
+\item There is an animal that is smaller than every dog.
+\item[] \myanswer{$\exists x \forall y(Dy \eif Lyx)$}
+\item If there is an animal that is larger than any dog, then that animal does not like samurai movies.
+\item[] \myanswer{$\forall x (\forall y (Dy \eif Lxy) \eif \enot Sx)$\\
+Comment: I have assumed that `larger than any dog' here means `larger than every dog'.}
+\end{earg}
+
+\problempart
+Using the following symbolisation key:
+\begin{ekey}
+\item[\text{domain}] people and dishes at a potluck
+\item[Rx] \gap{x} has run out.
+\item[Tx] \gap{x} is on the table.
+\item[Fx] \gap{x} is food.
+\item[Px] \gap{x} is a person.
+\item[Lxy] \gap{x} likes \gap{y}.
+\item[e] Eli
+\item[f] Francesca
+\item[g] the guacamole
+\end{ekey}
+symbolise the following English sentences in FOL:
+\begin{earg}
+\item All the food is on the table.
+\item[] \myanswer{$\forall x(Fx \eif Tx)$}
+\item If the guacamole has not run out, then it is on the table.
+\item[] \myanswer{$\enot Rg \eif Tg$}
+\item Everyone likes the guacamole.
+\item[] \myanswer{$\forall x (Px \eif Lxg)$}
+\item If anyone likes the guacamole, then Eli does.
+\item[] \myanswer{$\exists x (Px \eand Lxg) \eif Leg$}\item Francesca only likes the dishes that have run out.
+\item[] \myanswer{$\forall x \bigl[(L\emph{f}x \eand Fx) \eif Rx\bigr]$}
+\item Francesca likes no one, and no one likes Francesca.
+\item[] \myanswer{$\forall x\bigl[Px \eif (\enot L\emph{f}x \eand \enot Lx\emph{f})\bigr]$}
+\item Eli likes anyone who likes the guacamole.
+\item[] \myanswer{$\forall x ((Px \eand Lxg) \eif Lex)$}
+\item Eli likes anyone who likes the people that he likes.
+\item[] \myanswer{$\forall x \bigl[\bigl(Px \eand \forall y[(Py \eand Ley) \eif Lxy]\bigr) \eif Lex\bigr]$}
+\item If there is a person on the table already, then all of the food must have run out.
+\item[] \myanswer{$\exists x(Px \eand Tx) \eif \forall x(Fx \eif Rx)$}
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.FOLballet}
+Using the following symbolisation key:
+\begin{ekey}
+\item[\text{domain}] people
+\item[Dx] \gap{x} dances ballet.
+\item[Fx] \gap{x} is female.
+\item[Mx] \gap{x} is male.
+\item[Cxy] \gap{x} is a child of \gap{y}.
+\item[Sxy] \gap{x} is a sibling of \gap{y}.
+\item[e] Elmer
+\item[j] Jane
+\item[p] Patrick
+\end{ekey}
+symbolise the following arguments in FOL:
+\begin{earg}
+\item All of Patrick's children are ballet dancers.
+\item[] \myanswer{$\forall x(Cxp \eif Dx)$}
+\item Jane is Patrick's daughter.
+\item[] \myanswer{$Cjp \eand Fj$}
+\item Patrick has a daughter.
+\item[] \myanswer{$\exists x(Cxp \eand Fx)$}
+\item Jane is an only child.
+\item[] \myanswer{$\enot \exists x Sxj$}
+\item All of Patrick's sons dance ballet.
+\item[] \myanswer{$\forall x\bigl[(Cxp \eand Mx) \eif Dx\bigr]$}
+\item Patrick has no sons.
+\item[] \myanswer{$\enot \exists x(Cxp \eand Mx)$}
+\item Jane is Elmer's niece.
+\item[] \myanswer{$\exists x(Sxe \eand Cjx \eand Fj)$}
+\item Patrick is Elmer's brother.
+\item[] \myanswer{$Spe \eand Mp$}
+\item Patrick's brothers have no children.
+\item[] \myanswer{$\forall x\bigl[(Spx \eand Mx) \eif \enot \exists y Cyx\bigr]$}
+\item Jane is an aunt.
+\item[] \myanswer{$Fj \eand \exists x(Sxj \eand \exists y Cyx)$}
+\item Everyone who dances ballet has a brother who also dances ballet.
+\item[] \myanswer{$\forall x\bigl[Dx \eif \exists y(My \eand Syx \eand Dy)\bigr]$}
+\item Every woman who dances ballet is the child of someone who dances ballet.
+\item[] \myanswer{$\forall x\bigl[(Fx \eand Dx) \eif \exists y(Cxy \eand Dy)\bigr]$}
+\end{earg}
+
+
+\chapter{Identity}\label{sec.identity}\setcounter{ProbPart}{0}
+%\problempart
+%\label{pr.FOLcandies}
+%Using the following symbolisation key:
+%\begin{ekey}
+%\item[\text{domain}] candies
+%\item[Cx] \gap{x} has chocolate in it.
+%\item[Mx] \gap{x} has marzipan in it.
+%\item[Sx] \gap{x} has sugar in it.
+%\item[Tx] Boris has tried \gap{x}.
+%\item[Bxy] \gap{x} is better than \gap{y}.
+%\end{ekey}
+%symbolise the following English sentences in FOL:\\
+%\myanswer{Comment: these are deliberately tricky. What follows is the \emph{best} we can offer in FOL, for each of these sentences. Some are not great.}
+%\begin{earg}
+%\item Boris has never tried any candy.
+%\item[] \myanswer{$\forall x(Cx \eif \enot Tx)$}
+%\item Marzipan is always made with sugar.
+%\item[] \myanswer{$\forall x(Mx \eif Sx)$}
+%\item Some candy is sugar-free.
+%\item[] \myanswer{$\exists x \enot Sx$}
+%\item The very best candy is chocolate.
+%\item[] \myanswer{Simply can't be done! The best we can offer is as in answer to 8.}
+%\item No candy is better than itself.
+%\item[] \myanswer{$\forall x \enot Bxx$}
+%\item Boris has never tried sugar-free chocolate.
+%\item[] \myanswer{$\forall x((Cx \eand Sx) \eif \enot Tx)$}
+%\item Boris has tried marzipan and chocolate, but never together.
+%\item[] \myanswer{$\exists x(Mx \eand Tx) \eand \exists x(Cx \eand Tx) \eand \forall x ((Mx \eand Cx) \eif \enot Tx)$}
+%%\item Boris has tried nothing that is better than sugar-free marzipan.
+%\item Any candy with chocolate is better than any candy without it.
+%\item[] \myanswer{$\forall x(Cx \eif \forall (\enot Cy \eif Bxy))$}
+%\item Any candy with chocolate and marzipan is better than any candy that lacks both.
+%\item[] \myanswer{$\forall x\bigl[(Cx \eand Mx)\eif \forall \bigl((\enot Cy \eand \enot My) \eif Bxy\bigr)\bigr]$}
+%\end{earg}
+
+\problempart Explain why:
+	\begin{ebullet}
+		\item   `$\exists x \forall y(Ay \eiff x= y)$' is a good symbolisation of `there is exactly one apple'.
+		\item[] \myanswer{We might naturally read this in English thus: 
+		\begin{ebullet}
+			\item There is something, x, such that, if you choose any object at all, if you chose an apple then you chose x itself, and if you chose x itself then you chose an apple. 
+		\end{ebullet}
+		The x in question must therefore be the one and only thing which is an apple.}
+		\item `$\exists x \exists y \bigl[\enot x = y \eand \forall z(Az \eiff (x= z \eor y = z)\bigr]$' is a good symbolisation of `there are exactly two apples'.
+		\item[] \myanswer{Similarly to the above, we might naturally read this in English thus: 
+		\begin{ebullet}
+			\item There are two distinct things, x and y, such that if you choose any object at all, if you chose an apple then you either chose x or y, and if you chose either x or y then you chose an apple. 
+		\end{ebullet}
+		The x and y in question must therefore be the only things which are apples, and since they are distinct, there are two of them.}
+	\end{ebullet}		
+
+
+
+\chapter{Definite descriptions}\setcounter{ProbPart}{0}
+\problempart
+Using the following symbolisation key:
+\begin{ekey}
+\item[\text{domain}] people
+\item[Kx] \gap{x} knows the combination to the safe.
+\item[Sx] \gap{x} is a spy.
+\item[Vx] \gap{x} is a vegetarian.
+\item[Txy] \gap{x} trusts \gap{y}.
+\item[h] Hofthor
+\item[i] Ingmar
+\end{ekey}
+symbolise the following sentences in FOL:
+\begin{earg}
+\item Hofthor trusts a vegetarian.
+\item[] \myanswer{$\exists x(Vx \eand Thx)$}
+\item Everyone who trusts Ingmar trusts a vegetarian.
+\item[] \myanswer{$\forall x\bigl[Txi \eif \exists y(Txy \eand Vy)\bigr]$}
+\item Everyone who trusts Ingmar trusts someone who trusts a vegetarian.
+\item[] \myanswer{$\forall x\bigl[Txi \eif \exists y\bigr(Txy \eand \exists z(Tyz \eand Vz)\bigr)\bigr]$}
+\item Only Ingmar knows the combination to the safe.
+\item[] \myanswer{$\forall x(Ki \eif x = i)$\\Comment: does the English claim entail that Ingmar \emph{does} know the combination to the safe? If so, then we should formalise this with a `$\eiff$'.}
+\item Ingmar trusts Hofthor, but no one else.
+\item[] \myanswer{$\forall x(Tix \eiff x = h)$}
+\item The person who knows the combination to the safe is a vegetarian.
+\item[] \myanswer{$\exists x\bigl[Kx \eand \forall y(Ky \eif x = y) \eand Vx\bigr]$}
+\item The person who knows the combination to the safe is not a spy.
+\item[] \myanswer{$\exists x\bigl[Kx \eand \forall y(Ky \eif x = y) \eand \enot Sx\bigr]$\\
+Comment: the scope of negation is potentially ambiguous here; I have read it as \emph{inner} negation.}
+\end{earg}
+
+
+\solutions
+\problempart
+\label{pr.FOLcards}
+Using the following symbolisation key:
+\begin{ekey}
+\item[\text{domain}] cards in a standard deck
+\item[Bx] \gap{x} is black.
+\item[Cx] \gap{x} is a club.
+\item[Dx] \gap{x} is a deuce.
+\item[Jx] \gap{x} is a jack.
+\item[Mx] \gap{x} is a man with an axe.
+\item[Ox] \gap{x} is one-eyed.
+\item[Wx] \gap{x} is wild.
+\end{ekey}
+symbolise each sentence in FOL:
+\begin{earg}
+\item All clubs are black cards.
+\item[] \myanswer{$\forall x (Cx \eif Bx)$}
+\item There are no wild cards.
+\item[] \myanswer{$\enot \exists x Wx$}
+\item There are at least two clubs.
+\item[] \myanswer{$\exists x \exists y(\enot x = y \eand Cx \eand Cy)$}
+\item There is more than one one-eyed jack.
+\item[] \myanswer{$\exists x \exists y(\enot x = y \eand Jx \eand Ox  \eand Jy \eand Oy)$}
+\item There are at most two one-eyed jacks.
+\item[] \myanswer{$\forall x \forall y \forall z\bigl[(Jx \eand Ox \eand Jy \eand Oy \eand Jz \eand Oz) \eif (x = y \eor x = z \eor y = z)\bigr]$}
+\item There are two black jacks.
+\item[] \myanswer{$\exists x \exists y(\enot x = y \eand Bx \eand Jx \eand By \eand Jy)$\\
+Comment: I am reading this as `there are \emph{at least} two\ldots'. If the suggestion was that there are \emph{exactly} two, then a different FOL sentence would be required, namely:\\
+$\exists x \exists y \bigl(\enot x = y \eand Bx \eand Jx \eand By \eand Jy \eand \forall z[(Bz \eand Jz) \eif (x = z \eor y = z)]\bigr)$}
+\item There are four deuces.
+\item[] \myanswer{$\exists w \exists x \exists y \exists z(\enot w = x \eand \enot w = y \eand \enot w = z \eand \enot x = y \eand \enot x = z \eand \enot y = z \eand Dw \eand Dx \eand Dy \eand Dz)$\\
+Comment: I am reading this as `there are \emph{at least} four\ldots'. If the suggestion is that there are \emph{exactly} four, then we should offer instead:\\
+$\exists w \exists x \exists y \exists z\bigl(\enot w = x \eand \enot w = y \eand \enot w = z \eand \enot x = y \eand \enot x = z \eand \enot y = z \eand Dw \eand Dx \eand Dy \eand Dz \eand \forall v[Dv \eif (v = w \eor v = x \eor v = y \eor v =z)]\bigr)$}
+\item The deuce of clubs is a black card.
+\item[] \myanswer{$\exists x \bigl[Dx \eand Cx \eand \forall y\bigl((Dy \eand Cy) \eif x = y\bigr) \eand Bx\bigr]$}
+\item One-eyed jacks and the man with the axe are wild.
+\item[] \myanswer{$\forall x \bigl[(Jx \eand Ox) \eif Wx\bigr] \eand \exists x\bigl[Mx \eand \forall y(My \eif x = y) \eand Wx\bigr]$}
+\item If the deuce of clubs is wild, then there is exactly one wild card.
+\item[] \myanswer{$\exists x \bigl(Dx \eand Cx \eand \forall y \bigl[(Dy \eand Cy) \eif x= y\bigr] \eand Wx\bigr) \eif \exists x \bigl(Wx \eand \forall y(Wy \eif x = y)\bigr)$\\
+Comment: if there is not exactly one deuce of clubs, then the above sentence is true. Maybe that's the wrong verdict. Perhaps the sentence should definitely be taken to imply that there is one and only one deuce of clubs, and then express a conditional about wildness. If so, then we might symbolise it thus:
+\\$\exists x \bigl(Dx \eand Cx \eand \forall y \bigl[(Dy \eand Cy) \eif x = y\bigr] \eand \bigl[Wx \eif \forall y (Wy \eif x = y)\bigr]\bigl)$}
+\item The man with the axe is not a jack.
+\item[] \myanswer{$\exists x \bigl[Mx \eand \forall y(My \eif x = y) \eand \enot Jx\bigr]$}
+\item The deuce of clubs is not the man with the axe.
+\item[] \myanswer{$\exists x \exists y\bigl(Dx \eand Cx \eand \forall z[(Dz \eand Cz) \eif x = z] \eand My \eand \forall z(Mz \eif y = x) \eand \enot x = y\bigr)$}
+
+\end{earg}
+
+\
+
+\problempart Using the following symbolisation key:
+\begin{ekey}
+\item[\text{domain}] animals in the world
+\item[Bx] \gap{x} is in Farmer Brown's field.
+\item[Hx] \gap{x} is a horse.
+\item[Px] \gap{x} is a Pegasus.
+\item[Wx] \gap{x} has wings.
+\end{ekey}
+symbolise the following sentences in FOL:
+\begin{earg}
+\item There are at least three horses in the world.
+\item[] \myanswer{$\exists x \exists y \exists z (\enot x = y \eand \enot x = z \eand \enot y = z \eand Hx \eand Hy \eand Hz)$}
+\item There are at least three animals in the world.
+\item[] \myanswer{$\exists x \exists y \exists z (\enot x = y \eand \enot x = z \eand \enot y = z)$}
+\item There is more than one horse in Farmer Brown's field.
+\item[] \myanswer{$\exists x \exists y (\enot x = y \eand Hx \eand Hy \eand Bx \eand By)$}
+\item There are three horses in Farmer Brown's field.
+\item[] \myanswer{$\exists x \exists y \exists z(\enot x = y \eand \enot x = z \eand \enot y = z \eand Hx \eand Hy \eand Hz \eand Bx \eand By \eand Bz)$\\Comment: I have read this as `there are \emph{at least} three\ldots'. If the suggestion was that there are \emph{exactly} three, then a different FOL sentence would be required.}
+\item There is a single winged creature in Farmer Brown's field; any other creatures in the field must be wingless.
+\item[] \myanswer{$\exists x\bigl[Wx \eand Bx \eand \forall y\bigl((Wy \eand By) \eif x = y)\bigr]$}
+\item The Pegasus is a winged horse.
+\item[] \myanswer{$\exists x \bigl[Px \eand \forall y(Py \eif x = y) \eand Wx \eand Hx\bigr]$}
+\item The animal in Farmer Brown's field is not a horse.
+\item[] \myanswer{$\exists x \bigl[ Bx \eand \forall y (By \eif x = y) \eand \enot Hx\bigr]$\\Comment: the scope of negation might be ambiguous here; I have read it as \emph{inner} negation.}
+\item The horse in Farmer Brown's field does not have wings.
+\item[] \myanswer{$\exists x \bigl[Hx \eand Bx \eand \forall y \bigl((Hy \eand By) \eif x = y\bigr) \eand \enot Wx\bigr]$\\Comment: the scope of negation might be ambiguous here; I have read it as \emph{inner} negation.}
+
+\end{earg}
+
+\problempart
+In this section, I symbolised `Nick is the traitor' by `$\exists x (Tx \eand \forall y(Ty \eif x = y) \eand x = n)$'. Two equally good symbolisations would be:
+	\begin{ebullet}
+		\item $Tn \eand \forall y(Ty \eif n = y)$
+		\item[] \myanswer{This sentence requires that Nick is a traitor, and that Nick alone is a traitor. Otherwise put, there is one and only one traitor, namely, Nick. Otherwise put: Nick is the traitor.}
+		\item $\forall y(Ty \eiff y = n)$
+		\item[] \myanswer{This sentence can be understood thus: Take anything you like; now, if you chose a traitor, you chose Nick, and if you chose Nick, you chose a traitor. So there is one and only one traitor, namely, Nick, as required.}
+	\end{ebullet}
+Explain why these would be equally good symbolisations.
+
+\chapter{Sentences of FOL}\setcounter{ProbPart}{0}
+\problempart
+\label{pr.freeFOL}
+Identify which variables are bound and which are free.
+\myanswer{I shall underline the bound variables, and put free variables in blue.}
+\begin{earg}
+\item $\exists x L\underline{x}\myanswer{y} \eand \forall y L\underline{y}\myanswer{x}$
+\item $\forall x A\underline{x} \eand B\myanswer{x}$
+\item $\forall x (A\underline{x} \eand B\underline{x}) \eand \forall y(C\myanswer{x} \eand D\underline{y})$
+\item $\forall x\exists y[R\underline{xy} \eif (J\myanswer{z} \eand K\underline{x})] \eor R\myanswer{yx}$
+\item $\forall x_1(M\myanswer{x_2} \eiff L\myanswer{x_2}\underline{x_1}) \eand \exists x_2 L\myanswer{x_3}\underline{x_2}$
+\end{earg}

@@ -1,0 +1,843 @@
+%!TEX root = forallxsol.tex
+%\part{Natural deduction for TFL}
+%\label{ch.NDTFL}
+%\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
+\renewenvironment{proof} %TB: make proofs smaller, since space is a premium here
+	{\noindent\par\noindent\small$\begin{nd}}
+	{\end{nd}$\noindent\normalsize\ignorespacesafterend}
+
+\setcounter{chapter}{25}
+\chapter{Basic rules for TFL}\setcounter{ProbPart}{0}
+\problempart
+The following two `proofs' are \emph{incorrect}. Explain the mistakes they make.
+\begin{multicols}{2}
+\begin{proof}
+\hypo{abc}{\enot L \eif (A \eand L)}
+\open
+	\hypo{nl}{\enot L}
+	\have{a}{A}\ce{abc, nl}
+\close
+\open
+	\hypo{l}{L}
+	\have{red}{\ered}\ri{l, nl}
+	\have{a2}{A}\re{red}
+\close
+\have{con}{A}\tnd{nl-a, l-a2}
+\end{proof}
+\vfill
+\noindent\myanswer{$\eif$E on line 3 should yield `$A \eand L$'.  `$A$' could then be obtained by $\eand$E. 
+\\$\ered$I on line 5 illicitly refers to a line from a closed subproof (line 2).}
+\hfill
+\columnbreak
+\begin{proof}
+\hypo{abc}{A \eand (B \eand C)}
+\hypo{bcd}{(B \eor C) \eif D}
+\have{b}{B}\ae{abc}
+\have{bc}{B \eor C}\oi{b}
+\have{d}{D}\ce{bc, bcd}
+\end{proof}
+\vfill
+\noindent\myanswer{$\eand$E on line 3 should yield `$B \eand C$'.  `$B$' could then be obtained by $\eand$E again.\\
+The citation for line 5 is the wrong way round: it should be `$\eif$E 2, 4'.}
+\end{multicols}
+
+\problempart
+The following three proofs are missing their citations (rule and line numbers). Add them, to turn them into bona fide proofs. Additionally, write down the argument that corresponds to each proof.
+\begin{multicols}{2}
+\begin{proof}
+\hypo{ps}{P \eand S}
+\hypo{nsor}{S \eif R}
+\have{p}{P}\ae{ps}
+\have{s}{S}\ae{ps}
+\have{r}{R}\ce{nsor, s}
+\have{re}{R \eor E}\oi{r}
+\end{proof}
+\\\myanswer{Corresponding argument: \\$P \eand S, S \eif R \therefore R \eor E$}
+
+\begin{proof}
+\hypo{ad}{A \eif D}
+\open
+	\hypo{ab}{A \eand B}
+	\have{a}{A}\ae{ab}
+	\have{d}{D}\ce{ad, a}
+	\have{de}{D \eor E}\oi{d}
+\close
+\have{conc}{(A \eand B) \eif (D \eor E)}\ci{ab-de}
+\end{proof}
+\\\myanswer{Corresponding argument: \\$A \eif D \therefore (A \eand B) \eif (D \eor E)$}
+\pagebreak
+\begin{proof}
+\hypo{nlcjol}{\enot L \eif (J \eor L)}
+\hypo{nl}{\enot L}
+\have{jol}{J \eor L}\ce{nlcjol, nl}
+\open
+	\hypo{j}{J}
+	\have{jj}{J \eand J}\ai{j, j}
+	\have{j2}{J}\ae{jj}
+\close
+\open
+	\hypo{l}{L}
+	\have{red}{\ered}\ri{l, nl}
+	\have{j3}{J}\re{red}
+\close
+\have{conc}{J}\oe{jol, j-j2, l-j3}
+\end{proof}
+\\\myanswer{Corresponding argument:\\
+$\enot L \eif (J \eor L), \enot L \therefore J$}
+\end{multicols}
+
+\solutions
+\problempart
+\label{pr.solvedTFLproofs}
+Give a proof for each of the following arguments:
+\begin{earg}
+\item $J\eif\enot J \therefore \enot J$
+\myanswer{\begin{proof}
+\hypo{jnj}{J \eif \enot J}
+\open
+	\hypo{j}{J}
+	\have{nj}{\enot J}\ce{jnj, j}
+	\have{red}{\ered}\ri{j, nj}
+\close
+\have{con}{\enot J}\ni{j-red}
+\end{proof}}
+
+\item $Q\eif(Q\eand\enot Q) \therefore \enot Q$
+\myanswer{\begin{proof}
+\hypo{qq}{Q \eif  (Q \eand \enot Q)}
+\open
+	\hypo{q}{Q}
+	\have{con}{Q \eand \enot Q}\ce{qq, q}
+	\have{nq}{\enot Q}\ae{con}
+	\have{red}{\ered}\ri{q, nq}
+\close
+\have{con}{\enot Q}\ni{q-con}
+\end{proof}}
+
+\item $A\eif (B\eif C) \therefore (A\eand B)\eif C$
+\myanswer{\begin{proof}
+\hypo{abc}{A \eif (B \eif C)}
+\open
+	\hypo{ab}{A \eand B}
+	\have{a}{A}\ae{ab}
+	\have{bc}{B \eif C}\ce{abc, a}
+	\have{b}{B}\ae{ab}
+	\have{c}{C}\ce{bc, b}	
+\close
+\have{con}{(A \eand B) \eif C}\ci{ab-c}
+\end{proof}}
+
+\newpage
+\item $K\eand L \therefore K\eiff L$
+\myanswer{\begin{proof}
+\hypo{kl}{K \eand L}
+\open
+	\hypo{k1}{K}
+	\have{l1}{L}\ae{kl}
+\close
+\open
+	\hypo{l2}{L}
+	\have{k2}{K}\ae{kl}
+\close
+\have{con}{K \eiff L}\bi{k1-l1, l2-k2}
+\end{proof}}
+
+\item $(C\eand D)\eor E \therefore E\eor D$
+\myanswer{\begin{proof}
+\hypo{cde}{(C \eand D) \eor E}
+\open
+	\hypo{cd}{C \eand D}
+	\have{d}{D}\ae{cd}
+	\have{ed}{E \eor D}\oi{d}
+\close
+\open
+	\hypo{e}{E}
+	\have{ed1}{E \eor D}\oi{e}
+\close
+\have{con}{E \eor D}\oe{cde, cd-ed, e-ed1}
+\end{proof}}
+
+\item $A\eiff B, B\eiff C \therefore A\eiff C$
+\myanswer{\begin{proof}
+\hypo{ab}{A \eiff B}
+\hypo{bc}{B \eiff C}
+\open
+	\hypo{a}{A}
+	\have{b}{B}\be{ab, a}
+	\have{c}{C}\be{bc, b}
+\close
+\open
+	\hypo{c1}{C}
+	\have{b1}{B}\be{bc,c1}
+	\have{a1}{A}\be{ab, b1}
+\close
+\have{con}{A \eiff C}\bi{a-c, c1-a1}
+\end{proof}}
+
+\item $\enot F\eif G, F\eif H \therefore G\eor H$
+\myanswer{\begin{proof}
+\hypo{nfg}{\enot F \eif G}
+\hypo{fh}{F \eif H}
+\open
+	\hypo{f}{F}
+	\have{h}{H}\ce{fh, f}
+	\have{gh}{G \eor H}\oi{h}
+\close
+\open
+	\hypo{nf}{\enot F}
+	\have{g}{G}\ce{nfg, nf}
+	\have{gh1}{G \eor H}\oi{g}
+\close
+\have{con}{G \eor H}\tnd{f-gh, nf-gh1}
+\end{proof}}
+
+\newpage\item $(Z\eand K) \eor (K\eand M), K \eif D \therefore D$
+\myanswer{\begin{proof}
+\hypo{zkkm}{(Z \eand K) \eor (K \eand M)}
+\hypo{kd}{K \eif D}
+\open
+	\hypo{zk}{Z \eand K}
+	\have{k}{K}\ae{zk}
+\close
+\open
+	\hypo{km}{K \eand M}
+	\have{k1}{K}\ae{km}
+\close
+\have{k2}{K}\oe{zkkm, zk-k, km-k1}
+\have{d}{D}\ce{kd, k2}
+\end{proof}}
+
+\item $P \eand (Q\eor R), P\eif \enot R \therefore Q\eor E$
+\myanswer{\begin{proof}
+\hypo{pqr}{P \eand (Q \eor R)}
+\hypo{pnr}{P \eif \enot R}
+\have{p}{P}\ae{pqr}
+\have{nr}{\enot R}\ce{pnr, p}
+\have{qr}{Q \eor R}\ae{pqr}
+\open
+	\hypo{q}{Q}
+	\have{qe}{Q \eor E}\oi{q}
+\close
+\open
+	\hypo{r}{R}
+	\have{red}{\ered}\ri{r, nr}
+	\have{qe1}{Q \eor E}\re{red}
+\close
+\have{con}{Q \eor E}\oe{qr, q-qe, r-qe1}
+\end{proof}}
+
+\item $S\eiff T \therefore S\eiff (T\eor S)$
+\myanswer{\begin{proof}
+\hypo{st}{S \eiff T}
+\open
+	\hypo{s}{S}
+	\have{t}{T}\be{st, s}
+	\have{ts}{T \eor S}\oi{t}
+\close
+\open
+	\hypo{ts1}{T \eor S}
+	\open
+		\hypo{t1}{T}
+		\have{s3}{S}\be{st, t1}
+	\close
+	\open
+		\hypo{s1}{S}
+		\have{ss}{S \eand S}\ai{s1, s1}
+		\have{s2}{S}\ae{ss}
+	\close
+	\have{s4}{S}\oe{ts1, t1-s3, s1-s2}
+\close
+\have{con}{S \eiff (T \eor S)}\bi{s-ts, ts1-s4}
+\end{proof}}
+\newpage
+\item $\enot (P \eif Q) \therefore \enot Q$
+\myanswer{\begin{proof}
+\hypo{npq}{\enot (P \eif Q)}
+\open
+	\hypo{q}{Q}
+	\open
+		\hypo{p}{P}
+		\have{qq}{Q \eand Q}\ai{q, q}
+		\have{q2}{Q}\ae{qq}
+	\close
+	\have{pq}{P \eif Q}\ci{p-q2}
+	\have{red}{\ered}\ri{pq, npq}
+\close
+\have{con}{\enot Q}\ni{q-red}
+\end{proof}}
+
+\item $\enot (P \eif Q) \therefore P$
+\myanswer{\begin{proof}
+\hypo{npq}{\enot (P \eif Q)}
+\open
+	\hypo{p}{P}
+	\have{pp}{P \eand P}\ai{p,p}
+	\have{p1}{P}\ae{pp}
+\close
+\open
+	\hypo{np}{\enot P}
+	\open
+		\hypo{p2}{P}
+		\have{red}{\ered}\ri{p2, np}
+		\have{q}{Q}\re{red}
+	\close
+	\have{pq}{P \eif Q}\ci{p2-q}
+	\have{red1}{\ered}\ri{pq, npq}
+	\have{p3}{P}\re{red1}
+\close
+\have{con}{P}\tnd{p-p1, np-p3}
+\end{proof}}
+\end{earg}
+
+
+\chapter{Additional rules for TFL}\setcounter{ProbPart}{0}
+\problempart
+\label{pr.justifyTFLproof}
+The following proofs are missing their citations (rule and line numbers). Add them wherever they are required:
+\begin{multicols}{2}
+\begin{proof}
+\hypo{1}{W \eif \enot B}
+\hypo{2}{A \eand W}
+\hypo{2b}{B \eor (J \eand K)}
+\have{3}{W}\ae{2}
+\have{4}{\enot B}\ce{1, 3}
+\have{5}{J \eand K}\ds{2b, 4}
+\have{6}{K}\ae{5}
+\end{proof}
+\vfill
+\begin{proof}
+\hypo{1}{L \eiff \enot O}
+\hypo{2}{L \eor \enot O}
+\open
+	\hypo{a1}{\enot L}
+	\have{a2}{\enot O}\ds{2, a1}
+	\have{a3}{L}\be{1, a2}
+	\have{a4}{\ered}\ri{a3, a1}
+\close
+\have{3b}{\enot\enot L}\ni{a1-a4}
+\have{3}{L}\dne{3b}
+\end{proof}
+\columnbreak
+\begin{proof}
+\hypo{1}{Z \eif (C \eand \enot N)}
+\hypo{2}{\enot Z \eif (N \eand \enot C)}
+\open
+	\hypo{a1}{\enot(N \eor  C)}
+	\have{a2}{\enot N \eand \enot C}\dem{a1}
+	\have{a6}{\enot N}\ae{a2}
+	\have{b4}{\enot C}\ae{a2}
+		\open
+		\hypo{b1}{Z}
+		\have{b2}{C \eand \enot N}\ce{1, b1}
+		\have{b3}{C}\ae{b2}
+		\have{red}{\ered}\ri{b3, b4}
+	\close
+	\have{a3}{\enot Z}\ni{b1-red}
+	\have{a4}{N \eand \enot C}\ce{2,a3}
+	\have{a5}{N}\ae{a4}
+	\have{a7}{\ered}\ri{a5, a6}
+\close
+\have{3b}{\enot\enot(N \eor C)}\ni{a1-a7}
+\have{3}{N \eor C}\dne{3b}
+\end{proof}
+\end{multicols}
+
+\problempart 
+Give a proof for each of these arguments:
+\begin{earg}
+\item $E\eor F$, $F\eor G$, $\enot F \therefore E \eand G$
+\myanswer{\begin{proof}
+\hypo{ef}{E \eor F}
+\hypo{fg}{F \eor G}
+\hypo{nf}{\enot F}
+\have{e}{E}\ds{ef, nf}
+\have{g}{G}\ds{fg, nf}
+\have{eg}{E \eand G}\ai{e, g}
+\end{proof}}
+
+\newpage
+\item $M\eor(N\eif M) \therefore \enot M \eif \enot N$
+\myanswer{\begin{proof}
+\hypo{mnm}{M \eor (N \eif M)}
+\open
+	\hypo{nm}{\enot M}
+	\have{nim}{N \eif M}\ds{mnm, nm}
+	\have{nn}{\enot N}\mt{nim, nm}
+\close
+\have{nminn}{\enot M \eif \enot N}\ci{nm-nn}
+\end{proof}}
+
+\item $(M \eor N) \eand (O \eor P)$, $N \eif P$, $\enot P \therefore M\eand O$
+\myanswer{\begin{proof}
+\hypo{mnop}{(M \eor N) \eand (O \eor P)}
+\hypo{nip}{N \eif P}
+\hypo{np}{\enot P}
+\have{nn}{\enot N}\mt{nip, np}
+\have{mn}{M \eor N}\ae{mnop}
+\have{m}{M}\ds{mn, nn}
+\have{op}{O \eor P}\ae{mnop}
+\have{o}{O}\ds{op, np}
+\have{mo}{M \eand O}\ai{m, o}
+\end{proof}}
+
+\item $(X\eand Y)\eor(X\eand Z)$, $\enot(X\eand D)$, $D\eor M$ \therefore $M$
+\myanswer{\begin{proof}
+\hypo{xyxz}{(X\eand Y)\eor(X\eand Z)}
+\hypo{nxd}{\enot (X \eand D)}
+\hypo{dm}{D \eor M}
+\open
+	\hypo{xy}{X \eand Y}
+	\have{x}{X}\ae{xy}
+\close
+\open
+	\hypo{xz}{X \eand Z}
+	\have{x2}{X}\ae{xz}
+\close
+\have{x3}{X}\oe{xyxz, xy-x, xz-x2}
+\open
+	\hypo{d}{D}
+	\have{xd}{X \eand D}\ai{x3, d}
+	\have{red}{\ered}\ri{xd, nxd}
+\close
+\have{nd}{\enot D}\ni{d-red}
+\have{m}{M}\ds{dm, nd}
+\end{proof}}
+
+\end{earg}
+
+\chapter{Proof-theoretic concepts}\setcounter{ProbPart}{0}
+\problempart
+Show that each of the following sentences is a theorem:
+\begin{earg}
+\item $O \eif O$
+\myanswer{\begin{proof}
+\open
+	\hypo{o}{O}
+	\have{o2}{O}\by{R}{o}
+\close
+\have{con}{O \eif O}\ci{o-o2}
+\end{proof}}
+\item $N \eor \enot N$
+\myanswer{\begin{proof}
+\open
+	\hypo{n}{N}
+	\have{nnn}{N \eor \enot N}\oi{n}
+\close
+\open
+	\hypo{nn}{\enot N}
+	\have{nnn1}{N \eor \enot N}\oi{nn}
+\close
+\have{con}{N \eor \enot N}\tnd{n-nnn, nn-nnn1}
+\end{proof}}
+
+\item $J \eiff [J\eor (L\eand\enot L)]$
+\myanswer{\begin{proof}
+\open
+	\hypo{j1}{J}
+	\have{jlnl1}{J \eor (L \eand \enot L)}\oi{j1}
+\close
+\open
+	\hypo{jlnl2}{J \eor (L \eand \enot L)}
+%	\open
+%		\hypo{j2}{J}
+%		\have{j3}{J}\by{R}{j2}
+%	\close
+	\open
+		\hypo{lnl}{L \eand \enot L}
+		\have{l}{L}\ae{lnl}
+		\have{nl}{\enot L}\ae{lnl}
+		\have{red}{\ered}\ri{l,nl}
+%		\have{j4}{J}\re{red}
+	\close
+	\have{nlnl}{\enot (L \eand \enot L)}\ni{lnl-red}
+	\have{j5}{J}\ds{jlnl2, nlnl}
+\close
+\have{con}{J \eiff [J\eor (L\eand\enot L)]}\bi{j1-jlnl1, jlnl2-j5}
+\end{proof}}
+\newpage\item $((A \eif B) \eif A) \eif A$ 
+\myanswer{\begin{proof}
+\open
+	\hypo{aba}{(A \eif B) \eif A}
+	\open 
+		\hypo{na}{\enot A}
+		\have{nab}{\enot (A \eif B)}\mt{aba, na}
+		\open
+			\hypo{a}{A}
+			\have{red}{\ered}\ri{a, na}
+			\have{b}{B}\re{red}
+		\close
+		\have{ab}{A \eif B}\ci{a-b}
+		\have{red1}{\ered}\ri{ab, nab}
+	\close
+	\have{nna}{\enot \enot A}\ni{na}
+	\have{a2}{A}\dne{nna}
+\close
+\have{con}{((A \eif B) \eif A) \eif A}\ci{aba-a2}
+\end{proof}}
+\end{earg}
+
+
+\problempart
+Provide proofs to show each of the following:
+\begin{earg}
+\item $C\eif(E\eand G), \enot C \eif G \proves G$
+\myanswer{\begin{proof}
+\hypo{ceg}{C \eif (E \eand G)}
+\hypo{ncG}{\enot C \eif G}
+\open
+	\hypo{c}{C}
+	\have{eg}{E \eand G}\ce{ceg, c}
+	\have{g}{G}\ae{eg}
+\close
+\open
+	\hypo{nc}{\enot C}
+	\have{g1}{G}\ce{ncG, nc}
+\close
+\have{g2}{G}\tnd{c-g, nc-g1}
+\end{proof}}
+
+\item $M \eand (\enot N \eif \enot M) \proves (N \eand M) \eor \enot M$
+\myanswer{\begin{proof}
+\hypo{MnNnM}{M \eand (\enot N \eif \enot M)}
+\have{M}{M}\ae{MnNnM}
+\have{nNnM}{\enot N \eif \enot M}\ae{MnNnM}
+\open
+	\hypo{nN}{\enot N}
+	\have{nM}{\enot M}\ce{nNnM, nN}
+	\have{red}{\ered}\ri{M, nM}
+\close
+\have{nnN}{\enot \enot N}\ni{nN-red}
+\have{N}{N}\dne{nnN}
+\have{NM}{N \eand M}\ai{N, M}
+\have{con}{(N \eand M) \eor \enot M}\oi{NM}	
+\end{proof}}
+
+\newpage
+\item $(Z\eand K)\eiff(Y\eand M), D\eand(D\eif M) \proves Y\eif Z$
+\myanswer{\begin{proof}
+\hypo{zkym}{(Z \eand K) \eiff (Y \eand M)}
+\hypo{ddm}{D \eand (D \eif M)}
+\have{d}{D}\ae{ddm}
+\have{dm}{D \eif M}\ae{ddm}
+\have{m}{M}\ce{dm, d}
+\open
+	\hypo{y}{Y}
+	\have{ym}{Y \eand M}\ai{y, m}
+	\have{zk}{Z \eand K}\be{zkym, ym}
+	\have{z}{Z}\ae{zk}
+\close
+\have{yz}{Y \eif Z}\ci{y-z}
+\end{proof}}
+\item $(W \eor X) \eor (Y \eor Z), X\eif Y, \enot Z \proves W\eor Y$
+\myanswer{\begin{proof}
+\hypo{wxyz}{(W \eor X) \eor (Y \eor Z)}
+\hypo{xy}{X \eif Y}
+\hypo{nz}{\enot Z}
+\open
+	\hypo{wx}{W \eor X}
+	\open
+		\hypo{w}{W}
+		\have{wy1}{W \eor Y}\oi{w}
+	\close
+	\open
+		\hypo{x}{X}
+		\have{y1}{Y}\ce{xy, x}
+		\have{wy2}{W \eor Y}\oi{y1}
+	\close
+	\have{wy3}{W \eor Y}\oe{wx, w-wy1, x-wy2}
+\close
+\open
+	\hypo{yz}{Y \eor Z}
+	\have{y}{Y}\ds{yz, nz}
+	\have{wy}{W \eor Y}\oi{y}
+\close
+\have{wy4}{W \eor Y}\oe{wxyz, wx-wy3, yz-wy}
+\end{proof}}
+\end{earg}
+
+
+
+\problempart
+Show that each of the following pairs of sentences are provably equivalent: %TB: a bit of a hack here, to try to get the multicols thing working nicer.
+
+\
+
+1. $R \eiff E$, $E \eiff R$
+\myanswer{\ignorespaces\begin{multicols}{2}
+\begin{proof}
+\hypo{re}{R \eiff E}
+\open
+	\hypo{e}{E}
+	\have{r}{R}\be{re, e}
+\close
+\open
+	\hypo{r1}{R}
+	\have{e1}{E}\be{re, r1}
+\close
+\have{con}{E \eiff R}\bi{e-r, r1-e1}
+\end{proof}\begin{proof}
+\hypo{re}{E \eiff R}
+\open
+	\hypo{e}{E}
+	\have{r}{R}\be{re, e}
+\close
+\open
+	\hypo{r1}{R}
+	\have{e1}{E}\be{re, r1}
+\close
+\have{con}{R \eiff E}\bi{r1-e1, e-r}
+\end{proof}
+\end{multicols}}
+2. $G$, $\enot\enot\enot\enot G$
+\myanswer{\begin{multicols}{2}
+\begin{proof}
+\hypo{g}{G}
+\open
+	\hypo{nnng}{\enot \enot \enot G}
+	\have{ng}{\enot G}\dne{nnng}
+	\have{red}{\ered}\ri{g,ng}
+\close
+\have{nnnng}{\enot\enot\enot\enot G}\ni{nnng-red}
+\end{proof}\begin{proof}
+\hypo{nnnng}{\enot\enot\enot\enot G}
+\have{nng}{\enot \enot G}\dne{nnnng}
+\have{g}{G}\dne{nng}
+\end{proof}
+\end{multicols}}
+3. $T\eif S$, $\enot S \eif \enot T$
+\myanswer{\begin{multicols}{2}
+\begin{proof}
+\hypo{ts}{T \eif S}
+\open
+	\hypo{ns}{\enot S}
+	\have{nt}{\enot T}\mt{ts, ns}
+\close
+\have{nsnt}{\enot S \eif \enot T}\ci{ns-nt}
+\end{proof}\begin{proof}
+\hypo{nsnt}{\enot S \eif \enot T}
+\open
+	\hypo{t}{T}
+	\open
+		\hypo{ns}{\enot S}
+		\have{nt}{\enot T}\ce{nsnt, ns}
+		\have{red}{\ered}\ri{t, nt}
+	\close
+	\have{nns}{\enot \enot S}\ni{ns-red}
+	\have{s}{S}\dne{nns}
+\close
+\have{ts}{T \eif S}\ci{t-s}
+\end{proof}\end{multicols}}
+4. $U \eif I$, $\enot(U \eand \enot I)$
+\myanswer{
+\begin{multicols}{2}
+\begin{proof}
+\hypo{ui}{U \eif I}
+\open
+	\hypo{uni}{U \eand \enot I}
+	\have{u}{U}\ae{uni}
+	\have{ni}{\enot I}\ae{uni}
+	\have{i}{I}\ce{ui, u}
+	\have{red}{\ered}\ri{i, ni}
+\close
+\have{con}{\enot (U \eand \enot I)}\ni{uni-red}
+\end{proof}
+\begin{proof}
+\hypo{con}{\enot (U \eand \enot I)}
+\open
+	\hypo{u}{U}
+	\open
+		\hypo{ni}{\enot I}
+		\have{uni}{U \eand \enot I}\ai{u, ni}
+		\have{red}{\ered}\ri{uni, con}
+	\close
+	\have{nni}{\enot\enot I}\ni{ni-red}
+	\have{i}{I}\dne{nni}
+\close
+\have{ui}{U \eif I}\ci{u-i}
+\end{proof}
+\end{multicols}}
+\newpage 5. $\enot (C \eif D), C \eand \enot D$
+\myanswer{\begin{multicols}{2}
+\begin{proof}
+\hypo{cnd}{C \eand \enot D}
+\have{c}{C}\ae{cnd}
+\have{nd}{\enot D}\ae{cnd}
+\open
+	\hypo{cd}{C \eif D}
+	\have{d}{D}\ce{cd, c}
+	\have{red}{\ered}\ri{d, nd}
+\close
+\have{ncd}{\enot (C \eif D)}\ni{cd-red}
+\end{proof}
+\begin{proof}
+\hypo{ncd}{\enot (C \eif D)}
+\open
+	\hypo{d}{D}
+	\open
+		\hypo{c}{C}
+		\have{d1}{D}\by{R}{d}
+	\close
+	\have{cd}{C \eif D}\ci{c-d1}
+	\have{red}{\ered}\ri{cd, ncd}
+\close
+\have{nd}{\enot D}\ni{d-red}
+\open
+	\hypo{nc}{\enot C}
+	\open
+		\hypo{c1}{C}
+		\have{red1}{\ered}\ri{c1, nc}
+		\have{d2}{D}\re{red1}
+	\close
+	\have{cd1}{C \eif D}\ci{c1-d2}
+	\have{red2}{\ered}\ri{cd1, ncd}
+\close
+\have{nnc}{\enot \enot C}\ni{nc-red2}
+\have{c2}{C}\dne{nnc}
+\have{cnd}{C \eand \enot D}\ai{c2, nd}
+\end{proof}
+\end{multicols}}
+6. $\enot G \eiff H$, $\enot(G \eiff H)$ 
+\myanswer{\begin{multicols}{2}
+\begin{proof}
+\hypo{ngh}{\enot G \eiff H}
+\open
+	\hypo{gh}{G \eiff H}
+	\open
+		\hypo{g}{G}
+		\have{h}{H}\be{gh, g}
+		\have{ng}{\enot G}\be{ngh, h}
+		\have{red}{\ered}\ri{g, ng}
+	\close
+	\open
+		\hypo{ng1}{\enot G}
+		\have{h1}{H}\be{ngh, ng1}
+		\have{g1}{G}\be{gh, h1}
+		\have{red1}{\ered}\ri{g1, ng1}
+	\close
+	\have{red2}{\ered}\tnd{g-red, ng1-red1}
+\close
+\have{con}{\enot (G \eiff H)}\ni{gh-red2}
+\end{proof}
+\begin{proof}
+\hypo{ngh}{\enot (G \eiff H)}
+\open
+	\hypo{ng}{\enot G}
+	\open
+		\hypo{nh}{\enot H}
+		\open
+			\hypo{g}{G}
+			\have{red}{\ered}\ri{g, ng}
+			\have{h}{H}\re{red}
+		\close
+		\open
+			\hypo{h1}{H}
+			\have{red1}{\ered}\ri{h1, nh}
+			\have{g1}{G}\re{red1}
+		\close
+		\have{gh}{G \eiff H}\bi{g-h, h1-g1}
+		\have{red2}{\ered}\ri{gh, ngh}
+	\close
+	\have{nnh}{\enot\enot H}\ni{nh-red2}
+	\have{h2}{H}\dne{nnh}
+\close
+\open
+	\hypo{h3}{H}
+	\open
+		\hypo{g2}{G}
+		\open
+			\hypo{g4}{G}
+			\have{h5}{H}\by{R}{h3}
+		\close
+		\open
+			\hypo{h4}{H}
+			\have{g3}{G}\by{R}{g2}
+		\close
+		\have{gh1}{G \eiff H}\bi{g4-h5, h4-g3}
+		\have{red3}{\ered}\ri{gh1, ngh}
+	\close
+	\have{ng1}{\enot G}\ni{g2-red3}
+\close
+\have{con}{\enot G \eiff H}\bi{ng-h2, h3-ng1}
+\end{proof}
+\end{multicols}}
+
+\problempart
+If you know that $\meta{A}\proves\meta{B}$, what can you say about $(\meta{A}\eand\meta{C})\proves\meta{B}$? What about $(\meta{A}\eor\meta{C})\proves\meta{B}$? Explain your answers.
+\\\myanswer{If $\meta{A} \proves \meta{B}$, then $(\meta{A} \eand \meta{C})\proves \meta{B}$. After all, if $\meta{A} \proves \meta{B}$, then there is some proof with assumption $\meta{A}$ that ends with $\meta{B}$, and no undischarged assumptions other than $\meta{A}$. Now, if we start a proof with assumption $(\meta{A} \eand \meta{C})$, we can obtain $\meta{A}$ by $\eand$E. We can now copy and paste the original proof of $\meta{B}$ from $\meta{A}$, adding 1 to every line number and line number citation. The result will be a proof of $\meta{B}$ from assumption $\meta{A}$.}
+
+\myanswer{However, we cannot prove much from $(\meta{A} \eor \meta{C})$. After all, it might be impossible to prove $\meta{B}$ from $\meta{C}$.}
+
+\
+
+\problempart In this section, I claimed that it is just as hard to show that two sentences are not provably equivalent, as it is to show that a sentence is not a theorem. Why did I claim this? (\emph{Hint}: think of a sentence that would be a theorem iff \meta{A} and \meta{B} were provably equivalent.)
+\\\myanswer{Consider the sentence $\meta{A} \eiff \meta{B}$. Suppose we can show that this is a theorem. So we can prove it, with no assumptions, in $m$ lines, say. Then if we assume $\meta{A}$ and copy and paste the proof of $\meta{A} \eiff \meta{B}$ (changing the line numbering), we will have a deduction of this shape:
+\begin{proof}
+\hypo{a}{\meta{A}}
+\have[m][1]{m}{\meta{A} \eiff \meta{B}}
+\have{b}{\meta{B}}\be{m, a}
+\end{proof}
+\\This will show that $\meta{A} \proves \meta{B}$. In exactly the same way, we can show that $\meta{B} \proves \meta{A}$. So if we can show that $\meta{A} \eiff \meta{B}$ is a theorem, we can show that $\meta{A}$ and $\meta{B}$ are provably equivalent.}
+
+\myanswer{Conversely, suppose we can show that $\meta{A}$ and $\meta{B}$ are provably equivalent. Then we can prove $\meta{B}$ from the assumption of $\meta{A}$ in $m$ lines, say, and prove $\meta{A}$ from the assumption of $\meta{B}$ in $n$ lines, say. Copying and pasting these proofs together (changing the line numbering where appropriate), we obtain:
+\begin{proof}
+\open
+	\hypo{a}{\meta{A}}
+	\have[m]{b1}{\meta{B}}
+\close 
+\open
+	\hypo{b}{\meta{B}}
+	\have[m+n]{a1}{\meta{A}}
+\close
+\have{ab}{\meta{A} \eiff \meta{B}}\bi{a-b1, b-a1}
+\end{proof}
+\\Thus showing that $\meta{A} \eiff \meta{B}$ is a theorem.}
+
+\myanswer{There was nothing special about $\meta{A}$ and $\meta{B}$ in this. So what this shows is that the problem of showing that two sentences are provably equivalent is, essentially, the same problem as showing that a certain kind of sentence (a biconditional) is a theorem.}
+
+
+\setcounter{chapter}{29}
+\chapter{Derived rules}\setcounter{ProbPart}{0}
+\problempart
+Provide proof schemes that justify the addition of the third and fourth De Morgan rules as derived rules. 
+
+\
+\\\myanswer{Third rule:
+\begin{proof}
+		\have[m]{nab}{\enot \meta{A} \eand \enot \meta{B}}
+		\have[k]{na}{\enot \meta{A}}\ae{nab}
+		\have{nb}{\enot \meta{B}}\ae{nab}
+		\open
+			\hypo{aob}{\meta{A} \eor \meta{B}}
+			\open
+				\hypo{a}{\meta{A}}
+				\have{con1}{\ered}\ri{a, na}
+			\close
+			\open
+				\hypo{b}{\meta{B}}
+				\have{con2}{\ered}\ri{b, nb}
+			\close			
+			\have{con3}{\ered}\oe{aob, a-con1, b-con2}
+		\close
+		\have{con}{\enot (\meta{A} \eor \meta{B})}\ni{aob-con3}
+	\end{proof}}
+
+\
+\\\myanswer{Fourth rule:
+	\begin{proof}
+		\have[m]{nab}{\enot (\meta{A} \eor \meta{B})}
+		\open
+			\hypo[k]{a}{\meta{A}}
+			\have{aob}{\meta{A} \eor \meta{B}}\oi{a}
+			\have{nab1}{\ered}\ri{aob, nab}
+		\close
+		\have{na}{\enot \meta{A}}\ni{a-nab1}
+		\open
+			\hypo{b}{\meta{B}}
+			\have{aob2}{\meta{A} \eor \meta{B}}\oi{b}
+			\have{nab2}{\ered}\ri{aob2, nab}
+		\close
+		\have{nb}{\enot \meta{B}}\ni{b-nab2}
+		\have{con}{\enot \meta{A} \eand \enot \meta{B}}\ai{na, nb}
+	\end{proof}
+}

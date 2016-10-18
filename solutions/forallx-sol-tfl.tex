@@ -1,0 +1,33 @@
+%!TEX root = forallxsol.tex
+%\part{Truth-functional logic}
+%\label{ch.TFL}
+%\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
+\chapter{Sentences of TFL}\setcounter{ProbPart}{0}
+\problempart
+\label{pr.wiffTFL}
+For each of the following: (a) Is it a sentence of TFL, strictly speaking? (b) Is it a sentence of TFL, allowing for our relaxed bracketing conventions?
+\begin{earg}
+\item $(A)$\hfill \myanswer{(a) no (b) no}
+\item $J_{374} \eor \enot J_{374}$\hfill \myanswer{(a) no (b) yes}
+\item $\enot \enot \enot \enot F$\hfill \myanswer{(a) yes (b) yes}
+\item $\enot \eand S$\hfill \myanswer{(a) no (b) no}
+\item $(G \eand \enot G)$\hfill \myanswer{(a) yes (b) yes}
+\item $(A \eif (A \eand \enot F)) \eor (D \eiff E)$\hfill \myanswer{(a) no (b) yes}
+\item $[(Z \eiff S) \eif W] \eand [J \eor X]$\hfill \myanswer{(a) no (b) yes}
+\item $(F \eiff \enot D \eif J) \eor (C \eand D)$\hfill \myanswer{(a) no (b) no}
+\end{earg}
+
+\problempart
+Are there any sentences of TFL that contain no atomic sentences? Explain your answer.
+\\\myanswer{No. Atomic sentences contain atomic sentences (trivially). And every more complicated sentence is built up out of less complicated sentences, that were in turn built out of less complicated sentences, \ldots, that were ultimately built out of atomic sentences.}\\
+
+
+\problempart
+What is the scope of each connective in the sentence
+$$\bigl[(H \eif I) \eor (I \eif H)\bigr] \eand (J \eor K)$$
+\myanswer{The scope of the left-most instance of `$\eif$' is `$(H \eif I)$'.\\
+The scope of the right-most instance of `$\eif$' is `$(I \eif H)$'.\\
+The scope of the left-most instance of `$\eor$ is `$\bigl[(H \eif I) \eor (I \eif H)\bigr]$'\\
+The scope of the right-most instance of `$\eor$' is `$(J \eor K)$'\\
+The scope of the conjunction is the entire sentence; so conjunction is the main logical connective of the sentence.}

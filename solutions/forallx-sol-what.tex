@@ -1,0 +1,299 @@
+%!TEX root = forallxsol.tex
+%\part{Key notions}
+%\label{ch.intro}
+%\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
+\chapter{Arguments}
+Highlight the phrase which expresses the conclusion of each of these arguments:
+\begin{earg}
+	\item It is sunny. So \myanswer{I should take my sunglasses}.
+	\item \myanswer{It must have been sunny}. I did wear my sunglasses, after all.
+	\item No one but you has had their hands in the cookie-jar. And the scene of the crime is littered with cookie-crumbs. \myanswer{You're the culprit}!
+	\item Miss Scarlett and Professor Plum were in the study at the time of the murder. And Reverend Green had the candlestick in the ballroom, and we know that there is no blood on his hands. Hence \myanswer{Colonel Mustard did it in the kitchen with the lead-piping}. Recall, after all, that the gun had not been fired.
+\end{earg}
+
+\chapter{Valid arguments}
+\problempart
+Which of the following arguments is valid? Which is invalid?
+
+\begin{earg}
+\item Socrates is a man.
+\item All men are carrots.
+\item[So:] Therefore, Socrates is a carrot. \hfill \myanswer{Valid}
+\end{earg}
+
+\begin{earg}
+\item Abe Lincoln was either born in Illinois or he was once president.
+\item Abe Lincoln was never president.
+\item[So:] Abe Lincoln was born in Illinois. \hfill \myanswer{Valid}
+\end{earg}
+
+\begin{earg}
+\item If I pull the trigger, Abe Lincoln will die.
+\item I do not pull the trigger.
+\item[So:] Abe Lincoln will not die. \hfill \myanswer{Invalid \\ Abe Lincoln might die for some other reason: someone else might pull the trigger; he might die of old age.}
+\end{earg}
+
+\begin{earg}
+\item Abe Lincoln was either from France or from Luxemborg.
+\item Abe Lincoln was not from Luxemborg.
+\item[So:] Abe Lincoln was from France. \hfill \myanswer{Valid}
+\end{earg}
+
+\begin{earg}
+\item If the world were to end today, then I would not need to get up tomorrow morning.
+\item I will need to get up tomorrow morning.
+\item[So:] The world will not end today. \hfill \myanswer{Valid}
+\end{earg}
+
+\begin{earg}
+\item Joe is now 19 years old.
+\item Joe is now 87 years old.
+\item[So:] Bob is now 20 years old. \hfill \myanswer{Valid}
+\\\myanswer{An argument is valid if and only if it is impossible for all the premises to be true and the conclusion false. It is impossible for all the premises to be true; so it is certainly impossible that the premises are all true and the conclusion is false.}
+\end{earg}
+
+\problempart
+\label{pr.EnglishCombinations}
+Could there be:
+	\begin{earg}
+		\item A valid argument that has one false premise and one true premise? \hfill \myanswer{Yes. \\Example: the first argument, above.}
+		\item A valid argument that has only false premises? \hfill \myanswer{Yes.\\Example: Socrates is a frog, all frogs are excellent pianists, therefore Socrates is an excellent pianist.}
+		\item A valid argument with only false premises and a false conclusion? \hfill \myanswer{Yes. \\The same example will suffice.}
+		\item A sound argument with a false conclusion? \hfill\myanswer{No.\\ By definition, a sound argument has true premises. And a valid argument is one where it is impossible for the premises to be true and the conclusion false. So the conclusion of a sound argument is certainly true.}
+		\item An invalid argument that can be made valid by the addition of a new premise? \hfill\myanswer{Yes.\\ Plenty of examples, but let me offer a more general observation. We can \emph{always} make an invalid argument valid, by adding a contradiction into the premises. For an argument is valid if and only if it is impossible for all the premises to be true and the conclusion false. If the premises are contradictory, then it is impossible for them all to be true (and the conclusion false).}
+		\item A valid argument that can be made invalid by the addition of a new premise? \hfill \myanswer{No.\\ An argument is valid if and only if it is impossible for all the premises to be true and the conclusion false. Adding another premise will only make it harder for the premises all to be true together.}
+	\end{earg}
+In each case: if so, give an example; if not, explain why not.
+
+\chapter{Other logical notions}
+\setcounter{ProbPart}{0}
+\problempart
+\label{pr.EnglishTautology}
+For each of the following: Is it necessarily true, necessarily false, or contingent?
+\begin{earg}
+\item Caesar crossed the Rubicon.
+\hfill \myanswer{Contingent}
+\item Someone once crossed the Rubicon.
+\hfill \myanswer{Contingent}
+\item No one has ever crossed the Rubicon.
+\hfill \myanswer{Contingent}
+\item If Caesar crossed the Rubicon, then someone has.
+\hfill \myanswer{Necessarily true}
+\item Even though Caesar crossed the Rubicon, no one has ever crossed the Rubicon.
+\hfill \myanswer{Necessarily false}
+\item If anyone has ever crossed the Rubicon, it was Caesar.
+\hfill \myanswer{Contingent}
+\end{earg}
+
+\problempart
+\label{pr.MartianGiraffes}
+Look back at the sentences G1--G4 in this section (about giraffes, gorillas and martians in the wild animal park), and consider each of the following:
+\begin{earg}
+\item G2, G3, and G4
+\hfill \myanswer{Jointly consistent}
+\item G1, G3, and G4
+\hfill \myanswer{Jointly inconsistent}
+\item G1, G2, and G4
+\hfill \myanswer{Jointly consistent}
+\item G1, G2, and G3
+\hfill \myanswer{Jointly consistent}
+\end{earg}
+Which are jointly consistent? Which are jointly inconsistent?
+
+\
+
+\problempart
+\label{pr.EnglishCombinations}
+Could there be:
+\begin{earg}
+\item A valid argument, the conclusion of which is necessarily false?
+\item[] \myanswer{Yes: `$1+1=3$. So $1+2=4$.'}
+\item An invalid argument, the conclusion of which is necessarily true?
+\item[] \myanswer{No. If the conclusion is necessarily true, then there is no way to make it false, and hence no way to make it false whilst making all the premises true.} 
+\item Jointly consistent sentences, one of which is necessarily false?
+\item[] \myanswer{No. If a sentence is necessarily false, there is no way to make it true, let alone it along with all the other sentences.}
+\item Jointly inconsistent sentences, one of which is necessarily true?
+\item[] \myanswer{Yes. `$1+1=4$' and `$1+1=2$'.}
+\end{earg}
+In each case: if so, give an example; if not, explain why not.
+
+\setcounter{chapter}{4}
+\chapter{Connectives}\setcounter{ProbPart}{0}
+\problempart Using the symbolisation key given, symbolise each English sentence in TFL.\label{pr.monkeysuits}
+	\begin{ekey}
+		\item[M] Those creatures are men in suits. 
+		\item[C] Those creatures are chimpanzees. 
+		\item[G] Those creatures are gorillas.
+	\end{ekey}
+\begin{earg}
+\item Those creatures are not men in suits.
+\item[] \myanswer{$\enot M$}
+\item Those creatures are men in suits, or they are not.
+\item[] \myanswer{$(M \eor \enot M$)} 
+\item Those creatures are either gorillas or chimpanzees.
+\item[] \myanswer{$(G \eor C)$}
+\item Those creatures are neither gorillas nor chimpanzees.
+\item[] \myanswer{$\enot (C \eor G)$}
+\item If those creatures are chimpanzees, then they are neither gorillas nor men in suits.
+\item[] \myanswer{$(C \eif \enot(G \eor M))$}
+\item Unless those creatures are men in suits, they are either chimpanzees or they are gorillas.
+\item[] \myanswer{$(M \eor (C \eor G))$}
+\end{earg}
+
+\problempart Using the symbolisation key given, symbolise each English sentence in TFL.
+\begin{ekey}
+\item[A] Mister Ace was murdered.
+\item[B] The butler did it.
+\item[C] The cook did it.
+\item[D] The Duchess is lying.
+\item[E] Mister Edge was murdered.
+\item[F] The murder weapon was a frying pan.
+\end{ekey}
+\begin{earg}
+\item Either Mister Ace or Mister Edge was murdered.
+\item[] \myanswer{$(A \eor E)$}
+\item If Mister Ace was murdered, then the cook did it.
+\item[] \myanswer{$(A \eif C)$}
+\item If Mister Edge was murdered, then the cook did not do it.
+\item[] \myanswer{$(E \eif \enot C)$}
+\item Either the butler did it, or the Duchess is lying.
+\item[] \myanswer{$(B \eor D)$}
+\item The cook did it only if the Duchess is lying.
+\item[] \myanswer{$(C \eif D)$}
+\item If the murder weapon was a frying pan, then the culprit must have been the cook.
+\item[] \myanswer{$(F \eif C)$}
+\item If the murder weapon was not a frying pan, then the culprit was either the cook or the butler.
+\item[] \myanswer{$(\enot F \eif (C \eor B))$}
+\item Mister Ace was murdered if and only if Mister Edge was not murdered.
+\item[] \myanswer{$(A \eiff \enot E)$}
+\item The Duchess is lying, unless it was Mister Edge who was murdered.
+\item[] \myanswer{$(D \eor E)$}
+\item If Mister Ace was murdered, he was done in with a frying pan.
+\item[] \myanswer{$(A \eif F)$}
+\item Since the cook did it, the butler did not.
+\item[] \myanswer{$(C \eand \enot B)$}
+\item Of course the Duchess is lying!
+\item[] \myanswer{$D$}
+\end{earg}
+\solutions
+\problempart Using the symbolisation key given, symbolise each English sentence in TFL.\label{pr.avacareer}
+	\begin{ekey}
+		\item[E_1] Ava is an electrician.
+		\item[E_2] Harrison is an electrician.
+		\item[F_1] Ava is a firefighter.
+		\item[F_2] Harrison is a firefighter.
+		\item[S_1] Ava is satisfied with her career.
+		\item[S_2] Harrison is satisfied with his career.
+	\end{ekey}
+\begin{earg}
+\item Ava and Harrison are both electricians.
+\item[] \myanswer{$(E_1 \eand E_2)$}
+\item If Ava is a firefighter, then she is satisfied with her career.
+\item[] \myanswer{$(F_1 \eif S_1)$}
+\item Ava is a firefighter, unless she is an electrician.
+\item[] \myanswer{$(F_1 \eor E_1)$}
+\item Harrison is an unsatisfied electrician.
+\item[] \myanswer{$(E_2 \eand \enot S_2)$}
+\item Neither Ava nor Harrison is an electrician.
+\item[] \myanswer{$\enot (E_1 \eor E_2)$}
+\item Both Ava and Harrison are electricians, but neither of them find it satisfying.
+\item[] \myanswer{$((E_1 \eand E_2) \eand \enot (S_1 \eor S_2))$}
+\item Harrison is satisfied only if he is a firefighter.
+\item[] \myanswer{$(S_2 \eif F_2)$}
+\item If Ava is not an electrician, then neither is Harrison, but if she is, then he is too.
+\item[] \myanswer{$((\enot E_1 \eif \enot E_2) \eand (E_1 \eif  E_2))$}
+\item Ava is satisfied with her career if and only if Harrison is not satisfied with his.
+\item[] \myanswer{$(S_1 \eiff \enot S_2)$}
+\item If Harrison is both an electrician and a firefighter, then he must be satisfied with his work.
+\item[] \myanswer{$((E_2 \eand F_2) \eif S_2)$}
+\item It cannot be that Harrison is both an electrician and a firefighter.
+\item[] \myanswer{$\enot (E_2 \eand F_2)$}
+\item Harrison and Ava are both firefighters if and only if neither of them is an electrician.
+\item[] \myanswer{$((F_2 \eand F_1) \eiff \enot(E_2 \eor E_1))$}
+\end{earg}
+
+\solutions
+\problempart
+\label{pr.spies}
+Give a symbolisation key and symbolise the following English sentences in TFL.
+\myanswer{\begin{ekey}
+\item[A] Alice is a spy.
+\item[B] Bob is a spy.
+\item[C] The code has been broken.
+\item[G] The German embassy will be in an uproar.
+\end{ekey}}
+\begin{earg}
+\item Alice and Bob are both spies.
+\item[] \myanswer{$(A \eand B)$}
+\item If either Alice or Bob is a spy, then the code has been broken.
+\item[] \myanswer{$((A \eor B) \eif C)$}
+\item If neither Alice nor Bob is a spy, then the code remains unbroken.
+\item[] \myanswer{$(\enot (A \eor B) \eif \enot C)$}
+\item The German embassy will be in an uproar, unless someone has broken the code.
+\item[] \myanswer{$(G \eor C)$}
+\item Either the code has been broken or it has not, but the German embassy will be in an uproar regardless.
+\item[] \myanswer{$((C \eor \enot C) \eand G)$}
+\item Either Alice or Bob is a spy, but not both.
+\item[] \myanswer{$((A \eor B) \eand \enot (A \eand B))$ }
+\end{earg}
+
+
+\problempart Give a symbolisation key and symbolise the following English sentences in TFL.
+\myanswer{\begin{ekey}
+\item[F] There is food to be found in the pridelands.
+\item[R] Rafiki will talk about squashed bananas.
+\item[A] Simba is alive.
+\item[K] Scar will remain as king.
+\end{ekey}}
+\begin{earg}
+\item If there is food to be found in the pridelands, then Rafiki will talk about squashed bananas.
+\item[] \myanswer{$(F \eif R)$}
+\item Rafiki will talk about squashed bananas unless Simba is alive.
+\item[] \myanswer{$(R \eor A)$}
+\item Rafiki will either talk about squashed bananas or he won't, but there is food to be found in the pridelands regardless.
+\item[] \myanswer{$((R \eor \enot R) \eand F)$}
+\item Scar will remain as king if and only if there is food to be found in the pridelands.
+\item[] \myanswer{$(K \eiff F)$}
+\item If Simba is alive, then Scar will not remain as king.
+\item[] \myanswer{$(A \eif \enot K)$}
+\end{earg}
+
+
+\problempart
+For each argument, write a symbolisation key and symbolise all of the sentences of the argument in TFL.
+\begin{earg}
+\item If Dorothy plays the piano in the morning, then Roger wakes up cranky. Dorothy plays piano in the morning unless she is distracted. So if Roger does not wake up cranky, then Dorothy must be distracted.
+\myanswer{\begin{ekey}
+\item[P] Dorothy plays the Piano in the morning.
+\item[C] Roger wakes up cranky.
+\item[D] Dorothy is distracted.
+\end{ekey}}
+\item[] \myanswer{$(P \eif C)$, $(P \eor D)$, $(\enot C \eif D)$}
+\item It will either rain or snow on Tuesday. If it rains, Neville will be sad. If it snows, Neville will be cold. Therefore, Neville will either be sad or cold on Tuesday.
+\myanswer{\begin{ekey}
+\item[T_1] It rains on Tuesday
+\item[T_2] It snows on Tuesday
+\item[S] Neville is sad on Tuesday
+\item[C] Neville is cold on Tuesday
+\end{ekey}}
+\item[] \myanswer{$(T_1 \eor T_2)$, $(T_1 \eif S)$, $(T_2 \eif C)$, $(S \eor C)$}
+\item If Zoog remembered to do his chores, then things are clean but not neat. If he forgot, then things are neat but not clean. Therefore, things are either neat or clean; but not both.
+\myanswer{\begin{ekey}
+\item[Z] Zoog remembered to do his chores
+\item[C] Things are clean
+\item[N] Things are neat
+\end{ekey}}
+\item[] \myanswer{$(Z \eif (C \eand \enot N))$, $(\enot Z \eif (N \eand \enot C))$, $((N \eor C) \eand \enot (N \eand C))$.}
+\end{earg}
+
+\problempart
+We symbolised an \emph{exclusive or} using `$\eor$', `$\eand$', and `$\enot$'. How could you symbolise an \emph{exclusive or} using only two connectives? Is there any way to symbolise an \emph{exclusive or} using only one connective?
+\\\myanswer{For two connectives, we could offer any of the following: 
+\begin{center}
+$\enot(\meta{A} \eiff \meta{B})$\\
+$(\enot\meta{A} \eiff \meta{B})$\\
+$(\enot (\enot \meta{A} \eand \enot \meta{B}) \eand \enot (\meta{A} \eand \meta{B}))$
+\end{center}
+But if we wanted to symbolise it using only one connective, we would have to introduce a new primitive connective.
+}
