@@ -1,91 +1,35 @@
 %!TEX root = forallxcam.tex
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{forallx}[2011/10/29 support for a logic textbook]
-\RequirePackage{amssymb,amsmath,hyperref,multicol,ifthen,graphicx,pifont,rotating,color}
-\usepackage[numbered]{bookmark} %TB: added for speedy navigation
-
-% The original forallx.sty was written in 2005
-% Comments marked "TB" are additions by Tim Button in September 2012
+% The original forallx.sty was written in 2005 by PD Magnus
+% This version is 2017
+\ProvidesPackage{forallxcam}[support for forallx:Cambridge]
+\usepackage{amsmath, hyperref, multicol,  graphicx, ifthen, rotating, color}
 
 %    ****************************************
 %    *            LOGICAL SYMBOLS           *
 %    ****************************************
-%
-% There are, of course, many different symbols used for the truth-functional
-% connectives. In order to make the book adaptable, the symbols are defined
-% here in the style sheet and these commands are used throughout the book.
-% To change conjunction from the ampersand to the carat, for instance,
-% change the definition of \eand from ~\&~ to \wedge. To change negation from
-% the hoe to the swung dash, change \enot from \neg to {\sim}. Other examples
-% are given below.
-%
-\def\therefore{\ensuremath{\mathrel{\ldotp\dot{}\,\ldotp}}}
-% disjunction
-\def\eor{\ensuremath{\vee}}
-% conjunction: 
-% {\,^{_{_{_{_{\mbox{\footnotesize\textbullet}}}}}}} gives the dot
-\def\eand{\ensuremath{\wedge}}
-% conditional: \supset gives the horseshoe
-\def\eif{\ensuremath{\rightarrow}}
-% biconditional: \equiv gives the triple bar
-\def\eiff{\ensuremath{\leftrightarrow}}
-% negation: {\sim} gives the swung dash 
-\def\enot{\ensuremath{\neg}}
-\def\ered{\ensuremath{\bot}}% TB: added to give an absurdity sign
-\def\maththe{\rotatebox[origin=c]{180}{$\iota$}} % TB: added to give definite description operator
+\def\eor{\ensuremath{\vee}} % logical or
+\def\eand{\ensuremath{\wedge}} % logical and
+\def\eif{\ensuremath{\rightarrow}} % logical conditional
+\def\eiff{\ensuremath{\leftrightarrow}} % logical biconditional
+\def\enot{\ensuremath{\neg}} % logical not 
+\def\ered{\ensuremath{\bot}}% used for absurdity in proofs
+\def\maththe{\rotatebox[origin=c]{180}{$\iota$}} % the definite description operator
 \def\proves{\ensuremath{\vdash}}
 \def\entails{\ensuremath{\vDash}}
 \def\nproves{\ensuremath{\nvdash}}
 \def\nentails{\ensuremath{\nvDash}}
-
+\newcommand*{\blank}{\underline{\hspace*{2em}}}
+\newcommand*{\gap}[1]{\blank$_{#1}$} 
+\newcommand*{\openntuple}{\langle}
+\newcommand*{\closentuple}{\rangle}
+\newcommand*{\ntuple}[1]{\mbox{\ensuremath{\mathopen{\openntuple}}#1\ensuremath{\mathclose{\closentuple}}}} 
+\newcommand*{\define}[1]{\textsc{\lowercase{#1}}}
 
 %    ****************************************
 %    *        TITLE AND VERSION DATA        *
 %    ****************************************
-% the title of the book
 \newcommand*{\forallx}{\texttt{forall}\script{x}}
-\newcommand*{\forallxcam}{\texttt{forall}\script{x}\texttt{:Cambridge 2014-15}}
-% The version number of the book is a 5 digit integer:
-% the last digit of the year, the month, the day of the month
-\newcounter{dummy}
-\setcounter{dummy}{\year}
-\addtocounter{dummy}{-2000}
-\newcommand*{\bookversion}{%
-	\ifthenelse{\arabic{dummy}<10}{0}{}%
-	\arabic{dummy}%
-	\ifthenelse{\month<10}{0}{}\number\month%
-	\ifthenelse{\day<10}{0}{}\number\day%
-}  
-
-
-
-%    ****************************************
-%    *       SYMBOLS AND SCRIPTY BITS       *
-%    ****************************************
-% equivalent to commenting something out, but usable on multiple lines
-\providecommand{\nix}[1]{}
-% script letters are rendered in Zaph Chancery, which has both upper and lower case.
-\DeclareFontFamily{OT1}{pzc}{}
-\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.200] pzcmi7t}{}
-\DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it}
-\newcommand*{\script}[1]{\ensuremath{\mathscr{#1}}}
-\renewcommand*{\meta}[1]{\ensuremath{\mathscr{#1}}} % TB: used for all metavariables
-% create a blank
-\newcommand*{\blank}{\underline{\hspace*{2.5em}}}
-\newcommand*{\gap}[1]{\blank$_{#1}$} % TB: used for keys, to avoid use/mention confusion
-
-% These are included for discussing formal semantics in predicate logic.
-\newcommand*{\model}[1]{\ensuremath{\mathbb{#1}}}
-\newcommand*{\extension}[1]{\ensuremath{\mbox{extension}(#1)}}
-\newcommand*{\referent}[1]{\ensuremath{\mbox{referent}(#1)}}
-  % I personally dislike the default LaTeX angle brackets. I think that
-  % they are too narrow. If you want to use them, though, you can
-  % replace < and > in the commands below with \langle and \rangle
-\newcommand*{\openntuple}{<}
-\newcommand*{\closentuple}{>}
-\newcommand*{\ntuple}[1]{\mbox{\ensuremath{\mathopen{\openntuple}}#1\ensuremath{\mathclose{\closentuple}}}} 
-% definitions
-\newcommand*{\define}[1]{\textsc{\lowercase{#1}}}
+\newcommand*{\forallxcam}{\texttt{forall}\script{x}\texttt{:Cambridge}}
 
 %    ****************************************
 %    *          LIST  ENVIRONMENTS          *
@@ -109,25 +53,10 @@
 % references to example sentences:
 \newcounter{Example}[chapter]
 \newcommand*{\ex}[1]{\refstepcounter{Example}\arabic{Example}.\label{#1}}
-% Used in specifying partial models, this keeps the lines justified so
-% so that the = signs all line up. For example:
-%	\begin{partialmodel}
-%		UD			& \{Duke, Miles\}\\
-%		\extension{B}	& \{Duke\}
-%	\end{partialmodel}
-\newenvironment{partialmodel}{\par\begin{tabular}{r@{~=~}l}}{\end{tabular}\par}
-% define the bullet for {itemize} lists
 \renewcommand{\labelitemi}{$\triangleright$}
 
 % \factoidbox{...} produces an inset paragraph of text with a line around it
-% Neither for lists nor an environment, but it really didn't
-% belong anywhere else.
 \newcommand{\factoidbox}[1]{\begin{quote}\framebox{\parbox{\linewidth}{#1}}\end{quote}}
-
-% \tablefbox{...} is used in certain tables to put a box around the contents of specific table cells without having lines that run the whole length of the table
-\newcommand{\tablefbox}[1]{\multicolumn{1}{|p{10em}|}{#1}}
-
-
 
 %    ****************************************
 %    *          PRACTICE PROBLEMS           *
@@ -141,20 +70,6 @@
 }
 % This starts a new section which is automatically numbered:
 \newcommand*{\problempart}{\par\noindent\refstepcounter{ProbPart}\textbf{\Alph{ProbPart}. }}
-% This bullet is used to indicate that solutions appear at the end of
-% the book.
-\newcommand*{\solutions}{} %TB: removed, since I am not including the solutions in the book
-% When solutions are only given for selected problems, the
-% star is placed left of the problem number.
-\newcommand*{\leftsolutions}{\hspace{-2.2em}\makebox[2em][l]{\solutions}}
-
-% This is used at the beginning of a section in the solutions
-% appendix.
-\newcommand*{\solutionsection}[2]{%
-	\textbf{\textsc{Chapter {\ref{#1}} Part {\ref{#2}}}}%
-	\markright{solutions for ch.~\ref{#1}}%
-	\setcounter{countSeq}{0}
-}
 
 % This is used to enumerate things that have a given property.
 % For example: \nextSeq\nextSeq\noSeq\lastSeq are valid.
@@ -164,50 +79,26 @@
 \newcommand*{\noSeq}{\stepcounter{countSeq}}
 \newcommand*{\lastSeq}{and \stepcounter{countSeq}\arabic{countSeq} }
 
-% This is used to place (eg) a partial model or proof as an item
-% in a list. Without it, the item tag will be vertically centered next
-% to the model or proof.
-%		--- doesn't actually work yet ---
-\newenvironment{solutioninlist}{}{}%{~\vspace{-1.6em}}{}
-
-
 %    ****************************************
 %    *         TABLE OF CONTENTS, ETC.      *
 %    ****************************************
 \renewcommand{\thechapter}{\arabic{chapter}}
 \renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
-\renewcommand{\chaptermark}[1]{\markboth%
-{\forallx}%
-{\textrm{ch.~\thechapter\ \lowercase{#1}}}%
-}
-\renewcommand{\sectionmark}[1]{}
-
-
+\setstocksize{297mm}{210mm} %Height and width of stock
+\settrimmedsize{297mm}{210mm}{*} %Height and width of trimmed page
+\settrims{0mm}{0mm} %Trims top and fore-edge
+\settypeblocksize{217mm}{130mm}{*} %Height and width of typeblock
+\setlrmargins{*}{*}{1} %Left and right margins are equal
+\setulmargins{*}{*}{1} %Top and bottom margins are equal 
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0em}
+\checkandfixthelayout
 
 %    ****************************************
 %    *             TRUTH TABLES             *
 %    ****************************************
-
-% This facilitates the typesetting of truth tables by
-% effectively eliminating the intercolumn space.
-% This allows truth tables with the Ts and Fs immediately
-% below arbitrary connectives.
-% An example follows:
-%\begin{center}
-%\begin{tabular}{c|c|@{\TTon}*{5}{c}@{\TToff}}
-%$A$&$B$&$(A$&\eand&$B)$&\eif&A\\
-%\hline
-% T & T &    &  T  &    &  T & \\
-% T & F &    &  F  &    &  T & \\
-% F & T &    &  F  &    &  T & \\
-% F & F &    &  T  &    &  T &
-%\end{tabular}
-%\end{center}
-%\newcommand*{\TTon}{\hspace{1.5em}\extracolsep{-1em}}
-%\newcommand*{\TToff}{\extracolsep{-1em}\hspace{.3em}}
-% 
-% Moving to Memoir breaks Magnus's elegant macro
-% In the preceding column definition, I would offer instead:
+% This facilitates the typesetting of truth tables 
+% e.g. to have a two atom truth table with five bits, I use:
 %\begin{tabular}{c c | d e e e f}
 % d for left-most columns, e for middle ones, f for right-most ones. The ensuing spacing is ok.
 \newcolumntype{d}{ c@{\extracolsep{0.1em}}}
@@ -219,15 +110,12 @@
 %    ****************************************
 %    *                PROOFS                *
 %    ****************************************
-
 % based on fitch.sty by Peter Selinger, University of Ottawa
 % v 0.4, (C) 2002 Peter Selinger
 % revised 2003--5 by P.D. Magnus
-
 % Selinger released this code under the GNU General Public License,
 % version 2 or later. So this bit of the style is free to you under
 % the GPL.
-
 % ----------------------------------------------------------------------
 % The comments in this file are intended for programmers who
 % might want to hack this package. For information on how to use the
@@ -676,24 +564,23 @@
 \newcommand*{\existsI}{\Ei}
 \newcommand*{\existsE}{\Ee}
 
-
 %    ****************************************
 %    *            STYLE OF THE BOOK           *
 %    ****************************************
-% TB: I moved from book to memoir and then radically changed the structuring. From the point of view of LaTeX, the book consists of 9 parts, containing roughly 5 chapters each. From the point of view of the user, the book consists of 9 chapters, containing roughly 5 sections each. This means a fair bit of internal redefinition of LaTeX code.
+% From the point of view of LaTeX, the book consists of 9 parts, containing roughly 5 chapters each. From the point of view of the user, the book consists of 9 chapters, containing roughly 5 sections each. This means a fair bit of internal redefinition of LaTeX code.
 
 \makeatletter
-	\renewcommand{\@chapapp}{ } % TB: to prevent "chapter" appearing all over the place
+	\renewcommand{\@chapapp}{ } % to prevent "chapter" appearing all over the place
 \makeatother
-\renewcommand\cftchapterfont{\normalfont} %TB: to make the sections (which LaTeX regards as chapters) small in the ToC
-\renewcommand\cftchapterpagefont{\normalfont} %TB: to make the sections (which LaTeX regards as chapters) small in the ToC
-\renewcommand\cftbeforechapterskip{0pt} %TB: to leave no gap between sections (which LaTeX regards as chapters) in the TOC
-\renewcommand{\partname}{Chapter} %TB: to make the chapters (which LaTeX regards as parts) labelled "chapter"
+\renewcommand\cftchapterfont{\normalfont} % to make the sections (which LaTeX regards as chapters) small in the ToC
+\renewcommand\cftchapterpagefont{\normalfont} % to make the sections (which LaTeX regards as chapters) small in the ToC
+\renewcommand\cftbeforechapterskip{0pt} % to leave no gap between sections (which LaTeX regards as chapters) in the TOC
+\renewcommand{\partname}{} % to make the chapters (which LaTeX regards as parts) labelled "chapter"
 \setlength{\headwidth}{\textwidth} 
 
 \makepagestyle{forallxpage} %TB: design new page style
-\makeheadrule {forallxpage}{\textwidth}{\normalrulethickness} %TB: put rule beneath page header
-\makeevenhead {forallxpage}{\small \thepage}{}{\small\leftmark}  %TB: page header consists of section name and page
+\makeheadrule {forallxpage}{\textwidth}{\normalrulethickness} % put rule beneath page header
+\makeevenhead {forallxpage}{\small \thepage}{}{\small\leftmark}  % page header consists of section name and page
 \makeoddhead {forallxpage}{\small\rightmark}{}{\small \thepage} 
 \makeatletter
 \makepsmarks{forallxpage}{
@@ -702,12 +589,12 @@
 }
 \makeatother
 
-\setcounter{tocdepth}{0} %TB: only chapters and sections to appear
-\renewcommand{\thepart}{\arabic{part}}  % TB: chapters (which LaTeX regards as parts) to be numbered
-\renewcommand{\thechapter}{\arabic{chapter}} %TB: sections (which LaTeX regards as chapters) to be numbered
-\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}} %TB: subsections (which LaTeX regards as sections) to be n.m
+\setcounter{tocdepth}{0} % only chapters and sections to appear
+\renewcommand{\thepart}{\arabic{part}}  % chapters (which LaTeX regards as parts) to be numbered
+\renewcommand{\thechapter}{\arabic{chapter}} % sections (which LaTeX regards as chapters) to be numbered
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}} % subsections (which LaTeX regards as sections) to be n.m
 
-\makechapterstyle{forallx}{% TB defines a nice style for section headings (which LaTeX regards as chapter headings)
+\makechapterstyle{forallx}{% defines a nice style for section headings (which LaTeX regards as chapter headings)
 	\renewcommand{\chapnamefont}{\normalfont\Huge\bfseries} 
 	\renewcommand{\chapnumfont}{\normalfont\Huge\bfseries}
 	\renewcommand{\chaptitlefont}{\normalfont\Huge\bfseries} 
@@ -725,22 +612,15 @@
 
 \definecolor{darkred}{rgb}{0.5,0,0} % TB: used to color links in red
 \newcommand\myanswer[1]{\textcolor{blue}{#1}} % TB: puts model answers in blue
-
-% TB: information originally in the main body; but it is style information, so I have included it here.
-\hypersetup{pdfinfo={Title={forall x: Cambridge Version, Solutions Booklet}, Author={P.D. Magnus, Tim Button}, Subject={An open access introductory textbook in formal logic}, Keywords={truth-functional logic, propositional logic, predicate logic, first-order logic, natural deduction, fitch}}, %
-	bookmarks={true}, %
+\hypersetup{pdfinfo={Title={forallx: Cambridge Version}, Author={P.D. Magnus, Tim Button}, Subject={An open access introductory textbook in formal logic}, Keywords={truth-functional logic, propositional logic, predicate logic, sentential logic, first-order logic, quantified-logic, natural deduction, fitch}}, %
 	colorlinks={true}, %
 	linkcolor={darkred},
 	pdfdisplaydoctitle={true}}
-\urlstyle{same}
-
 
 %    ****************************************
 %    *            DIAGRAMS IN TIKZ           *
 %    ****************************************
-% TB: I use diagrams in a few places, always using Tikz.
-%   A. To illustrate an argument for the truth table of the material conditional
-%   B. To draw graphs illustrating small finite interpretations. 
+% I use diagrams in a few places, always using Tikz.
 % All these drawings are done using tikz
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning,shapes} 

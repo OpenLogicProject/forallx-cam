@@ -1,7 +1,9 @@
-\documentclass[oneside, 10pt, a4paper]{memoir}
+\documentclass[oneside, 11pt, a4paper]{memoir}
 \usepackage{forallxcam}
-\begin{document}
-\midsloppy
+% NB: the package forallxcam-fancy requires both XeLaTeX and certain fonts. To use just LaTeX and standard fonts, usepackage forallxcam-basic instead. You will likely also want to reduce the font to 10pt in that case
+\usepackage{forallxcam-basic}
+
+\begin{document}\midsloppy
 
 \pagestyle{forallxpage}
 
@@ -20,11 +22,6 @@
 \include{forallx-cam-prooftfl}
 \include{forallx-cam-prooffol}
 
-\makeatletter 
-\setcounter{chapter}{0}
-\renewcommand*{\thechapter}{\Alph{chapter}} %TB: appendix sections have letters
-\renewcommand*{\thesection}{\Alph{chapter}.\arabic{section}} %TB: appendix sections have letters
-\makeatother 
 \include{forallx-cam-notation}
 \include{forallx-cam-alternatives}
 \include{forallx-cam-quickreference}

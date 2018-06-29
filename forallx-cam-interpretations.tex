@@ -1,8 +1,6 @@
 %!TEX root = forallxcam.tex
 \part{Interpretations}
 \label{ch.semantics}
-\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
-
 
 \chapter{Extensionality}\label{s:Interpretations}
 
@@ -22,17 +20,17 @@ FOL has some similar limitations. It gets beyond mere truth values, since it ena
 
 When we provide a symbolisation key for some FOL predicates, such as:
 	\begin{ekey}
-		\item[Cx] \gap{x} lectures logic in Cambridge in Michaelmas 2014
+		\item[Cx] \gap{x} lectures logic in Cambridge in Michaelmas 2017
 	\end{ekey} 
 we do not carry the \emph{meaning} of the English predicate across into our FOL predicate. We are simply stipulating something like the following:
 	\begin{ebullet}
-		\item `$Cx$' and `\gap{x} lectures logic in Cambridge in Michaelmas 2014' are to be \emph{true of} exactly the same things. 
+		\item `$Cx$' and `\gap{x} lectures logic in Cambridge in Michaelmas 2017' are to be \emph{true of} exactly the same things. 
 	\end{ebullet}
 So, in particular:
 	\begin{ebullet}
-		\item `$Cx$' is to be true of all and only those things which lecture logic in Cambridge in Michaelmas 2014 (whatever those things might be).
+		\item `$Cx$' is to be true of all and only those things which lecture logic in Cambridge in Michaelmas 2017 (whatever those things might be).
 	\end{ebullet}
-This is an indirect stipulation. Alternatively we can stipulate predicate extensions directly. We can stipulate that `$Cx$' is to be true of Tim Button, and Tim Button alone. As it happens, this direct stipulation would have the same effect as the indirect stipulation. But note that the English predicates `\blank\ is Tim Button' and `\blank\ lectures logic in Cambridge in Michaelmas 2014' have very different meanings!
+This is an indirect stipulation. Alternatively we can stipulate predicate extensions directly. We can stipulate that `$Cx$' is to be true of Tim Button, and Tim Button alone. As it happens, this direct stipulation would have the same effect as the indirect stipulation. But note that the English predicates `\blank\ is Tim Button' and `\blank\ lectures logic in Cambridge in Michaelmas 2017' have very different meanings!
 
 The point is that FOL does not give us any resources for dealing with nuances of meaning. When we interpret FOL, all we are considering is what the predicates are true of. This is normally summed up by saying that FOL is an \define{extensional language}. 
 
@@ -185,16 +183,16 @@ I shall offer a completely general explanation in this section. However, to try 
 	\begin{ekey}
 		\item[\text{domain}] all people born before 2000\textsc{ce}
 		\item[a] Aristotle
-		\item[b] Bush
+		\item[d] Donald Trump
 		\item[Wx] \gap{x} is wise
 		\item[Rxy] \gap{x} was born before \gap{y}
 	\end{ekey}
 This will be my \emph{go-to example} in what follows.
 
 \section{Atomic sentences}
-The truth of atomic sentences should be fairly straightforward. The sentence `$Wa$' should be true just in case `$Wx$' is true of `$a$'. Given our go-to interpretation, this is true iff Aristotle is wise. Aristotle is wise. So the sentence is true. Equally, `$Wb$' is false on our go-to interpretation.
+The truth of atomic sentences should be fairly straightforward. The sentence `$Wa$' should be true just in case `$Wx$' is true of `$a$'. Given our go-to interpretation, this is true iff Aristotle is wise. Aristotle is wise. So the sentence is true. Equally, `$Wd$' is false on our go-to interpretation.
 
-Likewise, on this interpretation, `$Rab$' is true iff the object named by `$a$' was born before the object named by `$b$'. Well, Aristotle was born before Bush. So `$Rab$' is true. Equally, `$Raa$' is false: Aristotle was not born before Aristotle. 
+Likewise, on this interpretation, `$Rad$' is true iff the object named by `$a$' was born before the object named by `$d$'. Well, Aristotle was born before Donald Trump. So `$Rad$' is true. Equally, `$Raa$' is false: Aristotle was not born before Aristotle. 
 
 Dealing with atomic sentences, then, is very intuitive. When \meta{R} is an $n$-place predicate and $\meta{a}_1, \meta{a}_{2}, \ldots, \meta{a}_{n}$ are names, 
 
@@ -207,7 +205,7 @@ Recall, though, that there is a second kind of atomic sentence, recall: two name
 		$\meta{a} = \meta{b}$ is true in an interpretation \textbf{iff}\\
 		 \meta{a} and \meta{b} name the very same object in that interpretation
 	}
-So in our go-to interpretation, `$a = b$' is false, since Aristotle is distinct from Bush.
+So in our go-to interpretation, `$a = d$' is false, since Aristotle is distinct from Donald Trump.
 
 
 \section{Sentential connectives}
@@ -231,14 +229,14 @@ We saw in \S\ref{s:FOLSentences} that FOL sentences can be built up from simpler
 This presents the very same information as the characteristic truth tables for the connectives; it just does it in a slightly different way. Some examples will probably help to illustrate the idea. On our go-to interpretation:
 	\begin{earg}
 		\item[\textbullet] `$a = a \eand Wa$' is true
-		\item[\textbullet] `$Rab \eand Wb$' is false because, although `$Rab$' is true, `$Wb$' is false
-		\item[\textbullet] `$a = b \eor Wa$' is true
-		\item[\textbullet] `$\enot a = b$' is true
-		\item[\textbullet] `$Wa \eand \enot( a= b \eand Rab)$' is true, because `$Wa$' is true and `$a = b$' is false
+		\item[\textbullet] `$Rad \eand Wd$' is false because, although `$Rad$' is true, `$Wd$' is false
+		\item[\textbullet] `$a = d \eor Wa$' is true
+		\item[\textbullet] `$\enot a = d$' is true
+		\item[\textbullet] `$Wa \eand \enot( a= d \eand Rad)$' is true, because `$Wa$' is true and `$a = d$' is false
 	\end{earg}
 Make sure you understand these examples.
 
-\section{When the main logical operator is a quantifier}
+\section{When the main logical operator is a quantifier}\label{s:MainLogicalOperatorQuantifier}
 The exciting innovation in FOL, though, is the use of \emph{quantifiers}. And in fact, expressing the truth conditions for quantified sentences is a bit more fiddly than one might expect. 
 
 Here is a na\"{i}ve first thought. We want to say that `$\forall x Fx$' is true iff `$Fx$' is true of everything in the domain. This should not be too problematic: our interpretation will specify directly what `$Fx$' is true of. 
@@ -247,15 +245,15 @@ Unfortunately, this na\"{i}ve first thought is not general enough. For example, 
 
 So here is a na\"{i}ve second thought. We might try to say that `$\forall x \exists y Lxy$' is to be true in an interpretation iff $\exists y L\meta{a}y$ is true for \emph{every} name \meta{a} that we have included in our interpretation. And similarly, we might try to say that $\exists y L\meta{a}y$ is true just in case $L\meta{a}\meta{b}$ is true for \emph{some} name \meta{b} that we have included in our interpretation.
 
-Unfortunately, this is not right either. To see this, observe that in our go-to interpretation, we have only given interpretations for \emph{two} names, `$a$' and `$b$'. But the domain---all people born before the year 2000\textsc{ce}---contains many more than two people. I have no intention of trying to name \emph{all} of them!
+Unfortunately, this is not right either. To see this, observe that in our go-to interpretation, we have only given interpretations for \emph{two} names, `$a$' and `$d$'. But the domain---all people born before the year 2000\textsc{ce}---contains many more than two people. I have no intention of trying to name \emph{all} of them!
 
 So here is a third thought. (And this thought is not na\"{i}ve, but correct.) Although it is not the case that we have named \emph{everyone}, each person \emph{could} have been given a name. So we should focus on this possibility of extending an interpretation, by adding a new name. I shall offer a few examples of how this might work, centring on our go-to interpretation, and I shall then present the formal definition. 
 
-In our go-to interpretation, `$\exists x Rbx$' should be true. After all, in the domain, there is certainly someone who was born after Bush. Lady Gaga is one of those people. Indeed, if we were to extend our go-to interpretation---temporarily, mind---by adding the name `$c$' to refer to Lady Gaga, then `$Rbc$' would be true on this extended interpretation. And this, surely, should suffice to make `$\exists x Rbx$' true on the original go-to interpretation. 
+In our go-to interpretation, `$\exists x Rdx$' should be true. After all, in the domain, there is certainly someone who was born after Donald Trump. Lady Gaga is one of those people. Indeed, if we were to extend our go-to interpretation---temporarily, mind---by adding the name `$c$' to refer to Lady Gaga, then `$Rdc$' would be true on this extended interpretation. And this, surely, should suffice to make `$\exists x Rdx$' true on the original go-to interpretation. 
 
 In our go-to interpretation, `$\exists x (Wx \eand Rxa)$' should also be true. After all, in the domain, there is certainly someone who was both wise and born before Aristotle. Socrates is one such person. Indeed, if we were to extend our go-to interpretation by letting a new name, `$c$', denote Socrates, then `$Wc \eand Rca$' would be true on this extended interpretation. Again, this should surely suffice to make `$\exists x (Wx \eand Rxa)$' true on the original go-to interpretation. 
 
-In our go-to interpretation, `$\forall x \exists y Rxy$' should be false. After all, consider the last person born in the year 1999. I don't know who that was, but if we were to extend our go-to interpretation by letting a new name, `$d$', denote that person, then we would not be able to find anyone else in the domain to denote with some further new name, perhaps `$e$', in such a way that `$Rde$' would be true. Indeed, no matter \emph{whom} we named with `$e$', `$Rde$' would be false. And this observation is surely sufficient to make `$\exists y Rdy$' \emph{false} in our extended interpretation. And this is surely sufficient to make `$\forall x \exists y Rxy$' false on the original go-to interpretation.
+In our go-to interpretation, `$\forall x \exists y Rxy$' should be false. After all, consider the last person born in the year 1999. I don't know who that was, but if we were to extend our go-to interpretation by letting a new name, `$l$', denote that person, then we would not be able to find anyone else in the domain to denote with some further new name, perhaps `$m$', in such a way that `$Rlm$' would be true. Indeed, no matter \emph{whom} we named with `$m$', `$Rlm$' would be false. And this observation is surely sufficient to make `$\exists y Rly$' \emph{false} in our extended interpretation. And this is surely sufficient to make `$\forall x \exists y Rxy$' false on the original go-to interpretation.
 
 If you have understood these three examples, then that's what matters. Strictly speaking, though, we still need to give a precise definition of the truth conditions for quantified sentences. The result, sadly, is a bit ugly, and requires a few new definitions. Brace yourself!
 
@@ -263,7 +261,7 @@ Suppose that \meta{A} is a formula containing at least one instance of the varia
 $$\meta{A}(\ldots \meta{x} \ldots \meta{x} \ldots)$$
 Suppose also that \meta{c} is a name. Then we shall write:
 $$\meta{A}(\ldots \meta{c} \ldots \meta{c} \ldots)$$
-for the formula obtained by replacing every occurrence of $\meta{x}$ in \meta{A} with $\meta{c}$. The resulting formula is called a \define{substitution instance} of $\forall \meta{x}\meta{A}$ and $\exists\meta{x}\meta{A}$.  $\meta{c}$ is called the \define{instantiating name}. So:
+for the formula obtained by replacing \emph{every} occurrence of $\meta{x}$ in \meta{A} with $\meta{c}$. The resulting formula is called a \define{substitution instance} of $\forall \meta{x}\meta{A}$ and $\exists\meta{x}\meta{A}$. Also,  $\meta{c}$ is called the \define{instantiating name}. So:
 	$$\exists x (Rex \eiff Fx)$$
 is a substitution instance of 
 	$$\forall y \exists x (Ryx \eiff Fx)$$
@@ -283,7 +281,6 @@ To be clear: all this is doing is formalising (very pedantically) the intuitive 
 
 
 \practiceproblems
-\solutions
 \problempart
 \label{pr.TorF1}
 Consider the following interpretation:
@@ -308,7 +305,6 @@ Determine whether each of the following sentences is true or false in that inter
 \end{earg}
 
 \problempart
-\label{pr.TorF3}
 Consider the following interpretation:	
 	\begin{ebullet}
 		\item The domain comprises only Lemmy, Courtney and Eddy
@@ -514,21 +510,19 @@ When you provide an interpretation to refute a claim---to logical truth, say, or
 
 \practiceproblems
 
-\solutions
 \problempart
 \label{pr.Contingent}
 Show that each of the following is neither a logical truth nor a contradiction:
 \begin{earg}
-\item \leftsolutions\ $Da \eand Db$
-\item \leftsolutions\ $\exists x Txh$
-\item \leftsolutions\ $Pm \eand \enot\forall x Px$
+\item  $Da \eand Db$
+\item  $\exists x Txh$
+\item  $Pm \eand \enot\forall x Px$
 \item $\forall z Jz \eiff \exists y Jy$
 \item $\forall x (Wxmn \eor \exists yLxy)$
 \item $\exists x (Gx \eif \forall y My)$
 \item $\exists x (x = h \eand x = i)$
 \end{earg}
 
-\solutions
 \problempart
 \label{pr.NotEquiv}
 Show that the following pairs of sentences are not logically equivalent.

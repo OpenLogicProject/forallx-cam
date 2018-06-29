@@ -1,7 +1,6 @@
 %!TEX root = forallxcam.tex
 \part{Truth tables}
 \label{ch.TruthTables}
-\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
 
 \chapter{Characteristic truth tables}\label{s:CharacteristicTruthTables}
 Any non-atomic sentence of TFL is composed of atomic sentences with sentential connectives. The truth value of the compound sentence depends only on the truth value of the atomic sentences that comprise it. In order to know the truth value of `$(D \eand E)$', for instance, you only need to know the truth value of `$D$' and the truth value of `$E$'. 
@@ -92,7 +91,7 @@ Whereas it is necessarily the case that $2 + 2 = 4$, it is not \emph{necessarily
 \section{Symbolising versus translating}
 All of the connectives of TFL are truth-functional. But more than that: they really do nothing \emph{but} map us between truth values.  
 
-When we symbolise a sentence or an argument in TFL, we ignore everything \emph{besides} the contribution that the truth values of a component might make to the truth value of the whole. There are subtleties to our ordinary claims that far outstrip their mere truth values. Sarcasm; poetry; snide implicature; emphasis; these are important parts of everyday discourse. But none of this is retained in TFL. As remarked in \S\ref{s:TFLConnectives}, TFL cannot capture the subtle differences between the following English sentences:
+When we symbolise a sentence or an argument in TFL, we ignore everything \emph{besides} the contribution that the truth values of a component might make to the truth value of the whole. There are subtleties to our ordinary claims that far outstrip their mere truth values. Sarcasm; poetry; snide implicature; emphasis; these are important parts of everyday vdiscourse. But none of this is retained in TFL. As remarked in \S\ref{s:TFLConnectives}, TFL cannot capture the subtle differences between the following English sentences:
 	\begin{earg}
 		\item Jon is fat and Jon is quick
 		\item Although Jon is fat, Jon is quick
@@ -313,7 +312,7 @@ So if we were to write:
 	\end{align*}
 it would be dangerously ambiguous. \emph{Never write this.} The moral is: you can drop brackets when dealing with a long list of conjunctions, or when dealing with a long list of disjunctions. But that's it.
 
-\practiceproblems\label{pr.TT.TTorC}
+\practiceproblems
 \problempart
 Offer complete truth tables for each of the following:
 \begin{earg}
@@ -477,12 +476,10 @@ Indeed, when `$\eif$' is flanked with two TFL sentences, the result is a longer 
 \practiceproblems
 \problempart
 Revisit your answers to \S\ref{s:CompleteTruthTables}\textbf{A}. Determine which sentences were tautologies, which were contradictions, and which were neither tautologies nor contradictions.
-\solutions
 
 \
 
 \problempart
-\label{pr.TT.consistent}
 Use truth tables to determine whether these sentences are jointly consistent, or jointly inconsistent:
 \begin{earg}
 \item $A\eif A$, $\enot A \eif \enot A$, $A\eand A$, $A\eor A$ %consistent
@@ -491,10 +488,7 @@ Use truth tables to determine whether these sentences are jointly consistent, or
 \item $A\eiff(B\eor C)$, $C\eif \enot A$, $A\eif \enot B$ %consistent
 \end{earg}
 
-
-\solutions
 \problempart
-\label{pr.TT.valid}
 Use truth tables to determine whether each argument is valid or invalid.
 \begin{earg}
 \item $A\eif A \therefore A$ %invalid
@@ -504,10 +498,7 @@ Use truth tables to determine whether each argument is valid or invalid.
 \item $(B\eand A)\eif C, (C\eand A)\eif B \therefore (C\eand B)\eif A$ %invalid
 \end{earg}
 
-
-\solutions
 \problempart
-\label{pr.TT.concepts}
 Answer each of the questions below and justify your answer.
 \begin{earg}
 \item Suppose that \meta{A} and \meta{B} are tautologically equivalent. What can you say about $\meta{A}\eiff\meta{B}$?
@@ -687,7 +678,6 @@ I have been discussing shortcuts in testing for tautological validity. But exact
 
 \practiceproblems
 \problempart
-\label{pr.TT.TTorC}
 Using shortcuts, determine whether each sentence is a tautology, a contradiction, or neither. 
 \begin{earg}
 \item $\enot B \eand B$ %contra
@@ -805,11 +795,7 @@ entailment? & complete truth table & one-line partial truth table\\
 
 
 \practiceproblems
-\solutions
-
-\solutions
 \problempart
-\label{pr.TT.equiv}
 Use complete or partial truth tables (as appropriate) to determine whether these pairs of sentences are tautologically equivalent:
 \begin{earg}
 \item $A$, $\enot A$ %No
@@ -822,9 +808,7 @@ Use complete or partial truth tables (as appropriate) to determine whether these
 \item $(A \eif B)$, $(\enot B \eif \enot A)$ %Yes
 \end{earg}
 
-\solutions
 \problempart
-\label{pr.TT.consistent}
 Use complete or partial truth tables (as appropriate) to determine whether these sentences are jointly tautologically consistent, or jointly tautologically inconsistent:
 \begin{earg}
 \item $A \eand B$, $C\eif \enot B$, $C$ %inconsistent
@@ -833,9 +817,7 @@ Use complete or partial truth tables (as appropriate) to determine whether these
 \item $A$, $B$, $C$, $\enot D$, $\enot E$, $F$ %consistent
 \end{earg}
 
-\solutions
 \problempart
-\label{pr.TT.valid}
 Use complete or partial truth tables (as appropriate) to determine whether each argument is valid or invalid:
 \begin{earg}
 \item $A\eor\bigl[A\eif(A\eiff A)\bigr] \therefore A$ %invalid

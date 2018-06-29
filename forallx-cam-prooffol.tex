@@ -1,7 +1,7 @@
 %!TEX root = forallxcam.tex
 \part{Natural deduction for FOL}
 \label{ch.NDFOL}
-\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
 
 \chapter{Basic rules for FOL}\label{s:BasicFOL}
 
@@ -124,7 +124,7 @@ The crucial thought here is that `$a$' was just some \emph{arbitrary} name. Ther
 	\have[m]{a}{\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}
 	\have[\ ]{c}{\forall \meta{x}\meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)} \Ai{a}
 \end{proof}
-	\meta{c} must not occur in any undischarged assumption\\ 
+	\meta{c} must not occur in any undischarged assumption\\
 	\meta{x} must not occur in $\meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)$}
 A crucial aspect of this rule, though, is bound up in the first constraint. This constraint ensures that we are always reasoning at a sufficiently general level.\footnote{Recall from \S\ref{s:BasicTFL} that we are treating `$\ered$' as a canonical contradiction. But if it were the canonical contradiction as involving some \emph{constant}, it might interfere with the constraint mentioned here. To avoid such problems, we shall treat `$\ered$' as a canonical contradiction \emph{that involves no particular names}.} To see the constraint in action, consider this terrible argument:
 	\begin{quote}
@@ -150,6 +150,20 @@ Although the name may not occur in any \emph{undischarged} assumption, it may oc
 	\have{zz}{\forall z(Gz \eif Gz)}\Ai{ff}
 \end{proof}
 This tells us that `$\forall z (Gz \eif Gz)$' is a \emph{theorem}. And that is as it should be.
+
+I should emphasise one last point. As per the conventions of \S\ref{s:MainLogicalOperatorQuantifier}, the use of $\forall$I requires that we are replacing \emph{every} instance of the name \meta{c} in $\meta{A}(\ldots \meta{x}\ldots\meta{x}\ldots)$ with the variable \meta{x}. If we only replace \emph{some} names and not others, we end up `proving' silly things. For example, consider the argument:
+	\begin{quote}
+	Everyone is as old as themselves; so everyone is as old as Judi Dench
+	\end{quote}
+We might symbolise this as follows:
+$$\forall x Oxx \therefore \forall x Oxd$$
+But now suppose we tried to \emph{vindicate} this terrible argument with the following:
+\begin{proof}
+	\hypo{x}{\forall x Oxx}
+	\have{a}{Odd}\Ae{x}
+	\have{y}{\forall x Oxd}\by{naughtily attempting to invoke $\forall$I}{a}	
+\end{proof}
+Fortunately, our rules do not allow for us to do this: the attempted proof is banned, since it doesn't replace \emph{every} occurrence of `$d$' in line $2$ with an `$x$'.
 
 \section{Existential elimination}
 Suppose we know that \emph{something} is F. The problem is that simply knowing this does not tell us which thing is F. So it would seem that from `$\exists x Fx$' we cannot immediately conclude `$Fa$', `$Fe_{23}$', or any other substitution instance of the sentence. What can we do?
@@ -321,7 +335,6 @@ Provide a proof of each claim.
 \item $\forall x(\enot Mx \eor Ljx), \forall x(Bx\eif Ljx), \forall x(Mx\eor Bx)\proves \forall xLjx$
 \end{earg}
 
-\solutions
 \problempart
 \label{pr.likes}
 Write a symbolisation key for the following argument, symbolise it, and prove it:
@@ -329,7 +342,6 @@ Write a symbolisation key for the following argument, symbolise it, and prove it
 There is someone who likes everyone who likes everyone that she likes. Therefore, there is someone who likes herself.
 \end{quote}
 
-\solutions
 \problempart
 \label{pr.FOLequivornot}
 For each of the following pairs of sentences: If they are provably equivalent, give proofs to show this. If they are not, construct an interpretation to show that they are not logically equivalent.
@@ -341,7 +353,6 @@ For each of the following pairs of sentences: If they are provably equivalent, g
 \item $\forall x (Rca \eiff Rxa), Rca \eiff \forall x Rxa$
 \end{earg}
 
-\solutions
 \problempart
 \label{pr.FOLvalidornot}
 For each of the following arguments: If it is valid in FOL, give a proof. If it is invalid, construct an interpretation to show that it is invalid.

@@ -1,7 +1,7 @@
 %!TEX root = forallxcam.tex
 \part{First-order logic}
 \label{ch.FOL}
-\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+
 \chapter{Building blocks of FOL}\label{s:FOLBuildingBlocks}
 \section{The need to decompose sentences}
 Consider the following argument, which is obviously valid in English:
@@ -357,7 +357,6 @@ symbolise the following sentences in FOL:
 \item No one knows the combination to the safe unless Ingmar does.
 \item Hofthor is a spy, but no vegetarian is a spy.
 \end{earg}
-\solutions
 \problempart\label{pr.FOLalligators}
 Using this symbolisation key:
 \begin{ekey}
@@ -540,25 +539,14 @@ $$\overbrace{\forall x\bigl[\overbrace{\exists z(Dz \eand Oxz)}^{\text{scope of 
 This shows that no variable is being forced to serve two masters simultaneously.
 
 Sentence \ref{dog6} is the trickiest yet. First we paraphrase it as `For any x that is a friend of a dog owner, x owns a dog which is also owned by a friend of x'. Using our stepping-stone tactic, this becomes:
-
-\
-\\$\forall x\bigl[x\text{ is a friend of a dog owner}\eif \phantom{x}$\\
-\phantom{x}\hfill $x\text{ owns a dog which is owned by a friend of }x\bigr]$
-
-\
-\\Breaking this down a bit more:
-
-\
-\\$\forall x\bigl[\exists y(Fxy \eand y\text{ is a dog owner})\eif \phantom{x}$\\
-\phantom{x}\hfill $\exists y(Dy \eand Oxy \eand y\text{ is owned by a friend of }x)\bigr]$
-
-\
-\\And a bit more: 
+$$\forall x\bigl[x\text{ is a friend of a dog owner}\eif x\text{ owns a dog which is owned by a friend of }x\bigr]$$
+Breaking this down a bit more:
+$$\forall x\bigl[\exists y(Fxy \eand y\text{ is a dog owner})\eif \exists y(Dy \eand Oxy \eand y\text{ is owned by a friend of }x)\bigr]$$
+And a bit more: 
 $$\forall x\bigl[\exists y(Fxy \eand \exists z(Dz \eand Oyz)) \eif \exists y(Dy \eand Oxy \eand \exists z(Fzx \eand Ozy))\bigr]$$
 And we are done!
 
 \practiceproblems
-\solutions
 \problempart
 Using this symbolisation key:
 \begin{ekey}
@@ -648,8 +636,6 @@ symbolise the following English sentences in FOL:
 \item If there is a person on the table already, then all of the food must have run out.
 \end{earg}
 
-
-\solutions
 \problempart
 \label{pr.FOLballet}
 Using the following symbolisation key:
@@ -798,34 +784,6 @@ It might be tempting to add a predicate to our symbolisation key, to symbolise t
 
 \practiceproblems
 
-%\solutions
-%\problempart
-%\label{pr.FOLcandies}
-%Using the following symbolisation key:
-%\begin{ekey}
-%\item[\text{domain}] candies
-%\item[Cx] \gap{x} has chocolate in it.
-%\item[Mx] \gap{x} has marzipan in it.
-%\item[Sx] \gap{x} has sugar in it.
-%\item[Tx] Boris has tried \gap{x}.
-%\item[Bxy] \gap{x} is better than \gap{y}.
-%\end{ekey}
-%symbolise the following English sentences in FOL:
-%\begin{earg}
-%\item Boris has never tried any candy.
-%\item Marzipan is always made with sugar.
-%\item Some candy is sugar-free.
-%\item The very best candy is chocolate.
-%\item No candy is better than itself.
-%\item Boris has never tried sugar-free chocolate.
-%\item Boris has tried marzipan and chocolate, but never together.
-%%\item Boris has tried nothing that is better than sugar-free marzipan.
-%\item Any candy with chocolate is better than any candy without it.
-%\item Any candy with chocolate and marzipan is better than any candy that lacks both.
-%\end{earg}
-
-
-
 \problempart Explain why:
 	\begin{ebullet}
 		\item   `$\exists x \forall y(Ay \eiff x= y)$' is a good symbolisation of `there is exactly one apple'.
@@ -846,7 +804,7 @@ These are definite descriptions: they are meant to pick out a \emph{unique} obje
 \section{Treating definite descriptions as terms}
 One option would be to introduce new names whenever we come across a definite description. This is probably not a great idea. We know that \emph{the} traitor---whoever it is---is indeed \emph{a} traitor. We want to preserve that information in our symbolisation.
 
-A second option would be to use a \emph{new} definite description operator, such as `$\maththe$'. The idea would be to symbolise `the F' as `$\maththe xFx$'; or to symbolise `the G' as `$\maththe xGx$', etc. Expression of the form $\maththe \meta{x} \meta{A}\meta{x}$ would then behave like names. If we followed this path, then using the following symbolisation key:
+A second option would be to use a \emph{new} definite description operator, such as `$\maththe$'. The idea would be to symbolise `the F' as `$\maththe xFx$'; or to symbolise `the G' as `$\maththe xGx$', etc. Expressions of the form $\maththe \meta{x} \meta{A}\meta{x}$ would then behave like names. If we followed this path, then using the following symbolisation key:
 	\begin{ekey}
 		\item[\text{domain}] people
 		\item[Tx] \gap{x} is a traitor
@@ -957,8 +915,6 @@ symbolise the following sentences in FOL:
 \item The person who knows the combination to the safe is not a spy.
 \end{earg}
 
-
-\solutions
 \problempart
 \label{pr.FOLcards}
 Using the following symbolisation key:
@@ -1049,18 +1005,16 @@ We define an \define{expression of FOL} as any string of symbols of FOL. Take an
 In \S\ref{s:TFLSentences}, we went straight from the statement of the vocabulary of TFL to the definition of a sentence of TFL. In FOL, we shall have to go via an intermediary stage: via the notion of a  \emph{formula}. The intuitive idea is that a formula is any sentence, or anything which can be turned into a sentence by adding quantifiers out front. But this will take some unpacking.
 
 We start by defining the notion of a term.
-	\factoidbox{
-		A \define{term} is any name or any variable. }
+	\factoidbox{A \define{term} is any name or any variable. }
 So, here are some terms:
 	$$a, b, x, x_1 x_2, y, y_{254}, z$$
 We next need to define atomic formulas.
 	\factoidbox{
 		\begin{enumerate}
-		\item If $\meta{R}$ is an $n$-place predicate and $\meta{t}_1, \meta{t}_2, \ldots, \meta{t_n}$ are terms, then $\meta{R t}_1 \meta{t}_2 \ldots \meta{t}_n$ is an atomic formula.
+		\item If $\meta{R}$ is an $n$-place predicate and $\meta{t}_1, \meta{t}_2, \ldots, \meta{t}_n$ are terms, then $\meta{Rt}_1 \meta{t}_2 \ldots \meta{t}_n$ is an atomic formula.
 		\item If $\meta{t}_1$ and $\meta{t}_2$ are terms, then $\meta{t}_1 = \meta{t}_2$ is an atomic formula.
 		\item Nothing else is an atomic formula.
-		\end{enumerate}
-	}
+		\end{enumerate}}
 The use of swashfonts here follows the conventions laid down in \S\ref{s:UseMention}. So, `$\meta{R}$' is not itself a predicate of FOL. Rather, it is a symbol of our metalanguage (augmented English) that we use to talk about any predicate of FOL. Similarly, `$\meta{t}_1$' is not a term of FOL, but a symbol of the metalanguage that we can use to talk about any term of FOL. So, where `$F$' is a one-place predicate, `$G$' is a three-place predicate, and `$S$' is a six-place predicate, here are some atomic formulas:
 	\begin{center}
 		$x = a$\\
@@ -1133,7 +1087,7 @@ Let's make this idea precise.
 		A \define{free variable} is any variable that is not bound.
 	}
 For example, consider the formula
-	$$\forall x(Ex \eor Dy) \eif \exists z(Ex \eif Lzx)$$
+	$$(\forall x(Ex \eor Dy) \eif \exists z(Ex \eif Lzx))$$
 The scope of the universal quantifier `$\forall x$' is `$\forall x (Ex \eor Dy)$', so the first `$x$' is bound by the universal quantifier. However, the second and third occurrence of `$x$' are free. Equally, the `$y$' is free. The scope of the existential quantifier `$\exists z$' is `$(Ex \eif Lzx)$', so `$z$' is bound. 
 
 Finally we can say the following.	

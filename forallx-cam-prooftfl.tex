@@ -1,7 +1,6 @@
 %!TEX root = forallxcam.tex
 \part{Natural deduction for TFL}
 \label{ch.NDTFL}
-\addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
 
 \chapter{The very idea of natural deduction}\label{s:NDVeryIdea}
 
@@ -9,7 +8,7 @@ Way back in \S\ref{s:Valid}, we said that an argument is valid iff it is impossi
 
 In the case of TFL, this led us to develop truth tables. Each line of a complete truth table corresponds to a valuation. So, when faced with a TFL argument, we have a very direct way to assess whether it is possible to make all of the premises true and the conclusion false: just thrash through the truth table.
 
-But truth tables do not necessarily give us much \emph{insight}. Consider two arguments in TFL:
+But truth tables may not give us much \emph{insight}. Consider two arguments in TFL:
 	\begin{align*}
 		P \eor Q, \enot P & \therefore Q\\
 		P \eif Q, P & \therefore Q
@@ -26,7 +25,7 @@ The move to natural deduction might be motivated by more than the search for ins
 	$$A_1 \eif C_1 \therefore (A_1 \eand A_2 \eand A_3 \eand A_4 \eand A_5) \eif (C_1 \eor C_2 \eor C_3 \eor C_4 \eor C_5)$$
 To test this argument for validity, you might use a 1024-line truth table. If you do it correctly, then you will see that there is no line on which all the premises are true and on which the conclusion is false. So you will know that the argument is valid. (But, as just mentioned, there is a sense in which you will not know \emph{why} the argument is valid.) But now consider:
 	\begin{align*}
-		A_1 \eif C_1 \therefore\ & (A_1 \eand A_2 \eand A_3 \eand A_4 \eand A_5 \eand A_6 \eand A_7 \eand A_8 \eand A_9 \eand A_{10}) \eif \phantom{(}\\
+		A_1 \eif C_1 \therefore {}& (A_1 \eand A_2 \eand A_3 \eand A_4 \eand A_5 \eand A_6 \eand A_7 \eand A_8 \eand A_9 \eand A_{10}) \eif \phantom{(}\\
 				&(C_1 \eor C_2 \eor C_3 \eor C_4 \eor C_5 \eor C_6 \eor C_7 \eor C_8 \eor C_9 \eor C_{10})
 	\end{align*}
 This argument is also valid---as you can probably tell---but to test it requires a truth table with $2^{20} = 1048576$ lines. In principle, we can set a machine to grind through truth tables and report back when it is finished. In practice, complicated arguments in TFL can become \emph{intractable} if we use truth tables.
@@ -154,7 +153,7 @@ The point is simply that, when you have a conjunction on some line of a proof, y
 Even with just these two rules, we can start to see some of the power of our formal proof system. Consider:
 \begin{earg}
 \item[] $[(A\eor B)\eif(C\eor D)] \eand [(E \eor F) \eif (G\eor H)]$
-\item[\therefore] $[(E \eor F) \eif (G\eor H)] \eand [(A\eor B)\eif(C\eor D)]$
+\item[$\therefore$] $[(E \eor F) \eif (G\eor H)] \eand [(A\eor B)\eif(C\eor D)]$
 \end{earg}
 The main logical operator in both the premise and conclusion of this argument is `$\eand$'. In order to provide a proof, we begin by writing down the premise, which is our assumption. We draw a line below this: everything after this line must follow from our assumptions by (repeated applications of) our rules of inference. So the beginning of the proof looks like this:
 \begin{proof}
@@ -640,7 +639,6 @@ The following three proofs are missing their citations (rule and line numbers). 
 \end{proof}
 \end{multicols}
 
-\solutions
 \problempart
 \label{pr.solvedTFLproofs}
 Give a proof for each of the following arguments:
@@ -752,7 +750,6 @@ And the fourth is the reverse of the third:
 \emph{These are all of the additional rules of our proof system for TFL.}
 
 \practiceproblems
-\solutions
 \problempart
 \label{pr.justifyTFLproof}
 The following proofs are missing their citations (rule and line numbers). Add them wherever they are required:
@@ -810,7 +807,7 @@ Give a proof for each of these arguments:
 \item $E\eor F$, $F\eor G$, $\enot F \therefore E \eand G$
 \item $M\eor(N\eif M) \therefore \enot M \eif \enot N$
 \item $(M \eor N) \eand (O \eor P)$, $N \eif P$, $\enot P \therefore M\eand O$
-\item $(X\eand Y)\eor(X\eand Z)$, $\enot(X\eand D)$, $D\eor M$ \therefore $M$
+\item $(X\eand Y)\eor(X\eand Z)$, $\enot(X\eand D)$, $D\eor M \therefore M$
 \end{earg}
 
 
@@ -827,7 +824,7 @@ The symbol `$\proves$' is called the \emph{single turnstile}. I want to emphasis
 
 Armed with our `$\proves$' symbol, we can introduce a new terminology.
 	\factoidbox{
-		$\meta{A}$ is a \define{theorem} iff $\proves \meta{A}$
+		$\meta{A}$ is a \define{theorem} iff ${}\proves \meta{A}$
 	}
 To illustrate this, suppose I want to prove that `$\enot (A \eand \enot A)$' is a theorem. So I must start my proof without \emph{any} assumptions. However, since I want to prove a sentence whose main logical operator is a negation, I shall want to  immediately begin a subproof, with the additional assumption `$A \eand \enot A$', and show that this leads to contradiction. All told, then, the proof looks like this:
 	\begin{proof}

@@ -1,0 +1,23 @@
+\usepackage[quiet,MnSymbol]{mathspec}
+\setminwhitespace[1000]
+\usepackage{xunicode}
+\usepackage{eukdate, xltxtra} 
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont[Ligatures=NoCommon]{Arno Pro} 
+\setmonofont[Scale=MatchUppercase]{Hypatia Sans Pro} 
+\setsansfont[Scale=MatchUppercase]{Hypatia Sans Pro} 
+\setmathfont(Digits,Latin,Greek){Arno Pro} 
+\newfontface\calligraphic[Scale=MatchUppercase, Style=Swash]{Arno Pro Bold Italic}
+
+\makeatletter
+\ernewcommand\eu@MathPunctuation@symfont{Latin:m:n}
+\DeclareMathSymbol{,}{\mathpunct}{\eu@MathPunctuation@symfont}{`,}
+\DeclareMathSymbol{.}{\mathord}{\eu@MathPunctuation@symfont}{`.}
+\DeclareMathSymbol{/}{\mathord}{\eu@MathPunctuation@symfont}{`/}
+\DeclareMathSymbol{;}{\mathpunct}{\eu@MathPunctuation@symfont}{`;}
+\DeclareMathSymbol{:}{\mathrel}{\eu@MathPunctuation@symfont}{`:}
+\XeTeXDeclareMathSymbol{^^^^2026}{\mathinner}{\eu@MathPunctuation@symfont}{"2026}[\mathellipsis]
+\makeatother
+
+\newcommand*{\script}[1]{\text{\calligraphic{#1}}}
+\renewcommand*{\meta}[1]{\text{\calligraphic{#1}}} 

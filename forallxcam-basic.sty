@@ -1,0 +1,7 @@
+\usepackage{amssymb,pifont}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.200] pzcmi7t}{}
+\DeclareMathAlphabet{\mathscr}{OT1}{pzc}{m}{it}
+\newcommand*{\script}[1]{\ensuremath{\mathscr{#1}}}
+\renewcommand*{\meta}[1]{\ensuremath{\mathscr{#1}}} % TB: used for all metavariables
+\def\therefore{\ensuremath{\mathrel{\ldotp\dot{}\,\ldotp}}}
