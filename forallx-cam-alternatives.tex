@@ -3,9 +3,35 @@
 \chapter{Alternative proof systems}
 In formulating my natural deduction system, I treated certain rules of natural deduction as \emph{basic}, and others as \emph{derived}. However, I could equally well have taken various different rules as basic or derived. I shall illustrate this point by considering some alternative treatments of disjunction, negation, and the quantifiers. I shall also explain why I have made the choices that I have.
 
+\section{Alternative negation rules}
+Some systems take the following rule as their basic negation introduction rule:
+\begin{proof}
+	\open
+	\hypo[m]{a}{\meta{A}}
+	\have[n-1]{b}{\meta{B}}
+	\have[n]{nb}{\enot\meta{B}}
+	\close
+	\have[\ ]{}{\enot\meta{A}}\by{$\enot$I*}{a-nb}
+\end{proof}
+and the following as their basic negation elimination rule:
+\begin{proof}
+	\open
+	\hypo[m]{na}{\enot\meta{A}}
+	\have[n][-1]{b}{\meta{B}}
+	\have{nb}{\enot\meta{B}}
+	\close
+	\have[\ ]{a}{\meta{A}}\by{$\enot$E*}{na-nb}
+\end{proof}
+Using these two rules, we could have derived all of the rules governing negation and contradiction that we have taken as basic (i.e.\ $\enot$I, $\enot$E, X and TND). Indeed, we could have avoided all use of the symbol `$\ered$' altogether. Negation would have had a single introduction and elimination rule, and would have behaved much more like the other connectives.
+
+The resulting system would have had fewer rules than ours. So why did I chose to separate out contradiction, and to use an explicit rule TND?\footnote{P.D.\ Magnus's original version of this book went the other way.}
+
+My first reason is that adding the symbol `$\ered$' to our natural deduction system makes proofs considerably easier to work with.
+
+My second reason is that a lot of fascinating philosophical discussion has focussed on the acceptability or otherwise of \emph{ex falso quodlibet} (i.e.\ X) and \emph{tertium non datur} (i.e.\ TND). By treating these as separate rules in the proof system, we will be  in a better position to engage with that philosophical discussion. In particular: having invoked these rules explicitly, it will be much easier for us to know what a system which lacked these rules would look like.
 
 \section{Alternative disjunction elimination}
-Some systems take DS as their basic rule for disjunction elimination. Such systems can then treat the $\eor$E rule as a derived rule. For they might offer the following proof scheme: 
+Some systems take DS as their basic rule for disjunction elimination. They can then treat the $\eor$E rule as a derived rule, by using the following proof scheme:
 	\begin{proof}
 		\have[m]{ab}{\meta{A}\eor\meta{B}}
 		\open
@@ -19,9 +45,9 @@ Some systems take DS as their basic rule for disjunction elimination. Such syste
 		\have[n]{aic}{\meta{A} \eif \meta{C}}\ci{a-c1}
 		\have{bic}{\meta{B} \eif \meta{C}}\ci{b-c2}
 		\open
-			\hypo{c}{\meta{C}}
-			\have{c1}{\meta{C}}\by{R}{c}
-		\close
+		\hypo{c}{\meta{C}}
+		\have{c1}{\meta{C}}\by{R}{c}
+		\close	
 		\open
 		\hypo{nc}{\enot \meta{C}}
 		\open
@@ -38,32 +64,6 @@ Some systems take DS as their basic rule for disjunction elimination. Such syste
 So why did I choose to take $\eor$E as basic, rather than DS?\footnote{P.D.\ Magnus's original version of this book went the other way.} My reasoning is that DS involves the use of `$\enot$' in the statement of the rule. It is in some sense `cleaner' for our disjunction elimination rule to avoid mentioning \emph{other} connectives. 
 
 
-\section{Alternative negation rules}
-Some systems take the following rule as their basic negation introduction rule:
-\begin{proof}
-	\open
-		\hypo[m]{a}{\meta{A}}
-		\have[n-1]{b}{\meta{B}}
-		\have[n]{nb}{\enot\meta{B}}
-	\close
-	\have[\ ]{}{\enot\meta{A}}\by{$\enot$I*}{a-nb}
-\end{proof}
-and the following as their basic negation elimination rule:
-\begin{proof}
-	\open
-		\hypo[m]{na}{\enot\meta{A}}
-		\have[n][-1]{b}{\meta{B}}
-		\have{nb}{\enot\meta{B}}
-	\close
-	\have[\ ]{a}{\meta{A}}\by{$\enot$E*}{na-nb}
-\end{proof}
-Using these two rules, we could have derived all of the rules governing negation and contradiction that we have taken as basic (i.e.\ $\ered$I, $\ered$E, $\enot$I and TND). Indeed, we could have avoided all use of the symbol `$\ered$' altogether. Negation would have had a single introduction and elimination rule, and would have behaved much more like the other connectives.
-
-The resulting system would have had fewer rules than ours. So why did I chose to separate out contradiction, and to use an explicit rule TND?\footnote{Again, P.D.\ Magnus's original version of this book went the other way.}
-
-My first reason is that adding the symbol `$\ered$' to our natural deduction system makes proofs considerably easier to work with.
-
-My second reason is that a lot of fascinating philosophical discussion has focussed on the acceptability or otherwise of \emph{tertium non datur} (i.e.\ TND) and \emph{ex falso quodlibet} (i.e.\ $\ered$E). By treating these as separate rules in the proof system, we will be  in a better position to engage with that philosophical discussion. In particular: having invoked these rules explicitly, it will be much easier for us to know what a system which lacked these rules would look like.
 
 
 
@@ -108,7 +108,7 @@ To derive the $\exists$E rule is rather more subtle. This is because the $\exist
 	\open
 		\hypo{nB}{\enot \meta{B}}
 		\have{nAc}{\enot \meta{A}(\ldots \meta{c} \ldots \meta{c}\ldots)}\mt{condi, nB}
-		\have{AxnA}{\forall \meta{x} \enot \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)}\by{$\forall$I}{nAc}
+		\have{AxnA}{\forall \meta{x} \enot \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)}\Ai{nAc}
 		\have{nEA}{\enot \exists \meta{x} \meta{A}(\ldots \meta{x} \ldots \meta{x}\ldots)}\cq{AxnA}
 		\have{red2}{\ered}\ri{ExA, nEA}
 	\close

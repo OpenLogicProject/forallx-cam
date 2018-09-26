@@ -1,6 +1,6 @@
 %!TEX root = forallxcam.tex
 % The original forallx.sty was written in 2005 by PD Magnus
-% This version is 2017
+% This version is 2018
 \ProvidesPackage{forallxcam}[support for forallx:Cambridge]
 \usepackage{amsmath, hyperref, multicol,  graphicx, ifthen, rotating, color}
 
@@ -87,7 +87,7 @@
 \setstocksize{297mm}{210mm} %Height and width of stock
 \settrimmedsize{297mm}{210mm}{*} %Height and width of trimmed page
 \settrims{0mm}{0mm} %Trims top and fore-edge
-\settypeblocksize{217mm}{130mm}{*} %Height and width of typeblock
+\settypeblocksize{227mm}{140mm}{*} %Height and width of typeblock
 \setlrmargins{*}{*}{1} %Left and right margins are equal
 \setulmargins{*}{*}{1} %Top and bottom margins are equal 
 \setlength{\parindent}{1em}
@@ -480,9 +480,9 @@
 		\def\oi{\by{{\eor}I}}%
 		\def\oe{\by{{\eor}E}}%
 		\def\ni{\by{{\enot}I}}%
-		\def\ne{\by{{\enot}E}}%
-		\def\ri{\by{{\ered}I}}% TB: reductio introduction
-		\def\re{\by{{\ered}E}}% TB: reductio elimination
+		%			\def\ne{\by{{\enot}E}}%
+		\def\ri{\by{{\enot}E}}% TB: reductio introduction
+		\def\re{\by{X}}% TB: reductio elimination
 		\def\ii{\by{$=$I}}%
 		\def\ie{\by{$=$E}}%
 		\def\tnd{\by{TND}}% TB: tertium non datur

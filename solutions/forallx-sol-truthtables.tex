@@ -82,9 +82,9 @@ T & T & T & T & T & T & F & F & T & T & T & \TTbf{F} & T\\
 T & T & F & T& T & T & F & F & T & T & T & \TTbf{F}& F\\
 T & F & T & T & F & F & F & T & T & F & F & \TTbf{F} & T\\
 T & F & F & T & F & F & F & T & T & F & F & \TTbf{F} & F\\
-F & T & T & F & F & T & F & T & F & F & F & \TTbf{F} & T\\
+F & T & T & F & F & T & F & T & F & F & T & \TTbf{F} & T\\
 F & T & F & F & F & T & F & T & F & F & T & \TTbf{F} & F\\
-F & F & T & F & F & F & F & T & F & F & T & \TTbf{F} & T\\
+F & F & T & F & F & F & F & T & F & F & F & \TTbf{F} & T\\
 F & F & F & F & F & F & F & T & F & F & F & \TTbf{F} & F
 \end{tabular}
 \end{center}}
@@ -357,16 +357,16 @@ Answer each of the questions below and justify your answer.
 \begin{earg}
 \item Suppose that \meta{A} and \meta{B} are tautologically equivalent. What can you say about $\meta{A}\eiff\meta{B}$?
 \item[] \myanswer{\meta{A} and \meta{B} have the same truth value on every line of a complete truth table, so $\meta{A}\eiff\meta{B}$ is true on every line. It is a tautology.}
-\item Suppose that $(\meta{A}\eand\meta{B})\eif\meta{C}$ is neither a tautology nor a contradiction. What can you say about whether $\meta{A}, \meta{B} \therefore\meta{C}$ is valid?
-\item[] \myanswer{Since the sentence $(\meta{A}\eand\meta{B})\eif\meta{C}$ is not a tautology, there is some line on which it is false. Since it is a conditional, on that line, \meta{A} and \meta{B} are true and \meta{C} is false. So the argument is invalid.}
+\item Suppose that $(\meta{A}\eand\meta{B})\eif\meta{C}$ is neither a tautology nor a contradiction. What can you say about this: $\meta{A}, \meta{B} \entails \meta{C}$?
+\item[] \myanswer{Since the sentence $(\meta{A}\eand\meta{B})\eif\meta{C}$ is not a tautology, there is some line on which it is false. Since it is a conditional, on that line, \meta{A} and \meta{B} are true and \meta{C} is false. So in fact $\meta{A}, \meta{B} \nentails \meta{C}$ .}
 \item Suppose that $\meta{A}$, $\meta{B}$ and $\meta{C}$  are jointly tautologically inconsistent. What can you say about $(\meta{A}\eand\meta{B}\eand\meta{C})$?
 \item[] \myanswer{Since the sentences are jointly tautologically inconsistent, there is no valuation on which they are all true. So their conjunction is false on every valuation. It is a contradiction}
-\item Suppose that \meta{A} is a contradiction. What can you say about whether $\meta{A}, \meta{B} \entails \meta{C}$?
+\item Suppose that \meta{A} is a contradiction. What can you say about this: $\meta{A}, \meta{B} \entails \meta{C}$?
 \item[] \myanswer{Since \meta{A} is false on every line of a complete truth table, there is no line on which \meta{A} and \meta{B} are true and \meta{C} is false. So the entailment holds.}
-\item Suppose that \meta{C} is a tautology. What can you say about whether $\meta{A}, \meta{B}\entails \meta{C}$?
+\item Suppose that \meta{C} is a tautology. What can you say about this: $\meta{A}, \meta{B}\entails \meta{C}$?
 \item[] \myanswer{Since \meta{C} is true on every line of a complete truth table, there is no line on which \meta{A} and \meta{B} are true and \meta{C} is false. So the entailment holds.}
 \item Suppose that \meta{A} and \meta{B} are tautologically equivalent. What can you say about $(\meta{A}\eor\meta{B})$?
-\item[] \myanswer{Not much. Since $\meta{A}$ and $\meta{B}$ are true on exactly the same lines of the truth table, their disjunction is true on exactly the same lines. So, their disjunction is tautologically equivalent to them.}
+\item[] \myanswer{Not much! Since $\meta{A}$ and $\meta{B}$ are true on exactly the same lines of the truth table, their disjunction is true on exactly the same lines. So, their disjunction is tautologically equivalent to them.}
 \item Suppose that \meta{A} and \meta{B} are \emph{not} tautologically equivalent. What can you say about $(\meta{A}\eor\meta{B})$?
 \item[] \myanswer{\meta{A} and \meta{B} have different truth values on at least one line of a complete truth table, and $(\meta{A}\eor\meta{B})$ will be true on that line. On other lines, it might be true or false. So $(\meta{A}\eor\meta{B})$ is either a tautology or it is contingent; it is \emph{not} a contradiction.}
 \end{earg}

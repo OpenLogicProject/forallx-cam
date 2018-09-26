@@ -48,9 +48,9 @@ Symbolise each argument in FOL.
 Using the following symbolisation key:
 \begin{ekey}
 \item[\text{domain}] people
-\item[Kx] \gap{x} knows the combination to the safe
-\item[Sx] \gap{x} is a spy
-\item[Vx] \gap{x} is a vegetarian
+\item[K] \gap{1} knows the combination to the safe
+\item[S] \gap{1} is a spy
+\item[V] \gap{1} is a vegetarian
 %\item[Txy] \gap{x} trusts \gap{y}.
 \item[h] Hofthor
 \item[i] Ingmar
@@ -79,10 +79,10 @@ symbolise the following sentences in FOL:
 Using this symbolisation key:
 \begin{ekey}
 \item[\text{domain}] all animals
-\item[Ax] \gap{x} is an alligator.
-\item[Mx] \gap{x} is a monkey.
-\item[Rx] \gap{x} is a reptile.
-\item[Zx] \gap{x} lives at the zoo.
+\item[A] \gap{1} is an alligator.
+\item[M] \gap{1} is a monkey.
+\item[R] \gap{1} is a reptile.
+\item[Z] \gap{1} lives at the zoo.
 \item[a] Amos
 \item[b] Bouncer
 \item[c] Cleo
@@ -122,8 +122,8 @@ For each argument, write a symbolisation key and symbolise the argument in FOL.
 \myanswer{
 \begin{ekey}
 \item[\text{domain}] people
-\item[Lx] \gap{x} is a logician
-\item[Hx] \gap{x} wears a funny hat
+\item[L] \gap{1} is a logician
+\item[H] \gap{1} wears a funny hat
 \item[i] Willard
 \end{ekey}
 $Li, \forall x (Lx \eif Hx) \therefore Hi$}
@@ -131,27 +131,27 @@ $Li, \forall x (Lx \eif Hx) \therefore Hi$}
 \myanswer{
 \begin{ekey}
 \item[\text{domain}] physical things
-\item[Dx] \gap{x} is on my desk
-\item[Ex] \gap{x} escapes my attention
-\item[Cx] \gap{x} is a computer
+\item[D] \gap{1} is on my desk
+\item[E] \gap{1} escapes my attention
+\item[C] \gap{1} is a computer
 \end{ekey}
 $\forall x (Dx \eif \enot Ex), \exists x(Dx \eand Cx) \therefore \exists x (Cx \eand \enot Ex)$}
 \item All my dreams are black and white. Old TV shows are in black and white. Therefore, some of my dreams are old TV shows.
 \myanswer{
 \begin{ekey}
 \item[\text{domain}] episodes (psychological and televised)
-\item[Dx] \gap{x} is one of my dreams
-\item[Bx] \gap{x} is in black and white
-\item[Ox] \gap{x} is an old TV show
+\item[D] \gap{1} is one of my dreams
+\item[B] \gap{1} is in black and white
+\item[O] \gap{1} is an old TV show
 \end{ekey}
 $\forall x (Dx \eif Bx), \forall x (Ox \eif Bx) \therefore \exists x (Dx \eand Ox)$. \\Comment: generic statements are tricky to deal with. Does the second sentence mean that \emph{all} old TV shows are in black and white; or that most of them are; or that most of the things which are in black and white are old TV shows? I have gone with the former, but it is not clear that FOL deals with these well.}
 \item Neither Holmes nor Watson has been to Australia. A person could see a kangaroo only if they had been to Australia or to a zoo. Although Watson has not seen a kangaroo, Holmes has. Therefore, Holmes has been to a zoo.
 \myanswer{
 \begin{ekey}
 \item[\text{domain}] people
-\item[Ax] \gap{x} has been to Australia
-\item[Kx] \gap{x} has seen a kangaroo
-\item[Zx] \gap{x} has been to a zoo
+\item[A] \gap{1} has been to Australia
+\item[K] \gap{1} has seen a kangaroo
+\item[Z] \gap{1} has been to a zoo
 \item[h] Holmes
 \item[a] Watson
 \end{ekey}
@@ -160,8 +160,8 @@ $\enot Ah \eand \enot Aa, \forall x(Kx \eif (Ax \eor Zx)), \enot Ka \eand Kh \th
 \myanswer{
 \begin{ekey}
 \item[\text{domain}] people
-\item[Sx] \gap{x} expects the Spanish Inquisition
-\item[Tx] \gap{x} knows the troubles I've seen
+\item[S] \gap{1} expects the Spanish Inquisition
+\item[T] \gap{1} knows the troubles I've seen
 \item[h] Holmes
 \item[a] Watson
 \end{ekey}
@@ -169,9 +169,9 @@ $\forall x\enot Sx, \forall x \enot Tx \therefore \forall x (Sx \eif Tx)$}
 \item All babies are illogical. Nobody who is illogical can manage a crocodile. Berthold is a baby. Therefore, Berthold is unable to manage a crocodile.
 \myanswer{\begin{ekey}
 \item[\text{domain}] people
-\item[Bx] \gap{x} is a baby
-\item[Ix] \gap{x} is illogical
-\item[Cx] \gap{x} can manage a crocodile
+\item[B] \gap{1} is a baby
+\item[I] \gap{1} is illogical
+\item[C] \gap{1} can manage a crocodile
 \item[b] Berthold
 \end{ekey}
 $\forall x (Bx \eif Ix), \forall x (Ix \eif \enot Cx), Bb \therefore \enot Cb$}
@@ -182,11 +182,11 @@ $\forall x (Bx \eif Ix), \forall x (Ix \eif \enot Cx), Bb \therefore \enot Cb$}
 Using this symbolisation key:
 \begin{ekey}
 \item[\text{domain}] all animals
-\item[Ax] \gap{x} is an alligator
-\item[Mx] \gap{x} is a monkey
-\item[Rx] \gap{x} is a reptile
-\item[Zx] \gap{x} lives at the zoo
-\item[Lxy] \gap{x} loves \gap{y}
+\item[A] \gap{1} is an alligator
+\item[M] \gap{1} is a monkey
+\item[R] \gap{1} is a reptile
+\item[Z] \gap{1} lives at the zoo
+\item[L] \gap{1} loves \gap{2}
 \item[a] Amos
 \item[b] Bouncer
 \item[c] Cleo
@@ -218,9 +218,9 @@ symbolise each of the following sentences in FOL:
 Using the following symbolisation key:
 \begin{ekey}
 \item[\text{domain}] all animals
-\item[Dx] \gap{x} is a dog
-\item[Sx] \gap{x} likes samurai movies
-\item[Lxy] \gap{x} is larger than \gap{y}
+\item[D] \gap{1} is a dog
+\item[S] \gap{1} likes samurai movies
+\item[L] \gap{1} is larger than \gap{2}
 \item[b] Bertie
 \item[e] Emerson
 \item[f] Fergis
@@ -269,11 +269,11 @@ Comment: I have assumed that `larger than any dog' here means `larger than every
 Using the following symbolisation key:
 \begin{ekey}
 \item[\text{domain}] people and dishes at a potluck
-\item[Rx] \gap{x} has run out.
-\item[Tx] \gap{x} is on the table.
-\item[Fx] \gap{x} is food.
-\item[Px] \gap{x} is a person.
-\item[Lxy] \gap{x} likes \gap{y}.
+\item[R] \gap{1} has run out.
+\item[T] \gap{1} is on the table.
+\item[F] \gap{1} is food.
+\item[P] \gap{1} is a person.
+\item[L] \gap{1} likes \gap{2}.
 \item[e] Eli
 \item[f] Francesca
 \item[g] the guacamole
@@ -305,11 +305,11 @@ symbolise the following English sentences in FOL:
 Using the following symbolisation key:
 \begin{ekey}
 \item[\text{domain}] people
-\item[Dx] \gap{x} dances ballet.
-\item[Fx] \gap{x} is female.
-\item[Mx] \gap{x} is male.
-\item[Cxy] \gap{x} is a child of \gap{y}.
-\item[Sxy] \gap{x} is a sibling of \gap{y}.
+\item[D] \gap{1} dances ballet.
+\item[F] \gap{1} is female.
+\item[M] \gap{1} is male.
+\item[C] \gap{1} is a child of \gap{2}.
+\item[S] \gap{1} is a sibling of \gap{2}.
 \item[e] Elmer
 \item[j] Jane
 \item[p] Patrick
@@ -402,10 +402,10 @@ symbolise the following arguments in FOL:
 Using the following symbolisation key:
 \begin{ekey}
 \item[\text{domain}] people
-\item[Kx] \gap{x} knows the combination to the safe.
-\item[Sx] \gap{x} is a spy.
-\item[Vx] \gap{x} is a vegetarian.
-\item[Txy] \gap{x} trusts \gap{y}.
+\item[K] \gap{1} knows the combination to the safe.
+\item[S] \gap{1} is a spy.
+\item[V] \gap{1} is a vegetarian.
+\item[T] \gap{1} trusts \gap{2}.
 \item[h] Hofthor
 \item[i] Ingmar
 \end{ekey}
@@ -435,13 +435,13 @@ Comment: the scope of negation is potentially ambiguous here; I have read it as 
 Using the following symbolisation key:
 \begin{ekey}
 \item[\text{domain}] cards in a standard deck
-\item[Bx] \gap{x} is black.
-\item[Cx] \gap{x} is a club.
-\item[Dx] \gap{x} is a deuce.
-\item[Jx] \gap{x} is a jack.
-\item[Mx] \gap{x} is a man with an axe.
-\item[Ox] \gap{x} is one-eyed.
-\item[Wx] \gap{x} is wild.
+\item[B] \gap{1} is black.
+\item[C] \gap{1} is a club.
+\item[D] \gap{1} is a deuce.
+\item[J] \gap{1} is a jack.
+\item[M] \gap{1} is a man with an axe.
+\item[O] \gap{1} is one-eyed.
+\item[W] \gap{1} is wild.
 \end{ekey}
 symbolise each sentence in FOL:
 \begin{earg}
@@ -474,7 +474,7 @@ Comment: if there is not exactly one deuce of clubs, then the above sentence is 
 \item The man with the axe is not a jack.
 \item[] \myanswer{$\exists x \bigl[Mx \eand \forall y(My \eif x = y) \eand \enot Jx\bigr]$}
 \item The deuce of clubs is not the man with the axe.
-\item[] \myanswer{$\exists x \exists y\bigl(Dx \eand Cx \eand \forall z[(Dz \eand Cz) \eif x = z] \eand My \eand \forall z(Mz \eif y = x) \eand \enot x = y\bigr)$}
+\item[] \myanswer{$\exists x \exists y\bigl(Dx \eand Cx \eand \forall z[(Dz \eand Cz) \eif x = z] \eand My \eand \forall z(Mz \eif y = z) \eand \enot x = y\bigr)$}
 
 \end{earg}
 
@@ -483,10 +483,10 @@ Comment: if there is not exactly one deuce of clubs, then the above sentence is 
 \problempart Using the following symbolisation key:
 \begin{ekey}
 \item[\text{domain}] animals in the world
-\item[Bx] \gap{x} is in Farmer Brown's field.
-\item[Hx] \gap{x} is a horse.
-\item[Px] \gap{x} is a Pegasus.
-\item[Wx] \gap{x} has wings.
+\item[B] \gap{1} is in Farmer Brown's field.
+\item[H] \gap{1} is a horse.
+\item[P] \gap{1} is a Pegasus.
+\item[W] \gap{1} has wings.
 \end{ekey}
 symbolise the following sentences in FOL:
 \begin{earg}
@@ -510,14 +510,13 @@ symbolise the following sentences in FOL:
 \end{earg}
 
 \problempart
-In this section, I symbolised `Nick is the traitor' by `$\exists x (Tx \eand \forall y(Ty \eif x = y) \eand x = n)$'. Two equally good symbolisations would be:
+In this section, I symbolised `Nick is the traitor' by `$\exists x (Tx \eand \forall y(Ty \eif x = y) \eand x = n)$'. Explain why these would be equally good symbolisations:
 	\begin{ebullet}
 		\item $Tn \eand \forall y(Ty \eif n = y)$
 		\item[] \myanswer{This sentence requires that Nick is a traitor, and that Nick alone is a traitor. Otherwise put, there is one and only one traitor, namely, Nick. Otherwise put: Nick is the traitor.}
 		\item $\forall y(Ty \eiff y = n)$
 		\item[] \myanswer{This sentence can be understood thus: Take anything you like; now, if you chose a traitor, you chose Nick, and if you chose Nick, you chose a traitor. So there is one and only one traitor, namely, Nick, as required.}
 	\end{ebullet}
-Explain why these would be equally good symbolisations.
 
 \chapter{Sentences of FOL}\setcounter{ProbPart}{0}
 \problempart

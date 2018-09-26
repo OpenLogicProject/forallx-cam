@@ -6,7 +6,7 @@
 \setcounter{chapter}{30}
 \chapter{Basic rules for FOL}\setcounter{ProbPart}{0}
 \problempart
-The following two `proofs' are \emph{incorrect}. Explain why both are incorrect. Also, provide interpretations which would invalidate the fallacious argument forms the `proofs' enshrine:
+Explain why these two `proofs' are incorrect. Also, provide interpretations which would invalidate the fallacious argument forms the `proofs' enshrine:
 \begin{multicols}{2}
 	\begin{proof}
 		\hypo{Rxx}{\forall x Rxx}
@@ -264,9 +264,9 @@ Aristotle and his successors identified other syllogistic forms which depended u
 	\close
 	\have{nfa}{\enot Fa}\ni{fa-red}
 	\have{hanfa}{Ha \eand \enot Fa}\ai{ha, nfa}
-	\have{hnf}{\exists x (Hx \eand Fx)}\Ei{hanfa}
+	\have{hnf}{\exists x (Hx \eand \enot Fx)}\Ei{hanfa}
 \close
-\have{con}{\exists x (Hx \eand Fx)}\Ee{imp, ga-hnf}
+\have{con}{\exists x (Hx \eand \enot Fx)}\Ee{imp, ga-hnf}
 \end{proof}}
 
 \newpage	\item \textbf{Bamalip.} Something is F. All F are G. All G are H. So: Some H are F.
@@ -439,7 +439,7 @@ There is someone who likes everyone who likes everyone that she likes. Therefore
 \myanswer{Symbolisation key:
 \begin{ekey}
 \item[\text{domain}] all people
-\item[Lxy] \gap{x} likes \gap{y}
+\item[L] \gap{1} likes \gap{2}
 \end{ekey}
 $\exists x \forall y(\forall z(Lxz \eif Lyz) \eif Lxy) \therefore \exists x  Lxx$
 \begin{proof}
@@ -907,10 +907,8 @@ In \S\ref{s:MoreMonadic}, I considered what happens when we move quantifiers `ac
 \close
 \have{Efg3}{\exists x (Fx \eif Ga)}\tnd{Af-Efg, nAf-Efg2}
 \end{proof}
-\end{multicols}}
-NB: the variable `$x$' does not occur in `$Ga$'.
-
-When all the quantifiers occur at the beginning of a sentence, that sentence is said to be in \emph{prenex normal form}. Together with the CQ rules, these equivalences are sometimes called \emph{prenexing rules}, since they give us a means for putting any sentence into prenex normal form.
+\end{multicols}}\noindent 
+NB: the variable `$x$' does not occur in `$Ga$'. When all the quantifiers occur at the beginning of a sentence, that sentence is said to be in \emph{prenex normal form}. These equivalences are sometimes called \emph{prenexing rules}, since they give us a means for putting any sentence into prenex normal form.
 
 \chapter{Rules for identity}\setcounter{ProbPart}{0}
 \problempart

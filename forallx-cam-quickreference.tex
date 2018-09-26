@@ -132,53 +132,6 @@ One way to say `there are exactly $n$ Fs' is to conjoin two of the symbolization
 \\	\have[\ ]{b}{\meta{B}} \ae{ab}
 \end{proof}
 
-\subsection*{Conditional}
-
-\begin{proof}
-	\open
-		\hypo[i]{a}{\meta{A}}
-		\have[j]{b}{\meta{B}}
-	\close
-	\have[\ ]{ab}{\meta{A}\eif\meta{B}}\ci{a-b}
-
-	\have[m]{ab}{\meta{A}\eif\meta{B}}
-\\	\have[n]{a}{\meta{A}}
-	\have[\ ]{b}{\meta{B}} \ce{ab,a}
-\end{proof}
-
-\subsection*{Contradiction}
-
-\begin{proof}
-\have[m]{a}{\meta{A}}
-\have[n]{na}{\enot\meta{A}}
-\have[ ]{bot}{\ered}\ri{a, na}
-
-\have[m]{bot}{\ered}
-\\\have[ ]{}{\meta{A}}\re{bot}
-\end{proof}
-
-\subsection*{Negation}
-\begin{proof}
-\open
-	\hypo[i]{a}{\meta{A}}
-	\have[j]{nb}{\ered}
-\close
-\have[\ ]{na}{\enot\meta{A}}\ni{a-nb}
-\end{proof}
-
-\subsection*{Tertium non datur}
-	\begin{proof}
-		\open
-			\hypo[i]{a}{\meta{A}}
-			\have[j]{c1}{\meta{B}}
-		\close
-		\open
-			\hypo[k]{b}{\enot\meta{A}}
-			\have[l]{c2}{\meta{B}}
-		\close
-		\have[\ ]{ab}{\meta{B}}\tnd{a-c1,b-c2}
-	\end{proof}
-
 \subsection*{Disjunction}
 
 \begin{proof}
@@ -198,6 +151,20 @@ One way to say `there are exactly $n$ Fs' is to conjoin two of the symbolization
 		\have[l]{c2}{\meta{C}}
 	\close
 	\have[\ ]{c}{\meta{C}} \oe{ab,a-c1, b-c2}
+\end{proof}
+
+\subsection*{Conditional}
+
+\begin{proof}
+	\open
+	\hypo[i]{a}{\meta{A}}
+	\have[j]{b}{\meta{B}}
+	\close
+	\have[\ ]{ab}{\meta{A}\eif\meta{B}}\ci{a-b}
+	
+	\have[m]{ab}{\meta{A}\eif\meta{B}}
+	\\	\have[n]{a}{\meta{A}}
+	\have[\ ]{b}{\meta{B}} \ce{ab,a}
 \end{proof}
 
 \subsection*{Biconditional}
@@ -222,11 +189,49 @@ One way to say `there are exactly $n$ Fs' is to conjoin two of the symbolization
 	\have[\ ]{b}{\meta{A}} \be{ab,a}
 \end{proof}
 
+\subsection*{Negation and contradiction}
+
+\begin{proof}
+	\have[m]{a}{\meta{A}}
+	\have[n]{na}{\enot\meta{A}}
+	\have[ ]{bot}{\ered}\ri{a, na}
+\end{proof}
+\begin{proof}
+	\open
+	\hypo[i]{a}{\meta{A}}
+	\have[j]{nb}{\ered}
+	\close
+	\have[\ ]{na}{\enot\meta{A}}\ni{a-nb}
+\end{proof}
+
+\begin{proof}
+	\have[m]{bot}{\ered}
+	\\\have[ ]{}{\meta{A}}\re{bot}
+\end{proof}
+
+\begin{proof}
+	\open
+	\hypo[i]{a}{\meta{A}}
+	\have[j]{c1}{\meta{B}}
+	\close
+	\open
+	\hypo[k]{b}{\enot\meta{A}}
+	\have[l]{c2}{\meta{B}}
+	\close
+	\have[\ ]{ab}{\meta{B}}\tnd{a-c1,b-c2}
+\end{proof}
 \end{multicols}
 
 \newpage
 \section{Derived rules for TFL}
 \begin{multicols}{2}
+	\subsection*{Reiteration}
+	
+	\begin{proof}
+		\have[m]{a}{\meta{A}}
+		\have[\ ]{c}{\meta{A}} \by{R}{a}
+	\end{proof}
+
 \subsection*{Disjunctive syllogism}
 \begin{proof}
 	\have[m]{ab}{\meta{A} \eor \meta{B}}
@@ -238,12 +243,7 @@ One way to say `there are exactly $n$ Fs' is to conjoin two of the symbolization
 	\have[\ ]{con}{\meta{A}}\by{DS}{ab, nb}
 \end{proof}
 
-\subsection*{Reiteration}
 
-\begin{proof}
-	\have[m]{a}{\meta{A}}
-	\have[\ ]{c}{\meta{A}} \by{R}{a}
-\end{proof}
 
 \subsection*{Modus Tollens}
 

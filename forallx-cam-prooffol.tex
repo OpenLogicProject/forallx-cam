@@ -5,7 +5,7 @@
 
 \chapter{Basic rules for FOL}\label{s:BasicFOL}
 
-FOL makes use of all of the connectives of TFL. So proofs in FOL will use all of the basic and derived rules from chapter \ref{ch.NDTFL}. We shall also use the proof-theoretic notions (particularly, the symbol `$\proves$') introduced in that chapter. However, we will also need some new basic rules to govern the quantifiers, and to govern the identity sign.
+The language of FOL uses of all of the connectives of TFL. So proofs in FOL will use all of the basic and derived rules from chapter \ref{ch.NDTFL}. We shall also use the proof-theoretic notions (particularly, the symbol `$\proves$') introduced in that chapter. However, we will also need some new basic rules to govern the quantifiers, and to govern the identity sign.
 
 
 \section{Universal elimination}
@@ -30,7 +30,7 @@ This motivates the universal elimination rule ($\forall$E):
 \end{proof}}
 The notation here was introduced in \S\ref{s:TruthFOL}. The point is that you can obtain any \emph{substitution instance} of a universally quantified formula: replace every instance of the quantified variable with any name you like. 
 
-I should emphasise that (as with every elimination rule) you can only apply the $\forall$E rule when the universal quantifier is the main logical operator. Thus the following is outright banned:
+I should emphasise that (as with every elimination rule) you can only apply the $\forall$E rule when the universal quantifier is the main logical operator. So the following is \emph{banned}:
 \begin{proof}
 	\hypo{a}{\forall x Bx \eif Bk}
 	\have{c}{Bb \eif Bk}\by{naughtily attempting to invoke $\forall$E}{a}
@@ -48,7 +48,7 @@ Here, we have replaced the name `$d$' with a variable `$x$', and then existentia
 	\hypo{a}{Raad}
 	\have{c}{\exists x Rxxd} \Ei{a}
 \end{proof}
-Here we have replaced both instances of the name `$a$' with a variable, and then existentially generalised. But we do not need to replace \emph{both} instances of a name with a variable. (After all, if Narcissus loves himself, then there is someone who loves Narcissus.) So we would also allow:
+Here we have replaced both instances of the name `$a$' with a variable, and then existentially generalised. But we do not need to replace \emph{both} instances of a name with a variable: if Narcissus loves himself, then there is someone who loves Narcissus. So we  also allow:
 \begin{proof}
 	\hypo{a}{Raad}
 	\have{d}{\exists x Rxad} \Ei{a}
@@ -74,7 +74,7 @@ But this is banned:
 	\have{d}{\exists x Rxad} \Ei{a}
 	\have{e}{\exists x \exists x Rxxd}\by{naughtily attempting to invoke $\exists$I}{d}
 \end{proof}
-since the expression on line 3 contains clashing variables, and so fails to count as a sentence of FOL.
+since the expression on line 3 contains clashing variables, and so is not a sentence of FOL.
 
 \section{Empty domains}
 The following proof combines our two new rules for quantifiers:
@@ -106,7 +106,7 @@ Suppose you had shown of each particular thing that it is F (and that there are 
 Unfortunately, that rule would be utterly unusable. To establish each and every single substitution instance would require proving `$Fa$', `$Fb$', $\ldots$, `$Fj_2$', $\ldots$, `$Fr_{79002}$', $\ldots$, and so on. Indeed, since there are infinitely many names in FOL, this process would never come to an end. So we could never apply that rule. We need to be a bit more cunning in coming up with our rule for introducing universal quantification. 
 
 Our cunning thought will be inspired by considering:
-$$\forall x Fx \therefore\ \forall y Fy$$
+$$\forall x Fx \therefore \forall y Fy$$
 This argument should \emph{obviously} be valid. After all, alphabetical variation ought to be a matter of taste, and of no logical consequence. But how might our proof system reflect this? Suppose we begin a proof thus:
 \begin{proof}
 	\hypo{x}{\forall x Fx} 
@@ -140,7 +140,7 @@ Now, suppose we tried to offer a proof that vindicates this argument:
 \end{proof}\noindent
 This is not allowed, because `$k$' occurred already in an undischarged assumption, namely, on line 1. The crucial point is that, if we have made any assumptions about the object we are working with, then we are not reasoning generally enough to license $\forall$I.
 
-Although the name may not occur in any \emph{undischarged} assumption, it may occur as a discharged assumption. That is, it may occur in a subproof that we have already closed. For example:
+Although the name may not occur in any \emph{undischarged} assumption, it may occur in a \emph{discharged} assumption. That is, it may occur in a subproof that we have already closed. For example, this is just fine:
 \begin{proof}
 	\open
 		\hypo{f1}{Gd}
@@ -201,7 +201,7 @@ Putting this together, we obtain the existential elimination rule ($\exists$E):
 \meta{c} must not occur in \meta{B}}
 As with universal introduction, the constraints are extremely important. To see why, consider the following terrible argument:
 	\begin{quote}
-		Tim Button is a lecturer. There is someone who is not a lecturer. So Tim Button is both a lecturer and not a lecturer.
+		Tim Button is a lecturer. Someone is not a lecturer. So Tim Button is both a lecturer and not a lecturer.
 	\end{quote}
 We might symbolise this obviously invalid inference pattern as follows:
 $$Lb, \exists x \enot Lx \therefore Lb \eand \enot Lb$$
@@ -215,7 +215,7 @@ Now, suppose we tried to offer a proof that vindicates this argument:
 	\close
 	\have{econ1}{Lb \eand \enot Lb}\by{naughtily attempting to invoke $\exists$E }{nf, na-con}
 \end{proof}
-The last line of the proof is not allowed. The name that we used in our substitution instance for `$\exists x \enot Lx$' on line 3, namely `$b$', occurs in line 4. And the following proof would be no better:
+The last line of the proof is not allowed. The name that we used in our substitution instance for `$\exists x \enot Lx$' on line 3, namely `$b$', occurs in line 4. And this would be no better:
 \begin{proof}
 	\hypo{f}{Lb}
 	\hypo{nf}{\exists x \enot Lx}	
@@ -226,13 +226,13 @@ The last line of the proof is not allowed. The name that we used in our substitu
 	\close
 	\have{econ1}{\exists x (Lx \eand \enot Lx)}\by{naughtily attempting to invoke $\exists$E }{nf, na-con1}
 \end{proof}
-The last line of the proof would still not be allowed. For the name that we used in our substitution instance for `$\exists x \enot Lx$', namely `$b$', occurs in an undischarged assumption, namely line 1. 
+The last line is still not be allowed. For the name that we used in our substitution instance for `$\exists x \enot Lx$', namely `$b$', occurs in an undischarged assumption, namely line 1. 
 
 The moral of the story is this. \emph{If you want to squeeze information out of an existential quantifier, choose a new name for your substitution instance.} That way, you can guarantee that you meet all the constraints on the rule for $\exists$E.
 
 \practiceproblems
 \problempart
-The following two `proofs' are \emph{incorrect}. Explain why both are incorrect. Also, provide interpretations which would invalidate the fallacious argument forms the `proofs' enshrine:
+Explain why these two `proofs' are incorrect. Also, provide interpretations invalidate the fallacious argument forms the `proofs' enshrine:
 \begin{multicols}{2}
 	\begin{proof}
 		\hypo{Rxx}{\forall x Rxx}
@@ -306,7 +306,7 @@ In \S\ref{s:MoreMonadic} problem part A, we considered fifteen syllogistic figur
 
 \problempart
 \label{pr.BarbaraEtc.proof2}
-Aristotle and his successors identified other syllogistic forms which depended upon `existential import'. Symbolise each of the following argument forms in FOL and offer proofs.
+Aristotle and his successors identified other syllogistic forms which depended upon `existential import'. Symbolise each of these argument forms in FOL and offer proofs.
 \begin{ebullet}
 	\item \textbf{Barbari.} Something is H. All G are F. All H are G. So: Some H is F
 	\item \textbf{Celaront.} Something is H. No G are F. All H are G. So: Some H is not F
@@ -425,15 +425,13 @@ In \S\ref{s:MoreMonadic}, I considered what happens when we move quantifiers `ac
 \item $\exists x(Ga \eif Fx), Ga \eif \exists x Fx$
 \item $\exists x(Fx \eif Ga), \forall x Fx \eif Ga$
 \end{earg}
-NB: the variable `$x$' does not occur in `$Ga$'.
-
-When all the quantifiers occur at the beginning of a sentence, that sentence is said to be in \emph{prenex normal form}. These equivalences are sometimes called \emph{prenexing rules}, since they give us a means for putting any sentence into prenex normal form.
+NB: the variable `$x$' does not occur in `$Ga$'. When all the quantifiers occur at the beginning of a sentence, that sentence is said to be in \emph{prenex normal form}. These equivalences are sometimes called \emph{prenexing rules}, since they give us a means for putting any sentence into prenex normal form.
 
 
 \chapter{Rules for identity}
 In \S\ref{s:Interpretations}, I mentioned the philosophically contentious thesis of the \emph{identity of indiscernibles}. This is the claim that objects which are indiscernible in every way are, in fact, identical to each other. I also mentioned that we will not subscribe to this thesis. It follows that, no matter how much you tell me about two objects, I cannot prove that they are identical. Unless, of course, you tell me that the two objects are, in fact, identical. But then the proof will hardly be very illuminating.
 
-The consequence of this, for our proof system, is that there are no sentences that do not already contain the identity predicate that could justify the conclusion `$a=b$'. This means that the identity introduction rule will not justify `$a=b$', or any other identity claim containing two different names.
+The general point, though, is that \emph{no sentences} which do not already contain the identity predicate could justify an inference to `$a=b$'. So our identity introduction rule cannot allow us to infer to an identity claim containing two \emph{different} names.
 
 However, every object is identical to itself. No premises, then, are required in order to conclude that something is identical to itself. So this will be the identity introduction rule:
 \factoidbox{
@@ -538,9 +536,9 @@ And offer a proof of it.
 \chapter{Derived rules}\label{s:DerivedFOL}
 As in the case of TFL, I first introduced some rules for FOL as basic (in \S\ref{s:BasicFOL}), and then added some further rules for conversion of quantifiers (in \S\ref{s:CQ}). In fact, the CQ rules should be regarded as \emph{derived} rules, for they can be derived from the  \emph{basic} rules of \S\ref{s:BasicFOL}. (The point here is as in \S\ref{s:Derived}.) Here is a justification for the first CQ rule:
 \begin{proof}
-	\hypo{An}{\forall x \enot A x}
+	\hypo[m]{An}{\forall x \enot A x}
 	\open
-		\hypo{E}{\exists x Ax}
+		\hypo[k]{E}{\exists x Ax}
 		\open
 			\hypo{c}{Ac}%\by{for $\exists$E}{}
 			\have{nc}{\enot Ac}\Ae{An}
@@ -553,9 +551,9 @@ As in the case of TFL, I first introduced some rules for FOL as basic (in \S\ref
 %You will note that on line 3 I have written `for $\exists$E'. This is not technically a part of the proof. It is just a reminder---to me and to you---of why I have bothered to introduce `$\enot Ac$' out of the blue. You might find it helpful to add similar annotations to assumptions when performing proofs. But do not add annotations on lines other than assumptions: the proof requires its own citation, and your annotations will clutter it.
 Here is a justification of the second CQ rule:
 \begin{proof}
-	\hypo{nEna}{\exists x  \enot Ax} 
+	\hypo[m]{nEna}{\exists x  \enot Ax} 
 	\open
-		\hypo{Aa}{\forall x Ax}
+		\hypo[k]{Aa}{\forall x Ax}
 		\open
 			\hypo{nac}{\enot Ac}%\by{for $\exists$E}{}
 			\have{a}{Ac}\Ae{Aa}
@@ -577,15 +575,15 @@ Offer proofs which justify the addition of the third and fourth CQ rules as deri
 \chapter{Proof-theoretic concepts and semantic concepts}
 We have used two different turnstiles in this book.  This:
 $$\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n \proves \meta{C}$$
-means that there is some proof which starts with assumptions $\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n$ and ends with $\meta{C}$ (and no undischarged assumptions other than $\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n$). This is a \emph{proof-theoretic notion}.
-
-By contrast, this:
+means that there is some proof which ends with $\meta{C}$ and whose only undischarged assumptions are among $\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n$. This is a \emph{proof-theoretic notion}. By contrast, this:
 $$\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n \entails \meta{C}$$
-means that there is no valuation (or interpretation) which makes all of $\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n$ true and makes $\meta{C}$ false. This concerns assignments of truth and falsity to sentences. It is a \emph{semantic notion}.
+means that  no valuation (or interpretation) makes all of $\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n$ true and $\meta{C}$ false. This concerns assignments of truth and falsity to sentences. It is a \emph{semantic notion}.
 
 I cannot emphasise enough that these are different notions. But I can emphasise it a bit more: \emph{They are different notions.}
 
-Once you have internalised this point, continue reading. 
+At the risk of repetition:  \emph{They are different notions.}
+
+Once you have fully internalised this point, continue reading. 
 
 Although our semantic and proof-theoretic notions are different, there is a deep connection between them. To explain this connection, I shall start by considering the relationship between logical truths and theorems.
 
@@ -593,7 +591,7 @@ To show that a sentence is a theorem, you need only perform a proof. Granted, it
 
 Contrawise, to show that a sentence is \emph{not} a theorem is hard. We would need to reason about all (possible) proofs. That is very difficult. But to show that a sentence is not a logical truth, you need only construct an interpretation in which the sentence is false. Granted, it may be hard to come up with the interpretation; but once you have done so, it is relatively straightforward to check what truth value it assigns to a sentence. Given a choice between showing that a sentence is not a theorem and showing that it is not a logical truth, it would be easier to show that it is not a logical truth.
 
-Fortunately, \emph{a sentence is a theorem if and only if it is a logical truth}. As a result, if we provide a proof of $\meta{A}$ on no assumptions, and thus show that $\meta{A}$ is a theorem, we can legitimately infer that $\meta{A}$ is a logical truth; i.e., $\entails\meta{A}$. Similarly, if we construct a model in which \meta{A} is false and thus show that it is not a logical truth, it follows that \meta{A} is not a theorem.
+Fortunately, \emph{a sentence is a theorem if and only if it is a logical truth}. As a result, if we provide a proof of $\meta{A}$ on no assumptions, and thus show that $\meta{A}$ is a theorem, i.e.\ ${}\proves \meta{A}$, we can legitimately infer that $\meta{A}$ is a logical truth, i.e., $\entails\meta{A}$. Similarly, if we construct a model in which \meta{A} is false and thus show that it is not a logical truth, i.e.\ $\nentails \meta{A}$, it follows that \meta{A} is not a theorem, i.e.\  $\nproves \meta{A}$.
 
 More generally, we have the following powerful result:
 $$\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n \proves\meta{B} \textbf{ iff }\meta{A}_1, \meta{A}_2, \ldots, \meta{A}_n \entails\meta{B}$$
@@ -607,7 +605,7 @@ For this reason, you can pick and choose when to think in terms of proofs and wh
 
 It is intuitive that provability and semantic entailment should agree. But---let me repeat this---do not be fooled by the similarity of the symbols `$\entails$' and `$\proves$'. These two symbols have very different meanings. And the fact that provability and semantic entailment agree is not an easy result to come by. 
 
-In fact, demonstrating that provability and semantic entailment agree is, very decisively, the point at which introductory logic becomes intermediary logic. Agreement, in the case of TFL, is covered in the sequel to this book, \texttt{Metatheory}, which is the textbook for (part of) the second-year Logic paper. Agreement, in the case of FOL, is one of the first big results from the third-year Mathematical Logic paper.
+In fact, demonstrating that provability and semantic entailment agree is, very decisively, the point at which introductory logic becomes intermediary logic. Agreement, in the case of TFL, is covered in a little sequel to this book, \texttt{Metatheory}. Agreement, in the case of FOL, is one of the first big results in mathematical logic.
 
 \begin{sidewaystable}
 \begin{center}
